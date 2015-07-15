@@ -1,0 +1,112 @@
+.transition200{
+	transition:200ms;
+	-webkit-transition:200ms;
+	-o-transition:200ms;
+}
+#contact-wrapper{
+	position: absolute;
+	right: 0px;
+	width: 365px;
+	height:400px;
+	overflow:hidden;
+	z-index:99999;
+	top:50px;
+}
+#contact-wrapper label.error {
+	color: #F00;
+	text-shadow: 1px 1px 1px #1F1F1F;
+	width: 300px;
+	text-align: right;
+}
+#contact-wrapper .floating-contact-inner {
+	position: absolute;
+	width: 320px;
+	background: #3c424a url(../image/denim.png) repeat;
+	padding: 30px 10px 20px 10px;
+	font: 12px Arial, Helvetica, sans-serif;
+	text-shadow: 1px 1px 1px #3C3C3C;
+	color: #FFF;
+	border-radius: 10px 0px 0px 10px;
+	right: -340px;
+}
+#contact-wrapper .floating-contact-inner h1>span {
+    display: block;
+    font-size: 11px;
+}
+#contact-wrapper .floating-contact-inner label {
+	display: block;
+	margin: 0px 0px 10px;
+}
+#contact-wrapper .floating-contact-inner label>span {
+    float: left;
+    width: 80px;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+}
+#contact-wrapper .floating-contact-inner input[type="text"], 
+#contact-wrapper .floating-contact-inner input[type="email"], 
+#contact-wrapper .floating-contact-inner textarea, 
+#contact-wrapper .floating-contact-inner select {
+	border:1px solid #3C424A;
+	color: #3C3C3C;
+	height: 24px;
+	outline: 0 none;
+	padding: 3px 0px 3px 5px;
+	width: 200px;
+	font: normal 12px/12px arial, "Times New Roman", Times, serif;
+	margin: 2px 0px 0px;
+	border-radius: 5px;
+}
+#contact-wrapper .floating-contact-inner select {
+    background: #FFF url('down-arrow.png') no-repeat right;
+    background: #FFF url('down-arrow.png') no-repeat right);
+    appearance:none;
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 210px;
+    height: 30px;
+}
+#contact-wrapper .floating-contact-inner textarea{
+    height:100px;
+}
+#contact-wrapper .floating-contact-inner .button {
+	background: #3B8096;
+	border: none;
+	padding: 5px 25px 5px 25px;
+	color: #FFF;
+	border-radius: 5px;
+	text-shadow: 1px 1px 1px #223944;
+	box-shadow: 1px 1px 1px #1D1D1D;
+}
+#contact-wrapper .floating-contact-inner .button:hover {
+	background: #479AB6
+}
+#contact-wrapper #contact-btn {
+	background: url(../image/contact-btn.png) no-repeat;
+	height: 71px;
+	width: 22px;
+	float: left;
+	cursor: pointer;
+	margin: 80px 0px 0px -52px;
+	
+} 
+#contact-wrapper #contact-btn:hover {
+	background: url(../image/contact-btn.png) no-repeat -22px 0px;
+}
+#contact-wrapper .success{
+	padding: 0px 20px 20px;
+}
+#contact-wrapper .success h2{
+	font-size: 20px;
+	border-bottom: 1px dotted #686868;
+	padding: 0px;
+	margin: 10px 0px 10px 0px;
+}
+#contact-wrapper #result .error{
+	text-align: center;
+	color: #FF0000;
+	text-shadow: 1px 1px 1px #1F1F1F;
+}
