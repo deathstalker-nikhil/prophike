@@ -1,39 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Backoffice|PropHike</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="/assets/backoffice/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="/assets/backoffice/css/modern-business.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="/assets/backoffice/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-     <link href="/assets/backoffice/css/dataTables.bootstrap.css" rel="stylesheet">
-
-
+    <link href="/assets/backoffice/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="/assets/backoffice/css/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
-
 <body>
 
     <!-- Navigation -->
@@ -57,10 +39,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="full-width.html">Change Password</a>
+                                <a href="javascript:">Change Password</a>
                             </li>
                             <li>
-                                <a href="sidebar.html">Sign Out</a>
+                                <a href="/backoffice/logout">Sign Out</a>
                             </li>
                         </ul>
                     </li>
