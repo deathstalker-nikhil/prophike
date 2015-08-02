@@ -58,17 +58,16 @@
             </div>
         </footer>
     </div>
+  
   <script src="assets/js/angular.min.js"></script>
   <script src="assets/js/angular-route.min.js"></script>
+  <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/properties/propertiesController.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/components/header/header-directive.js"></script>
-  <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/assets/backoffice/js/bootstrap.min.js"></script>
-  <script src="/assets/backoffice/js/jquery.dataTables.min.js"></script>
-  <script src="/assets/backoffice/js/dataTables.bootstrap.min.js"></script>
 </body>
 </html>

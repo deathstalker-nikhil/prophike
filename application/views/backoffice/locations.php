@@ -214,9 +214,7 @@
     <script type="text/javascript">
 
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
+
     });
     
     </script>

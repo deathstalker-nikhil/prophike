@@ -9,35 +9,18 @@
 				<thead>
 					<tr>
 						<th>City</th>
-						<th>Areas</th>
 						<th>View</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="odd gradeX">
-						<td>Noida</td>
-						<td>Sec 18,Sec 37</td>
-						<td><a href="javascript:" class="btn btn-default">View</a></td>
-						<td><a href="javascript:" class="btn btn-primary">Edit</a></td>
-						<td><a href="javascritp:" class="btn btn-danger">Delete</a></td>
+					<tr class="gradeX" ng-repeat="(key, value) in cities">
+						<td>{{value.city}}</td>
+						<td><a href="javascript:" class="btn btn-default" title="View"><span class="glyphicon glyphicon-list-alt"></span></a></td>
+						<td><a href="javascript:" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>
-					<tr class="even gradeX">
-						<td>Delhi</td>
-						<td>Sec 18,Sec 37</td>
-						<td><a href="javascript:" class="btn btn-default">View</a></td>
-						<td><a href="javascript:" class="btn btn-primary">Edit</a></td>
-						<td><a href="javascritp:" class="btn btn-danger">Delete</a></td>
-					</tr>
-					<tr class="odd gradeX">
-						<td>Greater Noida</td>
-						<td>Sec 18,Sec 37</td>
-						<td><a href="javascript:" class="btn btn-default">View</a></td>
-						<td><a href="javascript:" class="btn btn-primary">Edit</a></td>
-						<td><a href="javascritp:" class="btn btn-danger">Delete</a></td>
-					</tr>
-
 				</tbody>
 			</table>
 		</div>

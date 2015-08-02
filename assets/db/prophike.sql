@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2015 at 11:27 PM
+-- Generation Time: Aug 02, 2015 at 11:36 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -49,9 +49,18 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 CREATE TABLE IF NOT EXISTS `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `city` varchar(500) NOT NULL,
-  `areas` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `areas` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `city` (`city`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `city`, `areas`) VALUES
+(1, 'Noida', '["Sector 18 "," Sector 62"]'),
+(2, 'Delhi', '["Lajpat Nagar"]');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

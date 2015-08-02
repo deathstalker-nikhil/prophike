@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('backofficeApp.locations.create', ['ngRoute'])
+angular.module('backofficeApp.locations.edit', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/locations/add', {
+  $routeProvider.when('/locations/edit', {
     templateUrl: 'backoffice_app/locations/create/createLocationsView.html',
     controller: 'createLocationsCtrl'
   });

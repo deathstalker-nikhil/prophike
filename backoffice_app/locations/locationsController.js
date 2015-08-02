@@ -9,11 +9,28 @@ angular.module('backofficeApp.locations', ['ngRoute','backofficeApp.locations.cr
   });
 }])
 
-.controller('locationsCtrl', [function() {
+.controller('locationsCtrl', ['$scope','$http',function($scope,$http) {
 
-	angular.element(document).ready(function(){
-	    jQuery('#dataTables-example').DataTable({
-	            responsive: true
-	    });		
-	});
+	$scope.cities = [];
+
+	$http.get('/api/locations/cities').
+	  success(function(data, status, headers, config) {
+	    $scope.cities = data;
+	  }).
+	  error(function(data, status, headers, config) {
+	    console.log(data);
+	  });
+
+	$scope.delete = function(obj)
+	{
+		if(!confirm("Delete City ?")) {return};
+		$http.delete('/api/locations/cities/'+obj.id).
+		  success(function(data, status, headers, config) {
+		  	$scope.cities.splice($scope.cities.indexOf(obj), 1);  
+		  }).
+		  error(function(data, status, headers, config) {
+		    alert(data.error);
+		  });
+	}
+
 }]);
