@@ -13,9 +13,19 @@ class Locations extends REST_Controller {
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
 	}
 
-	public function cities_get()
+	public function cities_get($id = '')
 	{
-		$this->response($this->locations->get(), REST_Controller::HTTP_OK);
+		if($id != '')
+		{
+			$data = $this->locations->get($id);
+			if(!$data){
+				$this->response(['error'=>'Invalid Id'],REST_Controller::HTTP_NOT_FOUND);
+			}else{
+				$this->response($data,REST_Controller::HTTP_OK);
+			}
+		}else{
+			$this->response($this->locations->get(), REST_Controller::HTTP_OK);
+		}
 	}
 
 	public function cities_post()
@@ -46,6 +56,22 @@ class Locations extends REST_Controller {
 		else{
 			$this->response(['error'=>'Some error occured'],REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public function cities_put($id = '')
+	{
+		$data = $this->_put_args;
+		if(!isset($data['location']) || $id == '') 
+		{
+			$this->response(['error'=>'Imcomplete Data'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+		$data['location']['areas'] =  json_encode($data['location']['areas']);
+		$result = $this->locations->update($id,$data['location']);
+		if(!$result['error']) {
+			$this->response(TRUE, REST_Controller::HTTP_NO_CONTENT);
+		}
+		else
+			$this->response($result['msg'], REST_Controller::HTTP_BAD_REQUEST);
 	}
 
 }

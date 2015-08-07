@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('backofficeApp.locations', ['ngRoute','backofficeApp.locations.create'])
+angular.module('backofficeApp.locations', [
+	'ngRoute',
+	'backofficeApp.locations.create',
+	'backofficeApp.locations.edit'
+])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/locations', {
@@ -16,6 +20,9 @@ angular.module('backofficeApp.locations', ['ngRoute','backofficeApp.locations.cr
 	$http.get('/api/locations/cities').
 	  success(function(data, status, headers, config) {
 	    $scope.cities = data;
+	    angular.forEach($scope.cities,function(value,key){
+	    	$scope.cities[key].areas = angular.fromJson(value.areas);
+	    });
 	  }).
 	  error(function(data, status, headers, config) {
 	    console.log(data);

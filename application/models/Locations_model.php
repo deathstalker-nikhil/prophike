@@ -30,9 +30,16 @@ class Locations_model extends CI_Model {
 		}
 	}
 
-	public function get($limit = 10,$offset = 0)
+	public function get($id = '',$limit = 10,$offset = 0)
 	{
-		$query = $this->db->get('locations', $limit, $offset);
+		if ($id != '')
+		{
+			$query = $this->db->get_where('locations', array('id' => $id), $limit, $offset);
+		}
+		else
+		{
+			$query = $this->db->get('locations', $limit, $offset);	
+		}
 		return $query->result_array();
 	}
 
@@ -41,4 +48,24 @@ class Locations_model extends CI_Model {
 		return $this->db->delete('locations', array('id' => $id));
 	}
 
+	/*
+		Updates an entry in the collection.
+		returns an array with structure
+		error['code'] - int 
+		error['msg'] - string
+	*/
+	public function update($id,$data)
+	{
+		$this->db->db_debug = false;
+		$this->db->where('id', $id);
+		$this->db->update('locations', $data);
+		$this->db->db_debug = true;
+		$error = $this->db->error();
+		if ( $error['code'] == 0 ){
+			return ['error'=>false,'msg'=>''];
+		}
+		else{
+			return ['error'=>true,'msg'=>$error['message']];
+		}	
+	}
 }
