@@ -64,6 +64,7 @@
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
+  <script src="/backoffice_app/locations/locationsService.js"></script>
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
   <script src="/backoffice_app/properties/propertiesController.js"></script>

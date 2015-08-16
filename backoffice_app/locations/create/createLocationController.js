@@ -9,8 +9,7 @@ angular.module('backofficeApp.locations.create', ['ngRoute'])
   });
 }])
 
-.controller('createLocationsCtrl', ['$scope','$http',function($scope,$http) {
-
+.controller('createLocationsCtrl', ['$scope','$http','locations',function($scope,$http,locations) {
 	$scope.save = function(form){
 		if(form.$valid && form.$dirty){
 			var location = {};
@@ -19,22 +18,13 @@ angular.module('backofficeApp.locations.create', ['ngRoute'])
 				location.areas[key] = value.trim();
 			});
 			location.city = $scope.location.city;
-			$scope.csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-			var data = $.param({location,
-				'csrf_token':$scope.csrf_token
-			});
-			$http.post('/api/locations/cities',
-				data,
-				{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+			locations.save(location,function(data,status){
 				if (status == 201) {
 					alert('Created');
 					window.location = '#/locations';
-				}
-			}).
-			error(function(data, status, headers, config) {
-				alert(data);
+				}else{
+					alert(data);
+				}				
 			});
 		}
 	};

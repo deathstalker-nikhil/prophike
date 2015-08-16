@@ -23,22 +23,24 @@ class Locations_model extends CI_Model {
 		$this->db->db_debug = true;
 		$error = $this->db->error();
 		if ( $error['code'] == 0 ){
-			return ['error'=>false,'msg'=>''];
+			return ['error'=>false,'msg'=>'','id'=>$this->db->insert_id()];
 		}
 		else{
 			return ['error'=>true,'msg'=>$error['message']];
 		}
 	}
 
-	public function get($id = '',$limit = 10,$offset = 0)
+	public function get($id = '',$limit = 10,$where = '' ,$orderBy = 'id DESC')
 	{
 		if ($id != '')
 		{
-			$query = $this->db->get_where('locations', array('id' => $id), $limit, $offset);
+			$query = $this->db->get_where('locations', array('id' => $id), $limit);
 		}
 		else
 		{
-			$query = $this->db->get('locations', $limit, $offset);	
+			$this->db->where($where);
+			$this->db->order_by($orderBy);
+			$query = $this->db->get('locations', $limit);	
 		}
 		return $query->result_array();
 	}
@@ -67,5 +69,12 @@ class Locations_model extends CI_Model {
 		else{
 			return ['error'=>true,'msg'=>$error['message']];
 		}	
+	}
+
+	public function rowsCount()
+	{
+		$query = $this->db->query('SHOW TABLE STATUS LIKE \'locations\'');
+		$query2 = $this->db->get('locations', 1);
+		return ['total'=>$query->result()[0]->Rows,'last_id' =>$query->result()[0]->Auto_increment-1,'first_id'=>$query2->result()[0]->id];
 	}
 }

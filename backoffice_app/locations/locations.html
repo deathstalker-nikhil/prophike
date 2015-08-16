@@ -15,12 +15,9 @@
 			<div class="col-sm-5">
 				<form class="form-inline">
 					<div class="form-group">
-						<label>Results per page : </label>
-						<select class="form-control">
-							<option>10</option>
-							<option>25</option>
-							<option>50</option>
-							<option>100</option>
+						<label>Results per page</label>
+						<select class="form-control" ng-model="result" ng-change="load(result)">
+							<option ng-repeat="x in perPageArray">{{x}}</option>
 						</select>
 					</div>			
 				</form>
@@ -53,5 +50,11 @@
 				</tbody>
 			</table>
 		</div>
+		<nav>
+		  <ul class="pager">
+		    <li class="previous" ng-show="show_prev_btn"><a href="javascript:" ng-click="prev()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+		    <li class="next" ng-show="show_next_btn"><a href="javascript:" ng-click="next()">Older <span aria-hidden="true">&rarr;</span></a></li>
+		  </ul>
+		</nav>		
 	</div>
 </div>
