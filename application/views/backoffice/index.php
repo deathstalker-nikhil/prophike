@@ -18,18 +18,13 @@
 </head>
 <body>
   <div my-header></div>
-  <div class="container">
+  <div class="container-fluid">
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">PropHike
                     <small>BackOffice</small>
                 </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#/">Home</a>
-                    </li>
-                    <li class="active">Location(s)</li>
-                </ol>
             </div>
         </div>
         <!-- /.row -->
@@ -60,6 +55,7 @@
     </div>
   
   <script src="assets/js/angular.min.js"></script>
+  <script src="assets/js/angular-file-upload.min.js"></script>
   <script src="assets/js/angular-route.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/backoffice_app/app.js"></script>
@@ -68,6 +64,9 @@
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
   <script src="/backoffice_app/properties/propertiesController.js"></script>
+  <script src="/backoffice_app/properties/propertiesService.js"></script>
+  <script src="/backoffice_app/properties/create/createPropertyController.js"></script>
+  <script src="/backoffice_app/properties/view/propertiesViewController.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/components/header/header-directive.js"></script>
   <script src="/assets/backoffice/js/bootstrap.min.js"></script>
