@@ -1,9 +1,9 @@
-builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
-	var builder = {};
-	builder.names = [];
+	var properties = {};
 
-	builder.get = function(url,params,callBack){
+	properties.get = function(params,callBack){
+		var url = '/api/properties/projects';
 		var getParams = "?";
 		angular.forEach(params,function(value,key){
 			getParams += key+'='+value+'&'; 
@@ -11,10 +11,6 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		getParams = getParams.substring(0,getParams.length-1);
 		$http.get(url+getParams).
 		success(function(data, status, headers, config) {
-		/*	angular.forEach(data,function(value,key){
-				data[key].areas = angular.fromJson(value.areas);
-			});
-*/
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -22,8 +18,8 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		});	  	
 	};
 
-	builder.paginationInfo = function(limit,callBack){
-		$http.get('/api/builder/pagination?limit='+limit).
+	properties.paginationInfo = function(limit,callBack){
+		$http.get('/api/properties/pagination?limit='+limit).
 		success(function(data, status, headers, config) {
 			callBack(data,status);
 		}).
@@ -32,13 +28,12 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		});	
 	}
 
-
-	builder.save = function(builder,callBack){
+	properties.save = function(property,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-		var data = $httpParamSerializerJQLike({builder,
+		var data = $httpParamSerializerJQLike({property,
 			'csrf_token':csrf_token
 		});
-		$http.post('/api/builder/builder',
+		$http.post('/api/properties/projects',
 			data,
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
@@ -50,12 +45,12 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		});		
 	}
 
-	builder.update = function(builder,callBack){
+	properties.update = function(property,callBack){
 			var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-			var data = $httpParamSerializerJQLike({builder,
+			var data = $httpParamSerializerJQLike({property,
 				'csrf_token':csrf_token
 			});
-			$http.put('/api/builder/builder/'+builder.id,
+			$http.put('/api/properties/projects/'+property.id,
 				data,
 				{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
 			}).
@@ -67,27 +62,16 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 			});
 	};
 
-	builder.delete = function(obj,callBack){
-		$http.delete('/api/builder/builder/'+obj.id).
+	properties.delete = function(property,callBack){
+		$http.delete('/api/properties/projects/'+property.project_id).
 		success(function(data, status, headers, config) {
-			
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
-/*
-	builder.get('/api/builder/names',{},function(data,status){
-		if(status == 200){
-			builder.names = data;
-			$rootScope.$broadcast('builder.update');
-		}
-		else{
-			console.log(data,status)
-		}
-	});
-*/
-	return builder;
+
+	return properties;
 
 }]);

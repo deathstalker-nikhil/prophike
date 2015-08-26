@@ -3,7 +3,8 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 	var locations = {};
 	locations.cities = [];
 
-	locations.get = function(url,params,callBack){
+	locations.get = function(params,callBack){
+		var url = '/api/locations/cities';
 		var getParams = "?";
 		angular.forEach(params,function(value,key){
 			getParams += key+'='+value+'&'; 
@@ -81,7 +82,7 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 		});  	
 	};
 
-	locations.get('/api/locations/cities',{},function(data,status){
+	locations.get({},function(data,status){
 		if(status == 200){
 			locations.cities = data;
 			$rootScope.$broadcast('locations.update');

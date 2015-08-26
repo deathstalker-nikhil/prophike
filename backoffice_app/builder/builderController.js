@@ -15,7 +15,7 @@ var builderApp = angular.module('backofficeApp.builder', [
 }])
 
 .controller('builderCtrl', ['$scope','$http','builder','$location','$filter',function($scope,$http,builder,$location,$filter) {
-	builder.get('api/builder/builder',{},function (data,status) {
+	builder.get({},function (data,status) {
 		console.log(data);
 		$scope.builder= data;
 		// body...

@@ -3,7 +3,8 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 	var builder = {};
 	builder.names = [];
 
-	builder.get = function(url,params,callBack){
+	builder.get = function(params,callBack){
+		var url = 'api/builder/builder';
 		var getParams = "?";
 		angular.forEach(params,function(value,key){
 			getParams += key+'='+value+'&'; 

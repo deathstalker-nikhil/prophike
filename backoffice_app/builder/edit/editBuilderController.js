@@ -14,7 +14,7 @@ angular.module('backofficeApp.builder.edit', ['ngRoute'])
 	var id = $routeParams.id;
 	$scope.builder = [];
 
-	builder.get('/api/builder/builder',{'id':id},function(data,status){
+	builder.get({'id':id},function(data,status){
 		if(status == 200){
 	    	$scope.builder = data[0];
 		}else{

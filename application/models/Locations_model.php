@@ -73,8 +73,12 @@ class Locations_model extends CI_Model {
 
 	public function rowsCount()
 	{
+		$first_id = 0;
 		$query = $this->db->query('SHOW TABLE STATUS LIKE \'locations\'');
 		$query2 = $this->db->get('locations', 1);
-		return ['total'=>$query->result()[0]->Rows,'last_id' =>$query->result()[0]->Auto_increment-1,'first_id'=>$query2->result()[0]->id];
+		if($query2->result()){
+			$first_id = $query2->result()[0]->id;
+		}
+		return ['total'=>$query->result()[0]->Rows,'last_id' =>$query->result()[0]->Auto_increment-1,'first_id'=>$first_id];
 	}
 }

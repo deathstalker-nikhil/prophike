@@ -37,7 +37,7 @@
 				</thead>
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in builder | filter:search">
-						<td>{{value.name}}</td>
+						<td>{{value.builder_name}}</td>
 						<td><a href="#/builder/edit/{{value.id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>

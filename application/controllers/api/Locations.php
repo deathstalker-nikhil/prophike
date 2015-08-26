@@ -17,7 +17,7 @@ class Locations extends REST_Controller {
 	{
 		$params = $this->get();
 		$limit = ($this->get('limit') && $this->get('limit')>0? $this->get('limit') : 10);
-		$where = ($this->get('where')? $this->get('where') : 'id>1');
+		$where = ($this->get('where')? $this->get('where') : 'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
 		if(intval($id = $this->get('id')))
 		{

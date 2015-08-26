@@ -14,7 +14,7 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 }])
 
 .controller('specificationsCtrl', ['$scope','$http','specifications','$location','$filter',function($scope,$http,specifications,$location,$filter) {
-	specifications.get('api/specifications/specifications',{},function (data,status) {
+	specifications.get({},function (data,status) {
 		console.log(data);
 		$scope.specifications= data;
 		// body...

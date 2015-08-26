@@ -3,7 +3,8 @@ specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSeri
 	var specifications = {};
 	specifications.names = [];
 
-	specifications.get = function(url,params,callBack){
+	specifications.get = function(params,callBack){
+		var url = 'api/specifications/specifications';
 		var getParams = "?";
 		angular.forEach(params,function(value,key){
 			getParams += key+'='+value+'&'; 

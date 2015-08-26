@@ -16,10 +16,10 @@ var locationsApp = angular.module('backofficeApp.locations', [
 
 .controller('locationsCtrl', ['$scope','$http','locations','$location','$filter',function($scope,$http,locations,$location,$filter) {
 	$scope.cities =[];
-	$scope.perPageArray = [5,10,15,20];
+	$scope.perPageArray = [10,25,50,100];
 	$scope.show_prev_btn = true;
 	$scope.show_next_btn = true;
-	$scope.where = 'id>1';
+	$scope.where = 'id>0';
 	$scope.order_by = 'id DESC';
 	$scope.result = $scope.perPageArray[0];
 	if(angular.equals({}, $location.search())){
@@ -46,7 +46,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 	if(angular.isDefined(urlParams.where)){
 		$scope.where = urlParams.where;	
 	}
-	locations.get('/api/locations/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
+	locations.get({limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
 		if(!angular.equals([],data)){
 			$scope.cities = data;									
 		}else{
@@ -67,7 +67,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		$scope.order_by = 'id DESC';
 		$location.search('where',$scope.where);
 		$location.search('order_by',$scope.order_by);
-		locations.get('/api/locations/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
+		locations.get({limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
 				$scope.cities = data;									
 		});		
 	};
@@ -84,7 +84,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		$scope.order_by = 'id ASC';
 		$location.search('where',$scope.where);
 		$location.search('order_by',$scope.order_by);
-		locations.get('/api/locations/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
+		locations.get({limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
 					data = $filter('orderBy')(data,'-id');
 					$scope.cities = data;									
 			});
@@ -95,7 +95,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		$scope.order_by = 'id DESC';
 		$location.search('where',$scope.where);
 		$location.search('order_by',$scope.order_by);
-		locations.get('/api/locations/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
+		locations.get({limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
 					if(urlParams.order_by.indexOf('id ASC') > -1) {
 						data = $filter('orderBy')(data,'-id');
 					}
@@ -104,7 +104,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		$location.search('per_page',result);
 	};
 	$scope.$on( 'locations.update', function(event) {
-		locations.get('/api/locations/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
+		locations.get({limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
 					if(urlParams.order_by.indexOf('id ASC') > -1) {
 						data = $filter('orderBy')(data,'-id');
 					}

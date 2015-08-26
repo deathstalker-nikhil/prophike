@@ -1,0 +1,110 @@
+<h2>Add a new Property</h2>
+<form name="addProject">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="name">Project Name</label>
+				<input type="text" id="name" class="form-control" required  ng-model="property.name" placeholder="Project Name">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Property Type</label>
+				<select ng-model="property.property_type" class="form-control" required ng-init="property.property_type='2 BHK Apartments'">
+				 	<optgroup label="Residential">
+						<option>2 BHK Apartments</option>
+						<option>3 BHK Apartments</option>
+						<option>4 BHK Apartments</option>
+						<option>Studio Apartments</option>
+						<option>Villa</option>
+					<option>Plot</option>
+					<optgroup>
+					<optgroup label="Commercial">
+						<option>Office Space</option>
+						<option>Showrooms or Shops</option>
+						<option>Hotels</option>
+					<optgroup>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label>Minimun price</label>
+						<input type="number" required min='0' placeholder="Minimum price" class="form-control" ng-model="min_price_value" step='any'>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="min_price_unit_value" ng-init="min_price_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option vlaue='100000'>Lakhs</option>
+							<option vlaue='10000000'>Crore</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label>Maximun price</label>
+						<input type="number" required min='0' placeholder="Maximun price" class="form-control" ng-model="max_price_value" step='any'>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="max_price_unit_value" ng-init="max_price_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option value='100000'>Lakhs</option>
+							<option value='10000000'>Crore</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="city">City</label>
+				<select id="city" ng-model="property.city" class="form-control" ng-change="changeArea()">
+					<option ng-repeat="(key, value) in cities">{{value.city}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="area">City area</label>
+				<select id="area" ng-model="property.area" class="form-control">
+					<option ng-repeat="area in areas track by $index">{{area}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Builder</label>
+				<select ng-model="property.builder_id" class="form-control">
+					<option ng-repeat="x in builders" value="{{x.id}}">{{x.builder_name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-6"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<a href="#/properties" class="btn btn-warning">Cancel</a>
+				<button class="btn btn-success" ng-click="save(addProject)">Save</button>
+			</div>
+		</div>	
+	</div>
+</form>

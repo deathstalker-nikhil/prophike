@@ -14,7 +14,7 @@ angular.module('backofficeApp.locations.edit', ['ngRoute'])
 	var id = $routeParams.id;
 	$scope.location = [];
 
-	locations.get('/api/locations/cities',{'id':id},function(data,status){
+	locations.get({'id':id},function(data,status){
 		if(status == 200){
 	    	$scope.location = data[0];
 	    	$scope.location.areas = $scope.location.areas.join("#\n");
