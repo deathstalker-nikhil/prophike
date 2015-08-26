@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2>Specifications</h2>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-5">
+				<form class="form-inline">
+					<div class="form-group">
+						<label for="search">Search : </label>
+						<input type="text" id="search" class="form-control" ng-model="search">
+					</div>			
+				</form>				
+			</div>
+			<div class="col-sm-5">
+				<form class="form-inline">
+					<div class="form-group">
+						<label>Results per page</label>
+						<select class="form-control" ng-model="result" ng-change="load(result)">
+							<option ng-repeat="x in perPageArray">{{x}}</option>
+						</select>
+					</div>			
+				</form>
+			</div>
+			<div class="col-sm-2">
+				<a href="#/specifications/add" class="btn btn-info" title="Add">Add Specification</a>
+			</div>
+		</div>
+		<div class="dataTable_wrapper">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Specification Name</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="gradeX" ng-repeat="(key, value) in specifications | filter:search">
+						<td>{{value.name}}</td>
+						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<nav>
+		  <ul class="pager">
+		    <li class="previous" ng-show="show_prev_btn"><a href="javascript:" ng-click="prev()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+		    <li class="next" ng-show="show_next_btn"><a href="javascript:" ng-click="next()">Older <span aria-hidden="true">&rarr;</span></a></li>
+		  </ul>
+		</nav>		
+	</div>
+</div>

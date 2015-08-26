@@ -8,7 +8,6 @@ var backofficeApp = angular.module('backofficeApp', [
   'backofficeApp.properties',
   'backofficeApp.comments',
   'backofficeApp.builder',
-'backofficeApp.specifications',
   'backofficeApp.headerDirective'
 ]).
 config(['$routeProvider', function($routeProvider) {

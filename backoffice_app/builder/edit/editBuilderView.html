@@ -1,0 +1,16 @@
+<form name="updateBuilderForm">
+	<div class="form-group">
+		<label for="city">Builder Name</label>
+		<input type="text" name="name" id="name" ng-model="builder.name" class="form-control" placeholder="Builder Name" autofocus required>
+	</div>
+
+	<div class="form-group">
+		<label for="city">Builder Description</label>
+		<input type="text" name="description" id="description" ng-model="builder.description" class="form-control" placeholder="description" autofocus required>
+	</div>
+	
+	<div class="form-group">
+		<a href="#/builder" class="btn btn-warning">Cancel</a>
+		<button class="btn btn-success" ng-click="update(updateBuilderForm)">Update</button>
+	</div>
+</form>

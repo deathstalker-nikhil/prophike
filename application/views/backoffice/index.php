@@ -40,6 +40,8 @@
                 <div class="list-group">
                     <a href="#/locations" class="list-group-item">Locations</a>
                     <a href="#/properties" class="list-group-item">Properties</a>
+                    <a href="#/builder" class="list-group-item">Builder</a>
+                    <a href="#/specifications" class="list-group-item">Specifications</a>
                     <a href="#/comments" class="list-group-item">Comments</a>
                 </div>
             </div>
@@ -65,8 +67,15 @@
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/locationsService.js"></script>
+    <script src="/backoffice_app/builder/builderController.js"></script>
+  <script src="/backoffice_app/builder/builderService.js"></script>
+   <script src="/backoffice_app/builder/create/createBuilderController.js"></script>
+    <script src="/backoffice_app/specifications/specificationsController.js"></script>
+  <script src="/backoffice_app/specifications/specificationsService.js"></script>
+  <script src="/backoffice_app/specifications/create/createSpecificationController.js"></script>
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
+    <script src="/backoffice_app/builder/edit/editBuilderController.js"></script>
   <script src="/backoffice_app/properties/propertiesController.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/components/header/header-directive.js"></script>

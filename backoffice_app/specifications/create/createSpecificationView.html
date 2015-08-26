@@ -1,0 +1,10 @@
+<form name="addSpecificationForm">
+	<div class="form-group">
+		<label for="name">Specification Name</label>
+		<input type="text" name="name" id="name" ng-model="specification.name" class="form-control" placeholder="Specification Name" autofocus required>
+	</div>
+		<div class="form-group">
+		<a href="#/specifications" class="btn btn-warning">Cancel</a>
+		<button class="btn btn-success" ng-click="save(addSpecificationForm)">Save</button>
+	</div>
+</form>
