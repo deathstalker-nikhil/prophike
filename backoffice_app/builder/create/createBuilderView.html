@@ -1,0 +1,15 @@
+<form name="addBuilderForm">
+	<div class="form-group">
+		<label for="name">Builder Name</label>
+		<input type="text" name="name" id="name" ng-model="builder.name" class="form-control" placeholder="Builder Name" autofocus required>
+	</div>
+	<div class="form-group">
+		<label for="name">Builder Description</label>
+		<textarea name="description" id="description" ng-model="builder.description" class="form-control" placeholder="Builder description" autofocus required>
+		</textarea>
+	</div>
+		<div class="form-group">
+		<a href="#/builder" class="btn btn-warning">Cancel</a>
+		<button class="btn btn-success" ng-click="save(addBuilderForm)">Save</button>
+	</div>
+</form>
