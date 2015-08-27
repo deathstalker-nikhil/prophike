@@ -40,7 +40,7 @@ class Properties extends REST_Controller {
 		if(!isset($data['property'])) 
 		{
 			$this->response(['error'=>'Imcomplete Data'], REST_Controller::HTTP_BAD_REQUEST);
-		}
+		} 
 		$result = $this->properties->create($data['property']);
 		if(!$result['error']) {
 			$data['property']['id'] = $result['id'];

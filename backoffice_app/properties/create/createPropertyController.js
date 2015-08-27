@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('backofficeApp.properties.create', ['ngRoute'])
+angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_upload'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/properties/add', {
@@ -9,7 +9,7 @@ angular.module('backofficeApp.properties.create', ['ngRoute'])
   });
 }])
 
-.controller('createPropertyCtrl', ['$scope','locations','properties','$filter','builder',function($scope,locations,properties,$filter,builder) {
+.controller('createPropertyCtrl', ['$scope','locations','properties','$filter','builder','uploadedFilesService',function($scope,locations,properties,$filter,builder,uploadedFilesService) {
 	locations.get({limit:10	},function(data,status){
 		if(!angular.equals([],data)){
 			$scope.cities = data;
@@ -17,6 +17,10 @@ angular.module('backofficeApp.properties.create', ['ngRoute'])
 			$scope.property.city = $scope.cities[0].city;
 			$scope.property.area = $scope.cities[0].areas[0];	
 		}
+	});
+	console.log(uploadedFilesService.get('property'));
+	$scope.$on( 'upload.property.update', function( event ) {
+	  console.log(uploadedFilesService.get('property'));
 	});
 	builder.get({limit:100},function(data,status){
 		if(!angular.equals([],data)){

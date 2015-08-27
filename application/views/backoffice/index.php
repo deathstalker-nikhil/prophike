@@ -37,6 +37,7 @@
                     <a href="#/properties" class="list-group-item">Properties</a>
                     <a href="#/builder" class="list-group-item">Builder</a>
                     <a href="#/specifications" class="list-group-item">Specifications</a>
+                    <a href="#/upload" class="list-group-item">Upload</a>
                     <a href="#/comments" class="list-group-item">Comments</a>
                 </div>
             </div>
@@ -61,17 +62,20 @@
   <script src="assets/js/angular-route.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/backoffice_app/app.js"></script>
+  <script src="/backoffice_app/file_upload/fileUploadController.js"></script>
+  <script src="/backoffice_app/file_upload/fileUploadService.js"></script>
+  <script src="/backoffice_app/file_upload/components/previewDirective.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/locationsService.js"></script>
-    <script src="/backoffice_app/builder/builderController.js"></script>
+  <script src="/backoffice_app/builder/builderController.js"></script>
   <script src="/backoffice_app/builder/builderService.js"></script>
-   <script src="/backoffice_app/builder/create/createBuilderController.js"></script>
-    <script src="/backoffice_app/specifications/specificationsController.js"></script>
+  <script src="/backoffice_app/builder/create/createBuilderController.js"></script>
+  <script src="/backoffice_app/specifications/specificationsController.js"></script>
   <script src="/backoffice_app/specifications/specificationsService.js"></script>
   <script src="/backoffice_app/specifications/create/createSpecificationController.js"></script>
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
-    <script src="/backoffice_app/builder/edit/editBuilderController.js"></script>
+  <script src="/backoffice_app/builder/edit/editBuilderController.js"></script>
   <script src="/backoffice_app/properties/propertiesController.js"></script>
   <script src="/backoffice_app/properties/propertiesService.js"></script>
   <script src="/backoffice_app/properties/create/createPropertyController.js"></script>
