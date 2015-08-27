@@ -6,9 +6,9 @@ var backofficeApp = angular.module('backofficeApp', [
   'ngRoute',
   'backofficeApp.locations',
   'backofficeApp.properties',
-  'backofficeApp.comments',
+  'backofficeApp.user_comments',
   'backofficeApp.builder',
-'backofficeApp.specifications',
+  'backofficeApp.specifications',
   'backofficeApp.headerDirective'
 ]).
 config(['$routeProvider', function($routeProvider) {
