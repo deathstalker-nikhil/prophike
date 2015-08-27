@@ -7,9 +7,13 @@ var backofficeApp = angular.module('backofficeApp', [
   'backoffice.file_upload',
   'backofficeApp.locations',
   'backofficeApp.properties',
-  'backofficeApp.comments',
+  'backofficeApp.user_comments',
   'backofficeApp.builder',
+<<<<<<< HEAD
 	'backofficeApp.specifications',
+=======
+  'backofficeApp.specifications',
+>>>>>>> a1ec5217e3ef6297dcbac8439b2bbd9f8ecfb610
   'backofficeApp.headerDirective'
 ]).
 config(['$routeProvider', function($routeProvider) {

@@ -45,17 +45,17 @@
             <div class="col-md-9">
               <div ng-view></div>
             </div>
+      </div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; PropHike 2015</p>
         </div>
-        <hr>
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; PropHike 2015</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+      </div>
+    </footer>
+  </div>
   
   <script src="assets/js/angular.min.js"></script>
   <script src="assets/js/angular-file-upload.min.js"></script>
@@ -67,6 +67,11 @@
   <script src="/backoffice_app/file_upload/components/previewDirective.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/locationsService.js"></script>
+<<<<<<< HEAD
+=======
+  <script src="/backoffice_app/comments/commentsController.js"></script>
+  <script src="/backoffice_app/comments/commentsService.js"></script>
+>>>>>>> a1ec5217e3ef6297dcbac8439b2bbd9f8ecfb610
   <script src="/backoffice_app/builder/builderController.js"></script>
   <script src="/backoffice_app/builder/builderService.js"></script>
   <script src="/backoffice_app/builder/create/createBuilderController.js"></script>
