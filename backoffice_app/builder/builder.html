@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Builders</h2>
+		<h2>Builders <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -31,6 +31,7 @@
 				<thead>
 					<tr>
 						<th>Builder Name</th>
+						<th>Media</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
@@ -38,6 +39,7 @@
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in builder | filter:search">
 						<td>{{value.builder_name}}</td>
+						<td><a href="#/builder/media/{{value.id}}" class="btn btn-info"><span class="glyphicon glyphicon-picture" title="Media"></span></a></td>
 						<td><a href="#/builder/edit/{{value.id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>

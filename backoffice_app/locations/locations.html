@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Cities and their areas</h2>
+		<h2>Cities <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -16,7 +16,7 @@
 				<form class="form-inline">
 					<div class="form-group">
 						<label>Results per page</label>
-						<select class="form-control" ng-model="result" ng-change="load(result)">
+						<select class="form-control" ng-model="result" ng-change="load()">
 							<option ng-repeat="x in perPageArray">{{x}}</option>
 						</select>
 					</div>			

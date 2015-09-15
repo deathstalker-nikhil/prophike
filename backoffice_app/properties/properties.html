@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Properties</h2>
+		<h2>Properties <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -16,7 +16,7 @@
 				<form class="form-inline">
 					<div class="form-group">
 						<label>Results per page</label>
-						<select class="form-control" ng-model="result" ng-change="load(result)">
+						<select class="form-control" ng-model="result" ng-change="load()">
 							<option ng-repeat="x in perPageArray">{{x}}</option>
 						</select>
 					</div>			
@@ -33,6 +33,8 @@
 						<th>Property</th>
 						<th>Builder</th>
 						<th>View</th>
+						<th>Units</th>
+						<th>Media</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
@@ -42,6 +44,8 @@
 						<td>{{value.name}}</td>
 						<td>{{value.builder_name}}</td>
 						<td><a href="#/properties/view/{{value.project_id}}" class="btn btn-info"><span class="glyphicon glyphicon-list-alt" title="View"></span></a></td>
+						<td><a href="#/properties/{{value.project_id}}/units" class="btn btn-info"><span class="glyphicon glyphicon-folder-close"></span></a></td>
+						<td><a href="#/properties/media/{{value.project_id}}" class="btn btn-info"><span class="glyphicon glyphicon-picture" title="Media"></span></a></td>
 						<td><a href="#/properties/edit/{{value.project_id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>

@@ -20,25 +20,26 @@
   <div my-header></div>
   <div class="container-fluid">
         <!-- Page Heading/Breadcrumbs -->
-        <div class="row">
+<!--         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">PropHike
                     <small>BackOffice</small>
                 </h1>
             </div>
-        </div>
+        </div> -->
         <!-- /.row -->
         <!-- Content Row -->
         <div class="row">
             <!-- Sidebar Column -->
             <div class="col-md-3">
-                <div class="list-group">
-                    <a href="#/locations" class="list-group-item">Locations</a>
-                    <a href="#/properties" class="list-group-item">Properties</a>
-                    <a href="#/builder" class="list-group-item">Builder</a>
-                    <a href="#/specifications" class="list-group-item">Specifications</a>
-                    <a href="#/upload" class="list-group-item">Upload</a>
-                    <a href="#/comments" class="list-group-item">Comments</a>
+                <div class="list-group" ng-init="app.state = 'locations'">
+                    <a href="#/locations" class="list-group-item" ng-class="app.state == 'locations' ? 'active':''">Locations</a>
+                    <a href="#/properties" class="list-group-item" ng-class="app.state == 'properties' ? 'active':''">Properties</a>
+                    <a href="#/builder" class="list-group-item" ng-class="app.state == 'builders' ? 'active':''">Builders</a>
+                    <a href="#/specifications" class="list-group-item" ng-class="app.state == 'specifications' ? 'active':''">Specifications</a>
+                    <a href="#/comments" class="list-group-item" ng-class="app.state == 'comments' ? 'active':''">Comments</a>
+                    <a href="javascript:" class="list-group-item">Change Password</a>
+                    <a href="/backoffice/logout" class="list-group-item">Sign Out</a>
                 </div>
             </div>
             <!-- Content Column -->
@@ -55,28 +56,29 @@
         </div>
       </div>
     </footer>
-  </div>
-  
+  </div>  
   <script src="assets/js/angular.min.js"></script>
   <script src="assets/js/angular-file-upload.min.js"></script>
   <script src="assets/js/angular-route.min.js"></script>
+  <script src="assets/js/angular-sanitize.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
+  <script src="/assets/backoffice/js/bootstrap.min.js"></script>
+  <script src="/assets/js/ckeditor/ckeditor.js"></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadController.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadService.js"></script>
   <script src="/backoffice_app/file_upload/components/previewDirective.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/locationsService.js"></script>
-<<<<<<< HEAD
-=======
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/comments/commentsService.js"></script>
->>>>>>> a1ec5217e3ef6297dcbac8439b2bbd9f8ecfb610
   <script src="/backoffice_app/builder/builderController.js"></script>
   <script src="/backoffice_app/builder/builderService.js"></script>
+  <script src="/backoffice_app/builder/media/builderMediaController.js"></script>
   <script src="/backoffice_app/builder/create/createBuilderController.js"></script>
   <script src="/backoffice_app/specifications/specificationsController.js"></script>
   <script src="/backoffice_app/specifications/specificationsService.js"></script>
+  <script src="/backoffice_app/specifications/media/specificationMediaController.js"></script>
   <script src="/backoffice_app/specifications/create/createSpecificationController.js"></script>
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
@@ -84,9 +86,16 @@
   <script src="/backoffice_app/properties/propertiesController.js"></script>
   <script src="/backoffice_app/properties/propertiesService.js"></script>
   <script src="/backoffice_app/properties/create/createPropertyController.js"></script>
+  <script src="/backoffice_app/properties/edit/editPropertyController.js"></script>
   <script src="/backoffice_app/properties/view/propertiesViewController.js"></script>
+  <script src="/backoffice_app/properties/units/unitsController.js"></script>
+  <script src="/backoffice_app/properties/units/unitsService.js"></script>
+  <script src="/backoffice_app/properties/units/create/createUnitController.js"></script>
+  <script src="/backoffice_app/properties/units/edit/editUnitController.js"></script>
+  <script src="/backoffice_app/properties/media/mediaController.js"></script>
+  <script src="/backoffice_app/properties/units/media/mediaController.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/components/header/header-directive.js"></script>
-  <script src="/assets/backoffice/js/bootstrap.min.js"></script>
+  <script src="/backoffice_app/components/ckeditor/ckEditorDirective.js"></script>
 </body>
 </html>

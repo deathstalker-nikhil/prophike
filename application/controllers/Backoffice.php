@@ -40,7 +40,7 @@ class Backoffice extends REST_Controller {
 		if (!$this->auth_lib->doLogin($username,$password)){
 			$this->response(array('error' => 'Incorrect username or password'), 400);
 		}
-		$this->response(array('url' => '/backoffice'), 200);
+		$this->response(array('url' => '/backoffice#/locations'), 200);
 	}
 
 	public function logout_get()

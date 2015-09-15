@@ -30,20 +30,30 @@ class Properties_model extends CI_Model {
 		}
 	}
 
-	public function get($id = '',$limit = 10,$where = '' ,$orderBy = 'id DESC')
+	public function get($id = '',$limit = 10,$fields,$where = '' ,$orderBy = 'id DESC')
 	{
+		$this->db->db_debug = false;
 		if ($id != '')
 		{
-			$query = $this->db->get_where('projects', array('project_id' => $id), $limit);
+			$this->db->select($fields);
+			$this->db->where(array('project_id' => $id));
+			$query = $this->db->get('projects',$limit);
 		}
 		else
 		{
+			$this->db->select($fields);
 			$this->db->where($where);
 			$this->db->order_by($orderBy);
 			$this->db->join('builders', 'builders.id = projects.builder_id');
 			$query = $this->db->get('projects', $limit);	
 		}
-		return $query->result_array();
+		$this->db->db_debug = true;
+		$error = $this->db->error();
+		if ($error['code'] == 0){
+			return $query->result_array();
+		}else{
+			return [];
+		}		
 	}
 
 	public function delete($id)
@@ -57,29 +67,35 @@ class Properties_model extends CI_Model {
 		error['code'] - int 
 		error['msg'] - string
 	*/
-	// public function update($id,$data)
-	// {
-	// 	$this->db->db_debug = false;
-	// 	$this->db->where('id', $id);
-	// 	$this->db->update('locations', $data);
-	// 	$this->db->db_debug = true;
-	// 	$error = $this->db->error();
-	// 	if ( $error['code'] == 0 ){
-	// 		return ['error'=>false,'msg'=>''];
-	// 	}
-	// 	else{
-	// 		return ['error'=>true,'msg'=>$error['message']];
-	// 	}	
-	// }
+	public function update($id,$data)
+	{
+		$this->db->db_debug = false;
+		$this->db->where('project_id', $id);
+		$this->db->update('projects', $data);
+		$this->db->db_debug = true;
+		$error = $this->db->error();
+		if ( $error['code'] == 0 ){
+			return ['error'=>false,'msg'=>''];
+		}
+		else{
+			return ['error'=>true,'msg'=>$error['message']];
+		}	
+	}
 
-	// public function rowsCount()
-	// {
-	// 	$first_id = 0;
-	// 	$query = $this->db->query('SHOW TABLE STATUS LIKE \'locations\'');
-	// 	$query2 = $this->db->get('locations', 1);
-	// 	if($query2->result()){
-	// 		$first_id = $query2->result()[0]->id;
-	// 	}
-	// 	return ['total'=>$query->result()[0]->Rows,'last_id' =>$query->result()[0]->Auto_increment-1,'first_id'=>$first_id];
-	// }
+	public function rowsCount()
+	{
+		$first_id = 0;
+		$last_id =0;
+		$query = $this->db->query('select count(*) as total from projects');
+		$query2 = $this->db->get('projects', 1);
+		$this->db->order_by('project_id DESC');
+		$query3 = $this->db->get('projects',1);
+		if($query2->result()){
+			$first_id = $query2->result()[0]->project_id;
+		}
+		if($query3->result()){
+			$last_id = $query3->result()[0]->project_id;
+		}		
+		return ['total'=>$query->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];
+	}
 }

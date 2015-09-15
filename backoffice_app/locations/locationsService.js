@@ -1,7 +1,7 @@
 locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var locations = {};
-	locations.cities = [];
+	locations.tableInfoData = {};
 
 	locations.get = function(params,callBack){
 		var url = '/api/locations/cities';
@@ -22,15 +22,18 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 		});	  	
 	};
 
-	locations.paginationInfo = function(limit,callBack){
-		$http.get('/api/locations/pagination?limit='+limit).
+	locations.tableInfo = function(){
+		$http.get('/api/locations/tableInfo?').
 		success(function(data, status, headers, config) {
-			callBack(data,status);
+			if(status == 200){
+				locations.tableInfoData = data;
+				$rootScope.$broadcast('locations.tableInfo.update');
+			}
 		}).
 		error(function(data, status, headers, config) {
-			callBack(data,status);
+			console.log(data,status);
 		});	
-	}
+	};
 
 	locations.save = function(location,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -42,9 +45,7 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			data.location.areas = angular.fromJson(data.location.areas);
-			locations.cities.push(data.location);
-			$rootScope.$broadcast('locations.update');
+			locations.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -62,7 +63,6 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 				{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
 			}).
 			success(function(data, status, headers, config) {
-				locations.cities[locations.cities.indexOf($filter('filter')(locations.cities, { id: location.id  }, true)[0])] = location;
 				callBack(data,status);
 			}).
 			error(function(data, status, headers, config) {
@@ -72,9 +72,8 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 
 	locations.delete = function(obj,callBack){
 		$http.delete('/api/locations/cities/'+obj.id).
-		success(function(data, status, headers, config) {
-			locations.cities.splice(locations.cities.indexOf(obj), 1);
-			$rootScope.$broadcast('locations.update');
+		success(function(data, status, headers, config){
+			locations.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
@@ -82,15 +81,7 @@ locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLi
 		});  	
 	};
 
-	locations.get({},function(data,status){
-		if(status == 200){
-			locations.cities = data;
-			$rootScope.$broadcast('locations.update');
-		}
-		else{
-			console.log(data,status)
-		}
-	});
+	locations.tableInfo();
 
 	return locations;
 

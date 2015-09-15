@@ -5,22 +5,33 @@ class File extends CI_Controller {
         {
                 parent::__construct();
         }
-
+        public function delete_file(){
+                $url = (($this->input->post('url') != null) ? $this->input->post('url') : '');
+                if($url == ''){
+                        echo json_encode(['msg'=>'No URL given']);
+                }else{
+                        if(unlink($url)){
+                                echo 'Deleted';
+                        }else{
+                                echo 'Some error occured while deleting file';
+                        }
+                }
+        }
         public function do_upload()
         {
                 $type = (($this->input->post('type') != null) ? $this->input->post('type') : 'other');
                 switch ($type) {
                         case 'const_update':
-                                $path = 'assets/uploads/construction_updates';
+                                $path = 'assets/uploads/projects/construction_updates';
                                 break;
                         case 'thumb':
-                                $path = 'assets/uploads/project_thumbnails';
+                                $path = 'assets/uploads/projects/project_thumbnails';
                                 break;
                         case 'cover':
-                                $path = 'assets/uploads/project_cover_images';
+                                $path = 'assets/uploads/projects/project_cover_images';
                                 break;
                         case 'gallery':
-                                $path = 'assets/uploads/gallery';
+                                $path = 'assets/uploads/projects/gallery';
                                 break;
                         case 'pdf':
                                 $path = 'assets/uploads/pdf';
@@ -30,6 +41,9 @@ class File extends CI_Controller {
                                 break;
                         case 'builder_logo':
                                 $path = 'assets/uploads/builders';
+                                break;
+                        case 'unit':
+                                $path = 'assets/uploads/projects/units';
                                 break;
                         case 'other':
                                 $path = 'assets/uploads';
@@ -42,7 +56,7 @@ class File extends CI_Controller {
                 $config['allowed_types']        = 'gif|jpg|png|pdf|jpeg';
                 $config['max_size']             = 1024;
                 $config['max_width']            = 1920;
-                $config['max_height']           = 1080;
+                $config['max_height']           = 1200;
                 $this->load->library('upload', $config);
                 if ( ! $this->upload->do_upload('file'))
                 {

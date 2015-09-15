@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-sm-10">
+				<h2>{{property.name}}</h2>
+			</div>
+			<div class="col-sm-2">
+				<a href="#/upload/property/{{property.project_id}}" title="Add Media" class="btn btn-primary" style="margin-top:20px">Add Media</a>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<h3>Gallery</h3>
+			<div class="col-sm-2" ng-repeat="(key,value) in property.media.property.gallery">
+				<img ng-src="{{value}}" class="img-responsive">
+				<a href="javascript:" class="btn btn-danger" ng-click='delete(value,key,"gallery")' title="Delete" style="margin:10px 0"><span class="glyphicon glyphicon-trash"></span></a>			
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<h3>Construction Update</h3>
+			<div class="col-sm-2" ng-repeat="(key,value) in property.media.property.const_update">
+				<img ng-src="{{value}}" class="img-responsive">
+				<a href="javascript:" class="btn btn-danger" ng-click='delete(value,key,"const_update")' title="Delete" style="margin:10px 0"><span class="glyphicon glyphicon-trash"></span></a>				
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<h3>Cover</h3>
+			<div class="col-sm-2" ng-repeat="(key,value) in property.media.property.cover">
+				<img ng-src="{{value}}" class="img-responsive">
+				<a href="javascript:" class="btn btn-danger" ng-click='delete(value,key,"cover")' title="Delete" style="margin:10px 0"><span class="glyphicon glyphicon-trash"></span></a>			
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<h3>Thumbnails</h3>
+			<div class="col-sm-2" ng-repeat="(key,value) in property.media.property.thumb">
+				<img ng-src="{{value}}" class="img-responsive">
+				<a href="javascript:" class="btn btn-danger" ng-click='delete(value,key,"thumb")' title="Delete" style="margin:10px 0"><span class="glyphicon glyphicon-trash"></span></a>			
+			</div>									
+		</div>
+	</div>
+</div>

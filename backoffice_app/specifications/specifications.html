@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Specifications</h2>
+		<h2>Specifications <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -31,12 +31,14 @@
 				<thead>
 					<tr>
 						<th>Specification Name</th>
+						<th>Media</th>
 						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in specifications | filter:search">
 						<td>{{value.name}}</td>
+						<td><a href="#/specification/media/{{value.id}}" class="btn btn-info"><span class="glyphicon glyphicon-picture" title="Media"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>

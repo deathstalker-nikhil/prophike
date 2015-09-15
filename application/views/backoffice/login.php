@@ -20,7 +20,7 @@
 	<body  ng-controller="AppCtrl">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-4 col-sm-offset-4">
+			<div class="col-sm-4 col-sm-offset-4" ng-cloak>
 				<h1>Login to continue</h1>
 				<form name="loginForm">
 					<div class="form-group">

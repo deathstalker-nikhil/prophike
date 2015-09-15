@@ -12,6 +12,7 @@ var user_commentsApp = angular.module('backofficeApp.user_comments', ['ngRoute']
 
 .controller('commentCtrl', ['$scope','$http','commentService','$filter',function($scope,$http,commentService,$filter) {
 	commentService.get({},function (data,status) {
+		$scope.app.state = 'comments';
 		console.log(data);
 		$scope.comments= data;
 	});

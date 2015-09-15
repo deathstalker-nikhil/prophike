@@ -1,6 +1,7 @@
 propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var properties = {};
+	properties.tableInfoData = {};
 
 	properties.get = function(params,callBack){
 		var url = '/api/properties/projects';
@@ -18,15 +19,19 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 		});	  	
 	};
 
-	properties.paginationInfo = function(limit,callBack){
-		$http.get('/api/properties/pagination?limit='+limit).
+	properties.tableInfo = function(){
+		$http.get('/api/properties/tableInfo').
 		success(function(data, status, headers, config) {
-			callBack(data,status);
+			if(status == 200){
+				properties.tableInfoData = data;
+				$rootScope.$broadcast('properties.tableInfo.update');
+			}
 		}).
 		error(function(data, status, headers, config) {
-			callBack(data,status);
+			console.log(data,status);
 		});	
-	}
+	};
+
 
 	properties.save = function(property,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -38,6 +43,7 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
+			properties.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -50,7 +56,7 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			var data = $httpParamSerializerJQLike({property,
 				'csrf_token':csrf_token
 			});
-			$http.put('/api/properties/projects/'+property.id,
+			$http.put('/api/properties/projects/'+property.project_id,
 				data,
 				{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
 			}).
@@ -65,12 +71,15 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 	properties.delete = function(property,callBack){
 		$http.delete('/api/properties/projects/'+property.project_id).
 		success(function(data, status, headers, config) {
+			properties.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
+
+	properties.tableInfo();
 
 	return properties;
 

@@ -1,7 +1,7 @@
 builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var builder = {};
-	builder.names = [];
+	builder.tableInfoData = {};
 
 	builder.get = function(params,callBack){
 		var url = 'api/builder/builder';
@@ -12,10 +12,6 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		getParams = getParams.substring(0,getParams.length-1);
 		$http.get(url+getParams).
 		success(function(data, status, headers, config) {
-		/*	angular.forEach(data,function(value,key){
-				data[key].areas = angular.fromJson(value.areas);
-			});
-*/
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -23,20 +19,23 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		});	  	
 	};
 
-	builder.paginationInfo = function(limit,callBack){
-		$http.get('/api/builder/pagination?limit='+limit).
+	builder.tableInfo = function(){
+		$http.get('/api/builder/tableInfo?').
 		success(function(data, status, headers, config) {
-			callBack(data,status);
+			if(status == 200){
+				builder.tableInfoData = data;
+				$rootScope.$broadcast('builder.tableInfo.update');
+			}
 		}).
 		error(function(data, status, headers, config) {
-			callBack(data,status);
+			console.log(data,status);
 		});	
-	}
+	};
 
 
-	builder.save = function(builder,callBack){
+	builder.save = function(builderObj,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-		var data = $httpParamSerializerJQLike({builder,
+		var data = $httpParamSerializerJQLike({'builder':builderObj,
 			'csrf_token':csrf_token
 		});
 		$http.post('/api/builder/builder',
@@ -44,6 +43,7 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
+			builder.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -71,24 +71,16 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 	builder.delete = function(obj,callBack){
 		$http.delete('/api/builder/builder/'+obj.id).
 		success(function(data, status, headers, config) {
-			
+			builder.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
-/*
-	builder.get('/api/builder/names',{},function(data,status){
-		if(status == 200){
-			builder.names = data;
-			$rootScope.$broadcast('builder.update');
-		}
-		else{
-			console.log(data,status)
-		}
-	});
-*/
+
+	builder.tableInfo();
+
 	return builder;
 
 }]);

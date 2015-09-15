@@ -1,3 +1,6 @@
+body {
+    padding-top:0;
+}
 .navbar-inverse .navbar-brand{
 	color:white;
 }
@@ -17,6 +20,9 @@ footer{
 .page-header{
 	margin-top:20px;
 }
+.margin-top-zero{
+	margin-top: 0 !important;
+}
 .row{
 	margin-right: -5px !important;
     margin-left: -5px !important;
@@ -24,6 +30,9 @@ footer{
 .row>div{
 	padding-left: 5px !important;
 	padding-right: 5px !important;
+}
+textarea{
+	resize:none;
 }
 .my-drop-zone { border: dotted 3px lightgray; }
 .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
