@@ -17,7 +17,13 @@
   <link rel="stylesheet" href="/backoffice_app/app.css">
 </head>
 <body>
-  <div my-header></div>
+  <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a class="navbar-brand" href="/backoffice#/">PropHike Backoffice</a>
+          </div>
+      </div>
+  </nav>
   <div class="container-fluid">
         <!-- Page Heading/Breadcrumbs -->
 <!--         <div class="row">
@@ -95,7 +101,6 @@
   <script src="/backoffice_app/properties/media/mediaController.js"></script>
   <script src="/backoffice_app/properties/units/media/mediaController.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
-  <script src="/backoffice_app/components/header/header-directive.js"></script>
   <script src="/backoffice_app/components/ckeditor/ckEditorDirective.js"></script>
 </body>
 </html>
