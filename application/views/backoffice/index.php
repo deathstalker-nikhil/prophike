@@ -15,8 +15,9 @@
   <link href="/assets/backoffice/css/dataTables.bootstrap.css" rel="stylesheet">
   <link href="/assets/backoffice/css/dataTables.responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="/backoffice_app/app.css">
+  <script src="assets/js/angular.min.js"></script>
 </head>
-<body>
+<body class="ng-cloak">
   <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
@@ -50,7 +51,7 @@
             </div>
             <!-- Content Column -->
             <div class="col-md-9">
-              <div ng-view></div>
+              <div ng-view class="ng-cloak"></div>
             </div>
       </div>
     <hr>
@@ -62,8 +63,7 @@
         </div>
       </div>
     </footer>
-  </div>  
-  <script src="assets/js/angular.min.js"></script>
+  </div> 
   <script src="assets/js/angular-file-upload.min.js"></script>
   <script src="assets/js/angular-route.min.js"></script>
   <script src="assets/js/angular-sanitize.min.js"></script>
