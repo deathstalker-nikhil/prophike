@@ -1,109 +1,89 @@
 'use strict';
 
-var user_commentsApp = angular.module('backofficeApp.user_comments', ['ngRoute'])
+var commentsApp = angular.module('backofficeApp.comments', [
+	'ngRoute',
+	])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/comments', {
-  	reloadOnSearch:false,
-    templateUrl: 'backoffice_app/comments/comments.html',
-    controller: 'commentCtrl'
-  });
+.config(['$routeProvider', function($routeProvider,$provide) {
+	$routeProvider.when('/comments', {
+		templateUrl: 'backoffice_app/comments/comments.html',
+		controller: 'commentsCtrl'
+	});
 }])
 
-.controller('commentCtrl', ['$scope','$http','commentService','$filter',function($scope,$http,commentService,$filter) {
-	commentService.get({},function (data,status) {
-		$scope.app.state = 'comments';
-		console.log(data);
-		$scope.comments= data;
-	});
+.controller('commentsCtrl', ['$scope','comments','$location',function($scope,comments,$location) {
+	$scope.app.state = 'comments';
+	$scope.perPageArray = [10,25,50,100];
+	$scope.show_prev_btn = false;
+	$scope.show_next_btn = false;	
+	var urlParams = $location.search();
+	if(angular.isDefined(urlParams.per_page)){
+		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
+			$scope.result = ""+urlParams.per_page;
+		else
+			$scope.result = ""+$scope.perPageArray[$scope.perPageArray.length-1];
+	}else{
+		$scope.result = ""+$scope.perPageArray[0];		
+	}	
+	$scope.tableData = comments.tableInfoData;
+	urlParams.fields = 'id,user_name,user_phone,user_comment,user_email,name as project_name,projects.project_id,is_approved';
+	comments.get(urlParams,function(data,status){
+		if(!angular.equals([],data)){
+			if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
+				if(urlParams.order_by.indexOf('id ASC') > -1) {
+					data = $filter('orderBy')(data,'-id');
+				}			
+			angular.forEach(data, function(value, key){
+				value.is_approved = parseInt(value.is_approved);
+			});
+			$scope.comments = data;
+			$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && $scope.tableData.last_id == $scope.comments[0].id)       	?false : true;
+			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && $scope.tableData.first_id == $scope.comments[$scope.comments.length-1].id)?false : true;	
+		}
+		});	
+	$scope.next = function(){		
+		if($scope.comments != [])
+			$location.search({'per_page':$scope.result,'where':'id<'+$scope.comments[$scope.comments.length-1].id});
+	};
+	$scope.prev = function(){
+		if($scope.comments != [])
+			$location.search({'per_page':$scope.result,'where':'id>'+$scope.comments[0].id,'order_by':'id ASC'});
+		};		
+	$scope.load = function(result){
+		if($scope.comments != [])
+			$location.search({'per_page':$scope.result,'where':'id<='+$scope.comments[0].id});		
+	};		
 
-
-	/*
-	$scope.delete = function(comments) {
-		if(!confirm("Delete Comment ?")) {return};
-		properties.delete(property,function(data,status){
-			if(status == 500){
-				alert(data.error);
-			}else{
-				$scope.comments.splice($scope.comments.indexOf(comments), 1);
+	$scope.setValue = function(index){
+		jQuery('#toggleComment + label').css('pointer-events','none');
+		comments.update({'id':$scope.comments[index].id,'is_approved':$scope.comments[index].is_approved},function(data,status){
+			if(status != 204){
+				if($scope.comments[index].is_approved == 1){
+					$scope.comments[index].is_approved = 0;
+				}else{
+					$scope.comments[index].is_approved = 1;
+				}
+				console.log(data);	
 			}
+			jQuery('#toggleComment + label').css('pointer-events','auto');
 		});
 	}
-*/
-}])
 
-.factory('commentService',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
-	var comments = {};
-	comments.get = function(params,callBack){
-		var url = '/api/comments/comments';
-		var getParams = "?";
-		angular.forEach(params,function(value,key){
-			getParams += key+'='+value+'&'; 
-		});			
-		getParams = getParams.substring(0,getParams.length-1);
-		$http.get(url+getParams).
-		success(function(data, status, headers, config) {
-			callBack(data,status);
-		}).
-		error(function(data, status, headers, config) {
-			callBack(data,status);
-		});	  	
-	};
+	$scope.$on('comments.tableInfo.update',function(event){
+		$scope.tableData = comments.tableInfoData;
+	});	
 
-	// properties.paginationInfo = function(limit,callBack){
-	// 	$http.get('/api/properties/pagination?limit='+limit).
-	// 	success(function(data, status, headers, config) {
-	// 		callBack(data,status);
-	// 	}).
-	// 	error(function(data, status, headers, config) {
-	// 		callBack(data,status);
-	// 	});	
-	// }
+	$scope.delete = function(obj) {
+		if(!confirm("Delete comment ?")) {return};
+		comments.delete(obj,function(data,status){
+			if(status == 500){
+				alert(data.error);
+			}
+			else{
+				$scope.comments.splice($scope.comments.indexOf(obj), 1);
+				}
+		});
+	}
 
-	// properties.save = function(property,callBack){
-	// 	var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	// 	var data = $httpParamSerializerJQLike({property,
-	// 		'csrf_token':csrf_token
-	// 	});
-	// 	$http.post('/api/properties/projects',
-	// 		data,
-	// 		{headers:{'Content-Type':'application/x-www-form-urlencoded'},
-	// 	}).
-	// 	success(function(data, status, headers, config) {
-	// 		callBack(data,status);
-	// 	}).
-	// 	error(function(data, status, headers, config) {
-	// 		callBack(data,status);
-	// 	});		
-	// }
-
-	// properties.update = function(property,callBack){
-	// 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	// 		var data = $httpParamSerializerJQLike({property,
-	// 			'csrf_token':csrf_token
-	// 		});
-	// 		$http.put('/api/properties/projects/'+property.id,
-	// 			data,
-	// 			{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
-	// 		}).
-	// 		success(function(data, status, headers, config) {
-	// 			callBack(data,status);
-	// 		}).
-	// 		error(function(data, status, headers, config) {
-	// 			callBack(data,status);
-	// 		});
-	// };
-
-	// properties.delete = function(property,callBack){
-	// 	$http.delete('/api/properties/projects/'+property.project_id).
-	// 	success(function(data, status, headers, config) {
-	// 		callBack(data,status); 
-	// 	}).
-	// 	error(function(data, status, headers, config) {
-	// 		callBack(data,status);
-	// 	});  	
-	// };
-
-	return comments;
-
+	
 }]);

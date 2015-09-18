@@ -7,7 +7,7 @@ var backofficeApp = angular.module('backofficeApp', [
   'backoffice.file_upload',
   'backofficeApp.locations',
   'backofficeApp.properties',
-  'backofficeApp.user_comments',
+  'backofficeApp.comments',
   'backofficeApp.builder',
   'backofficeApp.specifications'
 ]).

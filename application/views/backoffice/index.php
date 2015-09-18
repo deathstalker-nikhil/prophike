@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/backoffice_app/app.css">
   <script src="assets/js/angular.min.js"></script>
 </head>
-<body class="ng-cloak">
+<body>
   <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
@@ -51,7 +51,7 @@
             </div>
             <!-- Content Column -->
             <div class="col-md-9">
-              <div ng-view class="ng-cloak"></div>
+              <div ng-view ng-cloak></div>
             </div>
       </div>
     <hr>
@@ -76,8 +76,6 @@
   <script src="/backoffice_app/file_upload/components/previewDirective.js"></script>
   <script src="/backoffice_app/locations/locationsController.js"></script>
   <script src="/backoffice_app/locations/locationsService.js"></script>
-  <script src="/backoffice_app/comments/commentsController.js"></script>
-  <script src="/backoffice_app/comments/commentsService.js"></script>
   <script src="/backoffice_app/builder/builderController.js"></script>
   <script src="/backoffice_app/builder/builderService.js"></script>
   <script src="/backoffice_app/builder/media/builderMediaController.js"></script>
@@ -100,7 +98,8 @@
   <script src="/backoffice_app/properties/units/edit/editUnitController.js"></script>
   <script src="/backoffice_app/properties/media/mediaController.js"></script>
   <script src="/backoffice_app/properties/units/media/mediaController.js"></script>
-  <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/components/ckeditor/ckEditorDirective.js"></script>
+  <script src="/backoffice_app/comments/commentsController.js"></script>
+  <script src="/backoffice_app/comments/commentsService.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		    <meta name="viewport" content="width=device-width, initial-scale=1">
 		    <link href="/assets/backoffice/css/bootstrap.min.css" rel="stylesheet">
+		    <script src="/assets/js/angular.min.js"></script>
 		    <style>
 		    	div.row > div{
 		    		border:1px solid #ccc;
@@ -15,12 +16,18 @@
 		    		font-size:.9em;
 		    		color:#e74c3c;
 		    	}
+					*{
+						border-radius: 0 !important;
+					}
+					.form-control:focus{
+						box-shadow: none;
+					}		    	
 		    </style>
 		</head>
-	<body  ng-controller="AppCtrl" class="ng-cloak">
+	<body  ng-controller="AppCtrl">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-4 col-sm-offset-4">
+			<div class="col-sm-4 col-sm-offset-4" ng-cloak>
 				<h1>Login to continue</h1>
 				<form name="loginForm">
 					<div class="form-group">
@@ -36,14 +43,13 @@
 					</div>
 					<div class="form-group">
 						<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
-						<button ng-click="login(loginForm)" class="btn btn-default">Login</button>	
+						<button ng-click="login(loginForm)" class="btn btn-info">Login</button>	
 					</div>
 					
 				</form>	
 			</div>				
 		</div>
 	</div>
-	<script src="/assets/js/angular.min.js"></script>
 	<script src="/assets/backoffice/js/jquery.js"></script>
 	<script>
 		var app = angular.module('loginApp', []);
