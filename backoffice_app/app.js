@@ -9,8 +9,10 @@ var backofficeApp = angular.module('backofficeApp', [
   'backofficeApp.properties',
   'backofficeApp.comments',
   'backofficeApp.builder',
-  'backofficeApp.specifications'
+  'backofficeApp.specifications',
+  'backofficeApp.changePassword'
 ]).
+
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/locations'});
 }])

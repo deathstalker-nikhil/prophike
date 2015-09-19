@@ -21,22 +21,12 @@
   <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
-              <a class="navbar-brand" href="/backoffice#/">PropHike Backoffice</a>
+              <a class="navbar-brand" href="/backoffice#/">PropHike</a>
           </div>
       </div>
   </nav>
   <div class="container-fluid">
-        <!-- Page Heading/Breadcrumbs -->
-<!--         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">PropHike
-                    <small>BackOffice</small>
-                </h1>
-            </div>
-        </div> -->
-        <!-- /.row -->
-        <!-- Content Row -->
-        <div class="row">
+        <aside class="row">
             <!-- Sidebar Column -->
             <div class="col-md-3">
                 <div class="list-group" ng-init="app.state = 'locations'">
@@ -45,7 +35,7 @@
                     <a href="#/builder" class="list-group-item" ng-class="app.state == 'builders' ? 'active':''">Builders</a>
                     <a href="#/specifications" class="list-group-item" ng-class="app.state == 'specifications' ? 'active':''">Specifications</a>
                     <a href="#/comments" class="list-group-item" ng-class="app.state == 'comments' ? 'active':''">Comments</a>
-                    <a href="javascript:" class="list-group-item">Change Password</a>
+                    <a href="#/change_password" class="list-group-item" ng-class="app.state == 'change_password' ? 'active':''">Change Password</a>
                     <a href="/backoffice/logout" class="list-group-item">Sign Out</a>
                 </div>
             </div>
@@ -53,7 +43,7 @@
             <div class="col-md-9">
               <div ng-view ng-cloak></div>
             </div>
-      </div>
+      </aside>
     <hr>
     <!-- Footer -->
     <footer>
@@ -101,5 +91,6 @@
   <script src="/backoffice_app/components/ckeditor/ckEditorDirective.js"></script>
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/comments/commentsService.js"></script>
+  <script src="/backoffice_app/change_password/changePsswdController.js"></script>
 </body>
 </html>

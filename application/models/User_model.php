@@ -16,4 +16,18 @@ class User_model extends CI_Model {
 			return FALSE;
 	}
 
+	public function updatePassword($username,$psswd){
+		$this->db->db_debug = false;
+		$this->db->where('username', $username);
+		$this->db->update('admin', array('password'=>$psswd));
+		$this->db->db_debug = true;
+		$error = $this->db->error();
+		if ( $error['code'] == 0 ){
+			return ['error'=>false,'msg'=>''];
+		}
+		else{
+			return ['error'=>true,'msg'=>$error['message']];
+		}				
+	}
+
 }

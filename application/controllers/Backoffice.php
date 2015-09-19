@@ -10,6 +10,8 @@ class Backoffice extends REST_Controller {
 		parent::__construct();	
 		$this->load->library('auth_lib');
 		$this->load->helper('url');
+		$this->rest_format = 'json';
+		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];		
 	}
 
 	public function index_get()
@@ -46,36 +48,23 @@ class Backoffice extends REST_Controller {
 	public function logout_get()
 	{
 		$this->auth_lib->logout('backoffice/login');
-	}	
-
-	public function add_property_get()
-	{
-		$this->load->view('backoffice/add_property');
 	}
 
-
-	public function change_password_get()
-	{
-		$this->load->view('backoffice/change_password');
-	}
-
-	public function comments_get()
-	{
-		$this->load->view('backoffice/comments');
-	}
-
-	public function edit_property_get()
-	{
-		$this->load->view('backoffice/edit_property');
-	}
-
-	public function locations_get()
-	{
-		$this->load->view('backoffice/locations');
-	}
-
-	public function properties_get()
-	{
-		$this->load->view('backoffice/properties');
+	public function changePassword_post(){
+		$params = $this->post();
+		if(!isset($params['oldPwd']) || !isset($params['newPwd']) || $params['oldPwd'] == '' || $params['newPwd'] == ''){
+			$this->response(array('error'=>'Insufficient Data given'), 400);	
+		}else{
+			$this->load->model('user_model','user');
+			if(!$this->user->isValidUser('admin','admin@prophike.com',$params['oldPwd'])){
+				$this->response(array('error'=>'Wrong password given'), 400);
+			}
+			$response = $this->user->updatePassword('admin@prophike.com',$params['newPwd']); 
+			if($response['error']){
+				$this->response(array('error'=>$response['msg']),400);
+			}else{
+				$this->response('',204);
+			}
+		}
 	}
 }
