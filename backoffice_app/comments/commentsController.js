@@ -16,6 +16,7 @@ var commentsApp = angular.module('backofficeApp.comments', [
 	$scope.perPageArray = [10,25,50,100];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;	
+	$scope.comments = [];
 	var urlParams = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
@@ -42,15 +43,15 @@ var commentsApp = angular.module('backofficeApp.comments', [
 		}
 		});	
 	$scope.next = function(){		
-		if($scope.comments != [])
+		if(!angular.equals([], $scope.comments))
 			$location.search({'per_page':$scope.result,'where':'id<'+$scope.comments[$scope.comments.length-1].id});
 	};
 	$scope.prev = function(){
-		if($scope.comments != [])
+		if(!angular.equals([], $scope.comments))
 			$location.search({'per_page':$scope.result,'where':'id>'+$scope.comments[0].id,'order_by':'id ASC'});
 		};		
 	$scope.load = function(result){
-		if($scope.comments != [])
+		if(!angular.equals([], $scope.comments))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.comments[0].id});		
 	};		
 

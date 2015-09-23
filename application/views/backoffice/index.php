@@ -15,7 +15,7 @@
   <link href="/assets/backoffice/css/dataTables.bootstrap.css" rel="stylesheet">
   <link href="/assets/backoffice/css/dataTables.responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="/backoffice_app/app.css">
-  <script src="assets/js/angular.min.js"></script>
+  <script src="/assets/js/angular.min.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-inverse" role="navigation">
@@ -54,12 +54,12 @@
       </div>
     </footer>
   </div> 
-  <script src="assets/js/angular-file-upload.min.js"></script>
-  <script src="assets/js/angular-route.min.js"></script>
-  <script src="assets/js/angular-sanitize.min.js"></script>
+  <script src="/assets/js/angular-file-upload.min.js"></script>
+  <script src="/assets/js/angular-route.min.js"></script>
+  <script src="/assets/js/angular-sanitize.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/assets/backoffice/js/bootstrap.min.js"></script>
-  <script src="/assets/js/ckeditor/ckeditor.js"></script>
+  <script src="/assets/js/ckeditor/ckeditor.js" async></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadController.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadService.js"></script>

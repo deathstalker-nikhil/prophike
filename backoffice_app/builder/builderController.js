@@ -19,6 +19,7 @@ var builderApp = angular.module('backofficeApp.builder', [
 	$scope.perPageArray = [10,25,50,100];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;	
+	$scope.builder = [];
 	var urlParams = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
@@ -41,15 +42,15 @@ var builderApp = angular.module('backofficeApp.builder', [
 		}
 		});	
 	$scope.next = function(){		
-		if($scope.builder != [])
+		if(!angular.equals([], $scope.builder))
 			$location.search({'per_page':$scope.result,'where':'id<'+$scope.builder[$scope.builder.length-1].id});
 	};
 	$scope.prev = function(){
-		if($scope.builder != [])
+		if(!angular.equals([], $scope.builder))
 			$location.search({'per_page':$scope.result,'where':'id>'+$scope.builder[0].id,'order_by':'id ASC'});
 		};		
 	$scope.load = function(result){
-		if($scope.builder != [])
+		if(!angular.equals([], $scope.builder))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.builder[0].id});		
 	};		
 	$scope.$on('builder.tableInfo.update',function(event){

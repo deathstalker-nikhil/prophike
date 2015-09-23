@@ -26,6 +26,40 @@
 				<a href="#/properties/add" class="btn btn-info">Add</a>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<label>Possession</label>
+				<div style="height:170px;overflow-y: scroll;border:1px solid #ccc;padding:5px 15px;margin-bottom: 10px">
+					<div class="checkbox" ng-repeat="(key, value) in possessions">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="possessions[key].is_checked" ng-click="getByPossession()"> {{value.text}}</label>
+					</div>					
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<label>Builders</label>
+				<div style="height:170px;overflow-y: scroll;border:1px solid #ccc;padding:5px 15px;margin-bottom: 10px">
+					<div class="checkbox" ng-repeat="(key, value) in builders">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="builders[key].is_checked" ng-click="getByBuilder()"> {{value.builder_name}}</label>
+					</div>					
+				</div>				
+			</div>
+			<div class="col-sm-3">
+				<label>Price</label>
+				<div style="height:170px;overflow-y: scroll;border:1px solid #ccc;padding:5px 15px;margin-bottom: 10px">
+					<div class="checkbox" ng-repeat="(key, value) in priceRanges">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="priceRanges[key].is_checked" ng-click="getByPrice()"> {{value.text}}</label>
+					</div>					
+				</div>				
+			</div>
+			<div class="col-sm-3">
+				<label>Unit Type</label>
+				<div style="height:170px;overflow-y: scroll;border:1px solid #ccc;padding:5px 15px;margin-bottom: 10px">
+					<div class="checkbox" ng-repeat="(key, value) in unitTypes">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="unitTypes[key].is_checked" ng-click="getByUnit()"> {{value.text}}</label>
+					</div>					
+				</div>				
+			</div>			
+		</div>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>

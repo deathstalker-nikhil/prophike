@@ -1,7 +1,6 @@
 propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var properties = {};
-	properties.tableInfoData = {};
 
 	properties.get = function(params,callBack){
 		var url = '/api/properties/projects';
@@ -18,20 +17,6 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			callBack(data,status);
 		});	  	
 	};
-
-	properties.tableInfo = function(){
-		$http.get('/api/properties/tableInfo').
-		success(function(data, status, headers, config) {
-			if(status == 200){
-				properties.tableInfoData = data;
-				$rootScope.$broadcast('properties.tableInfo.update');
-			}
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data,status);
-		});	
-	};
-
 
 	properties.save = function(property,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -78,8 +63,6 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			callBack(data,status);
 		});  	
 	};
-
-	properties.tableInfo();
 
 	return properties;
 

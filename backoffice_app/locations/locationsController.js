@@ -11,7 +11,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		// reloadOnSearch:false,
 		templateUrl: 'backoffice_app/locations/locations.html',
 		controller: 'locationsCtrl'
-	});
+	});	
 }])
 
 .controller('locationsCtrl', ['$scope','locations','$location','$filter',function($scope,locations,$location,$filter) {
@@ -19,6 +19,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 	$scope.perPageArray = [10,25,50,100];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;
+	$scope.cities = [];
 	$scope.tableData = locations.tableInfoData;
 	var urlParams  = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
@@ -38,19 +39,19 @@ var locationsApp = angular.module('backofficeApp.locations', [
 				}			
 			$scope.cities = data;
 			$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && $scope.tableData.last_id == $scope.cities[0].id)       	?false : true;
-			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && $scope.tableData.first_id == $scope.cities[$scope.cities.length-1].id)?false : true;	
+			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && $scope.tableData.first_id == $scope.cities[$scope.cities.length-1].id)?false : true;
 		}
 		});		
-	$scope.next = function(){		
-		if($scope.cities != [])
+	$scope.next = function(){	
+		if(!angular.equals([],$scope.cities))
 			$location.search({'per_page':$scope.result,'where':'id<'+$scope.cities[$scope.cities.length-1].id});
 	};
 	$scope.prev = function(){
-		if($scope.cities != [])
+		if(!angular.equals([],$scope.cities))
 			$location.search({'per_page':$scope.result,'where':'id>'+$scope.cities[0].id,'order_by':'id ASC'});
 		};
 	$scope.load = function(result){
-		if($scope.cities != [])
+		if(!angular.equals([],$scope.cities))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.cities[0].id});		
 	};
 	$scope.$on('locations.tableInfo.update',function(event){

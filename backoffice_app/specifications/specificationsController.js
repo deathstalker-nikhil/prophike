@@ -17,6 +17,7 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 	$scope.perPageArray = [10,25,50,100];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;
+	$scope.specifications = [];
 	var urlParams  = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
@@ -40,17 +41,17 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 		});		
 
 	$scope.next = function(){		
-		if($scope.specifications != [])
+		if(!angular.equals([], $scope.specifications))
 			$location.search({'per_page':$scope.result,'where':'id<'+$scope.specifications[$scope.specifications.length-1].id});
 	};	
 
 	$scope.prev = function(){
-		if($scope.specifications != [])
+		if(!angular.equals([], $scope.specifications))
 			$location.search({'per_page':$scope.result,'where':'id>'+$scope.specifications[0].id,'order_by':'id ASC'});
 		};	
 
 	$scope.load = function(result){
-		if($scope.specifications != [])
+		if(!angular.equals([], $scope.specifications))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.specifications[0].id});		
 	};		
 
