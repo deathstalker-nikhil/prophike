@@ -31,6 +31,7 @@
 				<thead>
 					<tr>
 						<th>Builder Name</th>
+						<th>View</th>
 						<th>Media</th>
 						<th>Edit</th>
 						<th>Delete</th>
@@ -39,6 +40,7 @@
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in builder | filter:search">
 						<td>{{value.builder_name}}</td>
+						<td><a href="javascript:" ng-click="view(value.id)" class="btn btn-info" title="View"><span class="glyphicon glyphicon-list-alt"></span></a></td>
 						<td><a href="#/builder/media/{{value.id}}" class="btn btn-info"><span class="glyphicon glyphicon-picture" title="Media"></span></a></td>
 						<td><a href="#/builder/edit/{{value.id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -53,4 +55,29 @@
 		  </ul>
 		</nav>		
 	</div>
+</div>
+<div class="modal fade" id="viewBuilder">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{builderData.builder_name}}</h3>
+      </div>
+      <div class="modal-body">
+				<div class="row">
+					<div class="col-sm-8">
+						<h4>Description</h4>
+						<p>{{builderData.builder_description}}</p>
+					</div>
+					<div class="col-sm-4">
+						<h4>Logo</h4>
+						<img ng-src="{{builderData.logo_link.logo[0]}}" src='' class="img-responsive">
+					</div>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,7 +17,7 @@ angular.module('backofficeApp.properties.units.edit', ['ngRoute'])
 
 	units.get({'id':id},function(data,status){
 		if(status == 200){
-	    	$scope.unit = data[0];
+	    	$scope.unit = data.data[0];
 				if($scope.unit.unit_price < 100000){
 					$scope.unit_price_value = $scope.unit.unit_price/1000;
 					$scope.price_unit_value = '1000';

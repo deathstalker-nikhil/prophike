@@ -41,6 +41,15 @@ class Properties_model extends CI_Model {
 		}
 		else
 		{
+			preg_match ( '/city in \(([a-zA-Z,\s-_]+)\)/' ,$where, $matches);
+			if($matches != []){
+				$matches[1] = explode(',',$matches[1]); 
+				foreach ($matches[1] as $key => $value) {
+					$matches[1][$key] = "'$value'";		
+				}
+				$matches[1] = implode($matches[1],',');
+				$where = preg_replace('/city in \([a-zA-Z,\s-_]+\)/','city in ('.$matches[1].')',$where);
+			}		
 			$this->db->select($fields);
 			if($units != ''){
 				$units = explode(',',$units);
@@ -63,7 +72,7 @@ class Properties_model extends CI_Model {
 			$this->db->order_by($orderBy);
 			$this->db->join('builders', 'builders.id = projects.builder_id');
 			$query = $this->db->get('projects', $limit);	
-		}
+		} 
 		$first_id = 0;
 		$last_id =0;
 		if($where != '')
@@ -86,7 +95,12 @@ class Properties_model extends CI_Model {
 			if($query4->result()){
 				$last_id = $query4->result()[0]->project_id;
 			}				
-			return ['data'=>$query->result_array(),'total'=>$query2->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];
+			if(is_object($query)){
+				return ['data'=>$query->result_array(),'total'=>$query2->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];
+			}
+			else{
+				return ['data'=>[],'total'=>$query2->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];				
+			}
 		}else{
 			return ['data'=>[]];
 		}		

@@ -16,11 +16,11 @@ var locationsApp = angular.module('backofficeApp.locations', [
 
 .controller('locationsCtrl', ['$scope','locations','$location','$filter',function($scope,locations,$location,$filter) {
 	$scope.app.state = 'locations';
-	$scope.perPageArray = [10,25,50,100];
+	$scope.perPageArray = [25,50,100,200];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;
 	$scope.cities = [];
-	$scope.tableData = locations.tableInfoData;
+	$scope.tableData = {};
 	var urlParams  = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
@@ -30,18 +30,35 @@ var locationsApp = angular.module('backofficeApp.locations', [
 	}else{
 		$scope.result = ""+$scope.perPageArray[0];		
 	}
-	urlParams.fields = 'id,city,areas';
-	locations.get(urlParams,function(data,status){
-		if(!angular.equals([],data)){
-			if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
-				if(urlParams.order_by.indexOf('id ASC') > -1) {
-					data = $filter('orderBy')(data,'-id');
-				}			
-			$scope.cities = data;
-			$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && $scope.tableData.last_id == $scope.cities[0].id)       	?false : true;
-			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && $scope.tableData.first_id == $scope.cities[$scope.cities.length-1].id)?false : true;
-		}
+	urlParams.fields = 'id,city';
+	function getLocations(){
+		locations.get(urlParams,function(data,status){
+			if(!angular.equals([],data.data)){
+				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
+					if(urlParams.order_by.indexOf('id ASC') > -1) {
+						data = $filter('orderBy')(data,'-id');
+					}			
+				$scope.cities = data.data;
+				$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
+				$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
+				$scope.tableData.total = (angular.isDefined(data.total))?data.total:0;
+				$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.cities))?($scope.tableData.last_id == $scope.cities[0].id)?false:true:false;
+				$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.cities))?($scope.tableData.first_id == $scope.cities[$scope.cities.length-1].id)? false:true:false;	
+			}
 		});		
+	}
+
+	getLocations();
+
+	$scope.view = function(id){
+		if(id == '') {return;}
+		locations.get({'id':id},function(data,status){
+			if(status == 200 && !angular.equals([],data.data))
+			$scope.city = data.data[0];
+			jQuery('#viewCity').modal('show');
+		});		
+	}
+
 	$scope.next = function(){	
 		if(!angular.equals([],$scope.cities))
 			$location.search({'per_page':$scope.result,'where':'id<'+$scope.cities[$scope.cities.length-1].id});
@@ -54,9 +71,6 @@ var locationsApp = angular.module('backofficeApp.locations', [
 		if(!angular.equals([],$scope.cities))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.cities[0].id});		
 	};
-	$scope.$on('locations.tableInfo.update',function(event){
-		$scope.tableData = locations.tableInfoData;
-	});
 
 	$scope.delete = function(obj) {
 		if(!confirm("Delete City ?")) {return};
@@ -64,7 +78,7 @@ var locationsApp = angular.module('backofficeApp.locations', [
 			if(status == 500){
 				alert(data.error);
 			}else{
-				$scope.cities.splice($scope.cities.indexOf(obj),1);
+				getLocations();
 			}
 		});
 	}

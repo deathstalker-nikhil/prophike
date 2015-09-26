@@ -16,7 +16,7 @@ angular.module('backofficeApp.locations.edit', ['ngRoute'])
 
 	locations.get({'id':id},function(data,status){
 		if(status == 200){
-	    	$scope.location = data[0];
+	    	$scope.location = data.data[0];
 	    	$scope.location.areas = $scope.location.areas.join("#\n");
 		}else{
 			console.log(data);	
@@ -35,7 +35,7 @@ angular.module('backofficeApp.locations.edit', ['ngRoute'])
 			locations.update(location,function(data,status){
 				if(status == 204){
 					alert('Updated');
-					window.location = window.history.back();;
+					window.location = 'backoffice#/locations';
 				}
 				else{
 					console.log(data);

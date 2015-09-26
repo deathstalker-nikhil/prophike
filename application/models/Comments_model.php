@@ -37,6 +37,7 @@ class Comments_model extends CI_Model {
 		{
 			$this->db->select($fields);
 			$this->db->where(array('id' => $id));
+			$this->db->join('projects', 'comments.project_id = projects.project_id');
 			$query = $this->db->get('comments',$limit);
 		}
 		else
@@ -47,13 +48,37 @@ class Comments_model extends CI_Model {
 			$this->db->join('projects', 'comments.project_id = projects.project_id');
 			$query = $this->db->get('comments', $limit);
 		}
+		$first_id = 0;
+		$last_id =0;
+		if($where != '')
+			$this->db->where($where);
+		$this->db->select('count(*) as total');
+		$query2 = $this->db->get('comments');
+		if($where != '')
+			$this->db->where($where);
+		$query3 = $this->db->get('comments', 1);
+		$this->db->order_by('id DESC');
+		if($where != '')
+			$this->db->where($where);
+		$query4 = $this->db->get('comments',1);	
 		$this->db->db_debug = true;
 		$error = $this->db->error();
 		if ($error['code'] == 0){
-			return $query->result_array();
+			if($query3->result()){
+				$first_id = $query3->result()[0]->id;
+			}
+			if($query4->result()){
+				$last_id = $query4->result()[0]->id;
+			}				
+			if(is_object($query)){
+				return ['data'=>$query->result_array(),'total'=>$query2->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];
+			}
+			else{
+				return ['data'=>[],'total'=>$query2->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];				
+			}
 		}else{
-			return [];
-		}	
+			return ['data'=>[]];
+		}
 	}
 
 	public function delete($id)
@@ -81,21 +106,5 @@ class Comments_model extends CI_Model {
 			return ['error'=>true,'msg'=>$error['message']];
 		}	
 	}
-
-	public function rowsCount()
-	{
-		$first_id = 0;
-		$last_id =0;
-		$query = $this->db->query('select count(*) as total from comments');
-		$query2 = $this->db->get('comments', 1);
-		$this->db->order_by('id DESC');
-		$query3 = $this->db->get('comments',1);
-		if($query2->result()){
-			$first_id = $query2->result()[0]->id;
-		}
-		if($query3->result()){
-			$last_id = $query3->result()[0]->id;
-		}		
-		return ['total'=>$query->result()[0]->total,'last_id' =>$last_id,'first_id'=>$first_id];
-	}
+	
 }

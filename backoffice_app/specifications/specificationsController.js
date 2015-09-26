@@ -14,10 +14,11 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 
 .controller('specificationsCtrl', ['$scope','$http','specifications','$location','$filter',function($scope,$http,specifications,$location,$filter) {
 	$scope.app.state = 'specifications';
-	$scope.perPageArray = [10,25,50,100];
+	$scope.perPageArray = [25,50,100,200];
 	$scope.show_prev_btn = false;
 	$scope.show_next_btn = false;
 	$scope.specifications = [];
+	$scope.tableData = {};
 	var urlParams  = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
@@ -27,18 +28,24 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 	}else{
 		$scope.result = ""+$scope.perPageArray[0];		
 	}	
-	$scope.tableData = specifications.tableInfoData;
-	specifications.get(urlParams,function(data,status){
-		if(!angular.equals([],data)){
-			if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
-				if(urlParams.order_by.indexOf('id ASC') > -1) {
-					data = $filter('orderBy')(data,'-id');
-				}			
-			$scope.specifications= data;
-			$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && $scope.tableData.last_id == $scope.specifications[0].id)       	?false : true;
-			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && $scope.tableData.first_id == $scope.specifications[$scope.specifications.length-1].id)?false : true;	
-		}
-		});		
+
+	function getSpecifications(){
+		specifications.get(urlParams,function(data,status){
+			if(!angular.equals([],data.data)){
+				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
+					if(urlParams.order_by.indexOf('id ASC') > -1) {
+						data = $filter('orderBy')(data,'-id');
+					}			
+				$scope.specifications= data.data;
+				$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
+				$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
+				$scope.tableData.total = (angular.isDefined(data.total))?data.total:0;			
+				$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.specifications))?($scope.tableData.last_id == $scope.specifications[0].id)?false:true:false;
+				$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.specifications))?($scope.tableData.first_id == $scope.specifications[$scope.specifications.length-1].id)? false:true:false;	
+			}
+		});
+	}
+	getSpecifications();		
 
 	$scope.next = function(){		
 		if(!angular.equals([], $scope.specifications))
@@ -53,11 +60,7 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 	$scope.load = function(result){
 		if(!angular.equals([], $scope.specifications))
 			$location.search({'per_page':$scope.result,'where':'id<='+$scope.specifications[0].id});		
-	};		
-
-	$scope.$on('specifications.tableInfo.update',function(event){
-		$scope.tableData = specifications.tableInfoData;
-	});
+	};
 
 	$scope.delete = function(obj) {
 		if(!confirm("Delete Specification ?")) {return};
@@ -65,7 +68,7 @@ var specificationsApp = angular.module('backofficeApp.specifications', [
 			if(status == 500){
 				alert(data.error);
 			}else{
-					$scope.specifications.splice($scope.specifications.indexOf(obj), 1);
+					getSpecifications();
 			}
 		});
 	}

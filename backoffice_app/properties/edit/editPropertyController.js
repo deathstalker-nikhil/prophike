@@ -20,16 +20,16 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 	$scope.property = {};
 
 	specifications.get({limit:1000,'fields':'id,name'},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.specifications = data;
+		if(!angular.equals([],data.data)){
+			$scope.specifications = data.data;
 			$scope.specificationsRetrived = true;
 			setValue();
 		}
 	});	
 
 	locations.get({limit:1000	},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.cities = data;
+		if(!angular.equals([],data.data)){
+			$scope.cities = data.data;
 			$scope.areas = $scope.cities[0].areas;
 			$scope.property.city = $scope.cities[0].city;
 			$scope.property.area = $scope.cities[0].areas[0];	
@@ -39,8 +39,8 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 	});
 
 	builder.get({limit:100},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.builders = data;
+		if(!angular.equals([],data.data)){
+			$scope.builders = data.data;
 			$scope.buildersRetrived = true;
 			setValue();
 		}
@@ -52,11 +52,11 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 	};
 
 	properties.get({'id':id},function(data,status){
-			if(status == 200 && !angular.equals([], data)){
+			if(status == 200 && !angular.equals([], data.data)){
 				$scope.propertyRetrived = true;
-				angular.copy(data[0],property);
+				angular.copy(data.data[0],property);
 				if(property.data != ''){
-					property.data = angular.fromJson(data[0].data);
+					property.data = angular.fromJson(data.data[0].data);
 				}
 				if(property.min_price < 100000){
 					$scope.min_price_value = property.min_price/1000;

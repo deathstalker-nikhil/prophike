@@ -16,7 +16,7 @@ var propertiesApp = angular.module('backofficeApp.properties', [
   });
 }])
 
-.controller('propertiesCtrl', ['$scope','properties','$location','$filter','builder',function($scope,properties,$location,$filter,builder) {
+.controller('propertiesCtrl', ['$scope','properties','$location','$filter','builder','locations',function($scope,properties,$location,$filter,builder,locations) {
 	$scope.app.state = 'properties';
 	$scope.perPageArray = [25,50,100,200];
 	$scope.show_prev_btn = false;
@@ -32,25 +32,42 @@ var propertiesApp = angular.module('backofficeApp.properties', [
 	}else{
 		$scope.result = ""+$scope.perPageArray[0];		
 	}
+  
+  function getProperties(){
+		properties.get(urlParams,function(data,status){
+			if(!angular.equals([],data.data)){
+				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
+					if(urlParams.order_by.indexOf('id ASC') > -1) {
+						data = $filter('orderBy')(data,'-project_id');
+					}						
+				$scope.properties = data.data;
+			}
+			$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
+			$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
+			$scope.tableData.total = (angular.isDefined(data.total))?data.total:0;
+			$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.properties))?($scope.tableData.last_id == $scope.properties[0].project_id)?false:true:false;
+			$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.properties))?($scope.tableData.first_id == $scope.properties[$scope.properties.length-1].project_id)? false:true:false;					
+		});
+	}
 
-	properties.get(urlParams,function(data,status){
-		if(!angular.equals([],data.data)){
-			if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
-				if(urlParams.order_by.indexOf('id ASC') > -1) {
-					data = $filter('orderBy')(data,'-project_id');
-				}						
-			$scope.properties = data.data;
+	getProperties();
+
+	locations.get({limit:10000,'fields':'id,city'},function(data,status){
+		if(!angular.equals([], data.data)){
+			$scope.cities = data.data;
 		}
-		$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
-		$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
-		$scope.tableData.total = (angular.isDefined(data.total))?data.total:0;
-		$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.properties))?($scope.tableData.last_id == $scope.properties[0].project_id)?false:true:false;
-		$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.properties))?($scope.tableData.first_id == $scope.properties[$scope.properties.length-1].project_id)? false:true:false;					
+		if(angular.isDefined(urlParams.where) && urlParams.where.indexOf('city') != -1){
+			angular.forEach((urlParams.where.match(/city in \(([a-zA-z,\s-_]+)\)/)[1].split(',')), function(value){
+				var x;
+				if(angular.isDefined(x = $filter('filter')($scope.cities,{'city':value},true)[0]))
+					$scope.cities[$scope.cities.indexOf(x)].is_checked = 1;
+			});
+		}		
 	});
 
 	builder.get({limit:10000},function(data,status){
-		if(!angular.equals([], data)){
-			$scope.builders = data;
+		if(!angular.equals([], data.data)){
+			$scope.builders = data.data;
 		}
 		if(angular.isDefined(urlParams.where) && urlParams.where.indexOf('builder_id') != -1){
 			angular.forEach((urlParams.where.match(/builder_id in \((.+?)(?=\))/)[1].split(',')), function(value){
@@ -59,7 +76,7 @@ var propertiesApp = angular.module('backofficeApp.properties', [
 					$scope.builders[$scope.builders.indexOf(x)].is_checked = 1;
 			});
 		}		
-	});
+	});	
 
 	$scope.next = function(){		
 		if(!angular.equals([], $scope.properties)){
@@ -136,7 +153,14 @@ var propertiesApp = angular.module('backofficeApp.properties', [
 							urlParams.where += ' and '+params.where;
 						}else if(urlParams.where.indexOf('min_price') != -1 && params.where == 'deletePrice'){
 							urlParams.where = urlParams.where.replace(/\s*(?:and){0,1}\s*min_price.+and [0-9,]+/,'');
-						}						
+						}
+						if(urlParams.where.indexOf('city') != -1 && params.where.indexOf('city') != -1){
+							urlParams.where = urlParams.where.replace(/city in \([a-zA-Z,\s-_]+\)/,params.where);
+						}else if(params.where.indexOf('city') != -1){
+							urlParams.where += ' and '+params.where;
+						}else if(urlParams.where.indexOf('city') != -1 && params.where == 'deleteCity'){
+							urlParams.where = urlParams.where.replace(/\s*(?:and){0,1}\s*city in \([a-zA-z,\s-_]+\)/,'');
+						}												
 						urlParams.where = urlParams.where.replace(/^\s*(?:and){0,1}\s*/,'');
 					}
 					else{
@@ -182,7 +206,7 @@ var propertiesApp = angular.module('backofficeApp.properties', [
 			if(status == 500){
 				alert(data.error);
 			}else{
-				$scope.properties.splice($scope.properties.indexOf(property), 1);
+				getProperties();
 			}
 		});
 	}
@@ -323,6 +347,27 @@ var propertiesApp = angular.module('backofficeApp.properties', [
 		obj.get_for = '';
 		updateUrl(obj);		
 		return;		
+	}
+
+	$scope.getByCity = function(){
+		var selectedCities = [];
+		angular.forEach($scope.cities, function(value, key){
+			if(value.is_checked == 1){
+				selectedCities.push(value.city);
+			}
+		});
+		var obj = {};
+		if(angular.isDefined(urlParams))
+			angular.copy(urlParams, obj);
+		if(!angular.equals([], selectedCities)){
+			obj.where = 'city in ('+selectedCities.join()+')';
+		}else{
+			obj.where = 'deleteCity';
+		}
+		obj.order_by = '';
+		obj.get_for = '';
+		updateUrl(obj);		
+		return;			
 	}
 
 	$scope.getByUnit = function(){

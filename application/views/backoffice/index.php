@@ -28,7 +28,7 @@
   <div class="container-fluid">
         <aside class="row">
             <!-- Sidebar Column -->
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="list-group" ng-init="app.state = 'locations'">
                     <a href="#/locations" class="list-group-item" ng-class="app.state == 'locations' ? 'active':''">Locations</a>
                     <a href="#/properties" class="list-group-item" ng-class="app.state == 'properties' ? 'active':''">Properties</a>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <!-- Content Column -->
-            <div class="col-md-9">
+            <div class="col-md-10">
               <div ng-view ng-cloak></div>
             </div>
       </aside>

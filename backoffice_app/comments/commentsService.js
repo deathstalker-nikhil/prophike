@@ -1,7 +1,6 @@
 commentsApp.factory('comments',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var comments = {};
-	comments.tableInfoData = {};
 
 	comments.get = function(params,callBack){
 		var url = 'api/comments/comments';
@@ -19,20 +18,6 @@ commentsApp.factory('comments',['$http','$rootScope','$httpParamSerializerJQLike
 		});	  	
 	};
 
-	comments.tableInfo = function(){
-		$http.get('/api/comments/tableInfo?').
-		success(function(data, status, headers, config) {
-			if(status == 200){
-				comments.tableInfoData = data;
-				$rootScope.$broadcast('comments.tableInfo.update');
-			}
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data,status);
-		});	
-	};
-
-
 	comments.save = function(commentObj,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		var data = $httpParamSerializerJQLike({'comment':commentObj,
@@ -43,7 +28,6 @@ commentsApp.factory('comments',['$http','$rootScope','$httpParamSerializerJQLike
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			comments.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -71,15 +55,12 @@ commentsApp.factory('comments',['$http','$rootScope','$httpParamSerializerJQLike
 	comments.delete = function(obj,callBack){
 		$http.delete('/api/comments/comments/'+obj.id).
 		success(function(data, status, headers, config) {
-			comments.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
-
-	comments.tableInfo();
 
 	return comments;
 

@@ -15,8 +15,8 @@ var propertiesApp = angular.module('backofficeApp.properties.media', [
 	$scope.app.state = 'properties';
 	var id = $routeParams.id;
 	properties.get({id:id,'fields':'project_id,name,media'},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.property = data[0];
+		if(!angular.equals([],data.data)){
+			$scope.property = data.data[0];
 			if($scope.property.media)
 				$scope.property.media = angular.fromJson($scope.property.media);
 		}

@@ -28,7 +28,6 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			properties.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -56,7 +55,6 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 	properties.delete = function(property,callBack){
 		$http.delete('/api/properties/projects/'+property.project_id).
 		success(function(data, status, headers, config) {
-			properties.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {

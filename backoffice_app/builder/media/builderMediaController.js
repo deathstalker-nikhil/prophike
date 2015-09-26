@@ -15,8 +15,8 @@ var propertiesApp = angular.module('backofficeApp.builder.media', [
 	$scope.app.state = 'builders';
 	var id = $routeParams.id;
 	builder.get({id:id,'fields':'id,builder_name,logo_link'},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.builder = data[0];
+		if(!angular.equals([],data.data)){
+			$scope.builder = data.data[0];
 			if($scope.builder.logo_link)
 				$scope.builder.logo_link = angular.fromJson($scope.builder.logo_link);
 		}

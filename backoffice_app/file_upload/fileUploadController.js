@@ -23,9 +23,9 @@ angular.module('backoffice.file_upload', ['angularFileUpload'])
                             'gallery':[]
                          };
                         properties.get({id:$scope.id,'fields':'project_id as id,name,media'},function(data,status){
-                            if(!angular.equals([],data)){
-                                if(data[0].media)
-                                    images = angular.fromJson(data[0].media);
+                            if(!angular.equals([],data.data)){
+                                if(data.data[0].media)
+                                    images = angular.fromJson(data.data[0].media);
                             }
                         });
                         break;
@@ -33,9 +33,9 @@ angular.module('backoffice.file_upload', ['angularFileUpload'])
                               $scope.app.state = 'specifications';
                               images.logo = [];
                                 specifications.get({id:$scope.id,'fields':'id,name,icon_path'},function(data,status){
-                                    if(!angular.equals([],data)){
-                                        if(data[0].icon_path)
-                                            images = angular.fromJson(data[0].icon_path);
+                                    if(!angular.equals([],data.data)){
+                                        if(data.data[0].icon_path)
+                                            images = angular.fromJson(data.data[0].icon_path);
                                     }
                                 });
                               break;
@@ -43,9 +43,9 @@ angular.module('backoffice.file_upload', ['angularFileUpload'])
                         $scope.app.state = 'builders';
                         images.logo = [];
                         builder.get({id:$scope.id,'fields':'id,builder_name,logo_link'},function(data,status){
-                            if(!angular.equals([],data)){
-                                if(data[0].logo_link)
-                                    images = angular.fromJson(data[0].logo_link);
+                            if(!angular.equals([],data.data)){
+                                if(data.data[0].logo_link)
+                                    images = angular.fromJson(data.data[0].logo_link);
                             }
                         });                        
                         break;
@@ -53,9 +53,9 @@ angular.module('backoffice.file_upload', ['angularFileUpload'])
                         $scope.app.state = 'properties';
                         images.img = [];
                         units.get({id:$scope.id,'fields':'id,unit_name,image_path'},function(data,status){
-                            if(!angular.equals([],data)){
-                                if(data[0].image_path)
-                                    images = angular.fromJson(data[0].image_path);
+                            if(!angular.equals([],data.data)){
+                                if(data.data[0].image_path)
+                                    images = angular.fromJson(data.data[0].image_path);
                             }
                         });                        
                         break;

@@ -1,7 +1,6 @@
 specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var specifications = {};
-	specifications.tableInfoData = {};
 
 	specifications.get = function(params,callBack){
 		var url = 'api/specifications/specifications';
@@ -19,20 +18,6 @@ specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSeri
 		});	  	
 	};
 
-	specifications.tableInfo = function(){
-		$http.get('/api/specifications/tableInfo?').
-		success(function(data, status, headers, config) {
-			if(status == 200){
-				specifications.tableInfoData = data;
-				$rootScope.$broadcast('specifications.tableInfo.update');
-			}
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data,status);
-		});	
-	};
-
-
 	specifications.save = function(specificationsObj,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		var data = $httpParamSerializerJQLike({'specifications':specificationsObj,
@@ -43,7 +28,6 @@ specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSeri
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			specifications.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -71,15 +55,12 @@ specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSeri
 	specifications.delete = function(obj,callBack){
 		$http.delete('/api/specifications/specifications/'+obj.id).
 		success(function(data, status, headers, config) {
-			specifications.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
-
-	specifications.tableInfo();
 	
 	return specifications;
 

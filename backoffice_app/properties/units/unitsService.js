@@ -1,13 +1,6 @@
 propertiesApp.factory('units',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var units = {};
-	units.tableInfoData = {};
-	var p_id = 0;
-
-	units.setPid = function(x){
-		p_id = x; 
-		units.tableInfo();
-	}
 
 	units.get = function(params,callBack){
 		var url = '/api/units/units';
@@ -25,20 +18,6 @@ propertiesApp.factory('units',['$http','$rootScope','$httpParamSerializerJQLike'
 		});	  	
 	};
 
-	units.tableInfo = function(){
-		$http.get('/api/units/tableInfo?p_id='+p_id).
-		success(function(data, status, headers, config) {
-			if(status == 200){
-				units.tableInfoData = data;
-				$rootScope.$broadcast('units.tableInfo.update');
-			}
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data,status);
-		});	
-	};
-
-
 	units.save = function(unit,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		var data = $httpParamSerializerJQLike({unit,
@@ -49,7 +28,6 @@ propertiesApp.factory('units',['$http','$rootScope','$httpParamSerializerJQLike'
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			units.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -77,7 +55,6 @@ propertiesApp.factory('units',['$http','$rootScope','$httpParamSerializerJQLike'
 	units.delete = function(unit,callBack){
 		$http.delete('/api/units/units/'+unit.id).
 		success(function(data, status, headers, config) {
-			units.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {

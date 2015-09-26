@@ -1,7 +1,6 @@
 builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var builder = {};
-	builder.tableInfoData = {};
 
 	builder.get = function(params,callBack){
 		var url = 'api/builder/builder';
@@ -19,20 +18,6 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 		});	  	
 	};
 
-	builder.tableInfo = function(){
-		$http.get('/api/builder/tableInfo?').
-		success(function(data, status, headers, config) {
-			if(status == 200){
-				builder.tableInfoData = data;
-				$rootScope.$broadcast('builder.tableInfo.update');
-			}
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data,status);
-		});	
-	};
-
-
 	builder.save = function(builderObj,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		var data = $httpParamSerializerJQLike({'builder':builderObj,
@@ -43,7 +28,6 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 			{headers:{'Content-Type':'application/x-www-form-urlencoded'},
 		}).
 		success(function(data, status, headers, config) {
-			builder.tableInfo();
 			callBack(data,status);
 		}).
 		error(function(data, status, headers, config) {
@@ -71,15 +55,12 @@ builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike',
 	builder.delete = function(obj,callBack){
 		$http.delete('/api/builder/builder/'+obj.id).
 		success(function(data, status, headers, config) {
-			builder.tableInfo();
 			callBack(data,status); 
 		}).
 		error(function(data, status, headers, config) {
 			callBack(data,status);
 		});  	
 	};
-
-	builder.tableInfo();
 
 	return builder;
 

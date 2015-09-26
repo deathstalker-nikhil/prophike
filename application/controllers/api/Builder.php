@@ -16,7 +16,7 @@ class Builder extends REST_Controller {
 	public function builder_get()
 	{	
 		$params = $this->get();
-		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page') : 10);
+		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page') : 25);
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
 		$where = ($this->get('where')? $this->get('where') : 'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
@@ -78,12 +78,6 @@ class Builder extends REST_Controller {
 		}
 		else
 			$this->response($result['msg'], REST_Controller::HTTP_BAD_REQUEST);
-	}
-	
-	public function tableInfo_get()
-	{
-		$result = $this->builder->rowsCount();
-		$this->response(['total' => $result['total'],'last_id' => $result['last_id'],'first_id'=>$result['first_id']], REST_Controller::HTTP_OK);
 	}
 
 }
