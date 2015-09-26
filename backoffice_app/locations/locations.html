@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Cities and their areas</h2>
+		<h2>Cities <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -16,7 +16,7 @@
 				<form class="form-inline">
 					<div class="form-group">
 						<label>Results per page</label>
-						<select class="form-control" ng-model="result" ng-change="load(result)">
+						<select class="form-control" ng-model="result" ng-change="load()">
 							<option ng-repeat="x in perPageArray">{{x}}</option>
 						</select>
 					</div>			
@@ -26,12 +26,12 @@
 				<a href="#/locations/add" class="btn btn-info" title="Add">Add City</a>
 			</div>
 		</div>
-		<div class="dataTable_wrapper">
-			<table class="table table-striped table-bordered">
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th>City</th>
-						<th>Areas</th>
+						<th>View</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
@@ -39,11 +39,7 @@
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in cities | filter:search">
 						<td>{{value.city}}</td>
-						<td>		
-							<ul>
-								<li ng-repeat="area in value.areas track by $index">{{area}}</li>
-							</ul>
-						</td>
+						<td><a href="javascript:" ng-click="view(value.id)" class="btn btn-info" title="View"><span class="glyphicon glyphicon-list-alt"></span></a></td>
 						<td><a href="#/locations/edit/{{value.id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>
@@ -57,4 +53,22 @@
 		  </ul>
 		</nav>		
 	</div>
+</div>
+
+<div class="modal fade" id="viewCity">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{city.city}}</h3>
+      </div>
+      <div class="modal-body">
+      	<h4>Areas</h4>
+      	<p><span style="display:inline-block;padding:5px 10px;margin:5px 5px 5px 0;border:1px solid #ddd" ng-repeat="area in city.areas track by $index">{{area}}</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -16,7 +16,7 @@ angular.module('backofficeApp.builder.edit', ['ngRoute'])
 
 	builder.get({'id':id},function(data,status){
 		if(status == 200){
-	    	$scope.builder = data[0];
+	    	$scope.builder = data.data[0];
 		}else{
 			console.log(data);	
 		}

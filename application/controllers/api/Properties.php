@@ -11,26 +11,32 @@ class Properties extends REST_Controller {
 		$this->load->model('properties_model','properties');
 		$this->rest_format = 'json';
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
+		$this->tableFields = array('projects.possession');
 	}
 
 	public function projects_get()
 	{
 		$params = $this->get();
-		$limit = ($this->get('limit') && $this->get('limit')>0? $this->get('limit') : 10);
-		$where = ($this->get('where')? $this->get('where') : 'id>0');
+		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page'):25);
+		$where = ($this->get('where')? $this->get('where') : '');
+		$units = ($this->get('units')? $this->get('units') : '');
+		$getFor = ($this->get('get_for')?$this->get('get_for'):'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
-		$where = preg_replace('/id/', 'projects.project_id', $where);
+		$fields = ($this->get('fields')? $this->get('fields') : '*');
+		$where = str_replace (array('possession'),$this->tableFields,$where);
+		$where = preg_replace('/(min_price.+and [0-9,]+)/', '($1)', $where);
+		$getFor = preg_replace('/id/', 'projects.project_id', $getFor);
 		$orderBy = preg_replace('/id/', 'projects.project_id', $orderBy);
 		if(intval($id = $this->get('id')))
 		{
-			$data = $this->properties->get($id,1);
+			$data = $this->properties->get($id,1,$fields);
 			if(!$data){
 				$this->response(['error'=>'Invalid Id'],REST_Controller::HTTP_NOT_FOUND);
 			}else{
 				$this->response($data,REST_Controller::HTTP_OK);
 			}
 		}else{
-			$this->response($this->properties->get('',$limit,$where,$orderBy), REST_Controller::HTTP_OK);
+			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units), REST_Controller::HTTP_OK);
 		}
 	}
 
@@ -40,7 +46,8 @@ class Properties extends REST_Controller {
 		if(!isset($data['property'])) 
 		{
 			$this->response(['error'=>'Imcomplete Data'], REST_Controller::HTTP_BAD_REQUEST);
-		} 
+		}
+		$data['property']['data'] = (isset($data['property']['data']))?json_encode($data['property']['data']):''; 
 		$result = $this->properties->create($data['property']);
 		if(!$result['error']) {
 			$data['property']['id'] = $result['id'];
@@ -64,29 +71,22 @@ class Properties extends REST_Controller {
 		}
 	}
 
-	// public function cities_put($id = '')
-	// {
-	// 	$data = $this->_put_args;
-	// 	if(!isset($data['location']) || $id == '') 
-	// 	{
-	// 		$this->response(['error'=>'Imcomplete Data'], REST_Controller::HTTP_BAD_REQUEST);
-	// 	}
-	// 	$data['location']['areas'] =  json_encode($data['location']['areas']);
-	// 	$result = $this->locations->update($id,$data['location']);
-	// 	if(!$result['error']) {
-	// 		$this->response(TRUE, REST_Controller::HTTP_NO_CONTENT);
-	// 	}
-	// 	else
-	// 		$this->response($result['msg'], REST_Controller::HTTP_BAD_REQUEST);
-	// }
-
-	// public function pagination_get()
-	// {
-	// 	$data = $this->get();
-	// 	if(!isset($data['limit']) || $data['limit'] > 0){
-	// 		$result = $this->locations->rowsCount();
-	// 		$this->response(['total' => $result['total'],'last_id' => $result['last_id'],'pages' => ceil($result['total']/$data['limit']),'first_id'=>$result['first_id']], REST_Controller::HTTP_OK);
-	// 	}
-	// }
+	public function projects_put($id = '')
+	{
+		$data = $this->_put_args;
+		if(!isset($data['property']) || $id == '') 
+		{
+			$this->response(['error'=>'Imcomplete Data'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+		if(isset($data['property']['data'])){
+			$data['property']['data'] = json_encode($data['property']['data']);
+		}
+		$result = $this->properties->update($id,$data['property']);
+		if(!$result['error']) {
+			$this->response(TRUE, REST_Controller::HTTP_NO_CONTENT);
+		}
+		else
+			$this->response($result['msg'], REST_Controller::HTTP_BAD_REQUEST);
+	}
 
 }

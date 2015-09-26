@@ -1,57 +1,21 @@
 'use strict';
-angular.module('backoffice.file_upload').factory('uploadedFilesService',['$rootScope',function($rootScope) {
+angular.module('backoffice.file_upload').factory('fileService',['$rootScope','$httpParamSerializerJQLike','$http',function($rootScope,$httpParamSerializerJQLike,$http) {
 		var fileService = {};
-		fileService.images = {};
-		fileService.images.property = {
-			const_update:[],
-			thumb:[],
-			cover:[],
-			gallery:[]
+		fileService.delete = function(url,callBack){
+			var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+			var data = $httpParamSerializerJQLike({url,
+				'csrf_token':csrf_token
+			});		
+			$http.post('/file/delete_file',
+				data,
+				{headers:{'Content-Type':'application/x-www-form-urlencoded'},
+			}).
+			success(function(data, status, headers, config) {
+				callBack(data,status);
+			}).
+			error(function(data, status, headers, config) {
+				callBack(data,status);
+			});				
 		};
-		fileService.images.specification = [];
-		fileService.images.builder = [];
-		fileService.save = function(obj,uploadedFor){
-			switch(uploadedFor){
-				case 'property':
-							switch(obj.type){
-								case 'const_update':
-										fileService.images.property.const_update.push(obj.path);
-									break;
-								case 'thumb':
-										fileService.images.property.thumb.push(obj.path);
-									break;
-								case 'cover':
-										fileService.images.property.cover.push(obj.path);
-									break;
-								case 'gallery':
-										fileService.images.property.gallery.push(obj.path);
-									break;
-							}
-							$rootScope.$broadcast( 'upload.property.update');
-					break;
-				case 'specification':
-							fileService.images.specification.push(obj);
-							$rootScope.$broadcast( 'upload.specification.update');
-					break;
-				case 'builder':
-							fileService.images.builder.push(obj);
-							$rootScope.$broadcast( 'upload.builder.update');
-					break;
-			}
-		};
-		fileService.get = function(getFor){
-			switch(getFor){
-				case 'property':
-					return fileService.images.property;
-					break;
-				case 'specification':
-					return fileService.images.specification;
-					break;
-				case 'builder':
-					return fileService.images.builder;
-					break;
-			}
-		};
-
 		return fileService;
 }]);

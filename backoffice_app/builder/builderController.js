@@ -3,121 +3,81 @@
 var builderApp = angular.module('backofficeApp.builder', [
 	'ngRoute',
 	'backofficeApp.builder.create',
-'backofficeApp.builder.edit',
+	'backofficeApp.builder.edit',
+	'backofficeApp.builder.media',
 	])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function($routeProvider,$provide) {
 	$routeProvider.when('/builder', {
-		reloadOnSearch:false,
 		templateUrl: 'backoffice_app/builder/builder.html',
 		controller: 'builderCtrl'
 	});
 }])
 
-.controller('builderCtrl', ['$scope','$http','builder','$location','$filter',function($scope,$http,builder,$location,$filter) {
-	builder.get({},function (data,status) {
-		console.log(data);
-		$scope.builder= data;
-		// body...
-	});
-/*
-	$scope.names =[];
-	$scope.perPageArray = [5,10,15,20];
-	$scope.show_prev_btn = true;
-	$scope.show_next_btn = true;
-	$scope.where = 'id>0';
-	$scope.order_by = 'id DESC';
-	$scope.result = $scope.perPageArray[0];
-	if(angular.equals({}, $builder.search())){
-		$location.search({'per_page':$scope.result,'where':$scope.where,order_by:$scope.order_by});
-	}
-	var urlParams  = $location.search();
+.controller('builderCtrl', ['$scope','builder','$location','$filter',function($scope,builder,$location,$filter) {
+	$scope.app.state = 'builders';
+	$scope.perPageArray = [25,50,100,200];
+	$scope.show_prev_btn = false;
+	$scope.show_next_btn = false;	
+	$scope.builder = [];
+	$scope.tableData = {};
+	var urlParams = $location.search();
 	if(angular.isDefined(urlParams.per_page)){
 		if(urlParams.per_page <= $scope.perPageArray[$scope.perPageArray.length-1])
 			$scope.result = ""+urlParams.per_page;
 		else
 			$scope.result = ""+$scope.perPageArray[$scope.perPageArray.length-1];
+	}else{
+		$scope.result = ""+$scope.perPageArray[0];		
+	}	
+	function getBuilders(){		
+		builder.get(urlParams,function(data,status){
+			if(!angular.equals([],data.data)){
+				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
+					if(urlParams.order_by.indexOf('id ASC') > -1) {
+						data = $filter('orderBy')(data,'-id');
+					}			
+				$scope.builder = data.data;
+				$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
+				$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
+				$scope.tableData.total = (angular.isDefined(data.total))?data.total:0;
+				$scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.builder))?($scope.tableData.last_id == $scope.builder[0].id)?false:true:false;
+				$scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.builder))?($scope.tableData.first_id == $scope.builder[$scope.builder.length-1].id)? false:true:false;		
+			}
+		});	
 	}
-	builder.paginationInfo($scope.result,function(data,success){
-		if(success == 200){
-			$scope.first_id = data.first_id;
-			$scope.last_id = data.last_id
-		}else{
-			console.log(data);
-		}
-	});		
-	if(angular.isDefined(urlParams.order_by)){
-		$scope.order_by = urlParams.order_by;
-	}
-	if(angular.isDefined(urlParams.where)){
-		$scope.where = urlParams.where;	
-	}
-	builder.get('/api/builder/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.cities = data;									
-		}else{
-			$scope.show_prev_btn = false;
-			$scope.show_next_btn = false;
-		}
-	});		
-	$scope.next = function(){
-		if($scope.cities[$scope.cities.length-1].id == $scope.first_id){
-			$scope.show_next_btn = false;
-			$scope.show_prev_btn = true;
-			return;
-		}else{
-			$scope.show_next_btn = true;
-			$scope.show_prev_btn = true;
-		}
-		$scope.where = 'id<'+$scope.cities[$scope.cities.length-1].id;
-		$scope.order_by = 'id DESC';
-		$location.search('where',$scope.where);
-		$location.search('order_by',$scope.order_by);
-		builder.get('/api/builder/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
-				$scope.cities = data;									
-		});		
+
+	getBuilders();
+
+	$scope.next = function(){		
+		if(!angular.equals([], $scope.builder))
+			$location.search({'per_page':$scope.result,'where':'id<'+$scope.builder[$scope.builder.length-1].id});
 	};
 	$scope.prev = function(){
-		if($scope.cities[0].id == $scope.last_id){
-			$scope.show_prev_btn = false;
-			$scope.show_next_btn = true;
-			return;
-		}else{
-			$scope.show_next_btn = true;
-			$scope.show_prev_btn = true;
-		}
-		$scope.where = 'id>'+$scope.cities[0].id;
-		$scope.order_by = 'id ASC';
-		$location.search('where',$scope.where);
-		$location.search('order_by',$scope.order_by);
-		builder.get('/api/builder/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
-					data = $filter('orderBy')(data,'-id');
-					$scope.cities = data;									
-			});
-		};
+		if(!angular.equals([], $scope.builder))
+			$location.search({'per_page':$scope.result,'where':'id>'+$scope.builder[0].id,'order_by':'id ASC'});
+		};		
 	$scope.load = function(result){
-		$scope.result = result;
-		$scope.where = 'id<='+$scope.cities[0].id;
-		$scope.order_by = 'id DESC';
-		$location.search('where',$scope.where);
-		$location.search('order_by',$scope.order_by);
-		builder.get('/api/builder/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
-					if(urlParams.order_by.indexOf('id ASC') > -1) {
-						data = $filter('orderBy')(data,'-id');
-					}
-					$scope.cities = data;									
-			});
-		$location.search('per_page',result);
-	};
-	$scope.$on( 'builder.update', function(event) {
-		builder.get('/api/builder/cities',{limit:$scope.result,where:$scope.where,order_by:$scope.order_by},function(data,status){
-					if(urlParams.order_by.indexOf('id ASC') > -1) {
-						data = $filter('orderBy')(data,'-id');
-					}
-					$scope.cities = data;									
-			});
-	});
-*/
+		if(!angular.equals([], $scope.builder))
+			$location.search({'per_page':$scope.result,'where':'id<='+$scope.builder[0].id});		
+	};		
+
+	$scope.view = function(id){
+		if(id == '') {return;}
+		builder.get({'id':id},function(data,status){
+			if(status == 200 && !angular.equals([],data.data))
+			$scope.builderData = data.data[0];
+			if($scope.builderData.logo_link != '')
+				$scope.builderData.logo_link = angular.fromJson($scope.builderData.logo_link);
+			else{
+				$scope.builderData.logo_link = {'logo':[]};
+				$scope.builderData.logo_link.logo[0] = '//:0';
+			}
+
+			jQuery('#viewBuilder').modal('show');
+		});		
+	}
+
 	$scope.delete = function(obj) {
 		if(!confirm("Delete Specification ?")) {return};
 		builder.delete(obj,function(data,status){
@@ -125,7 +85,7 @@ var builderApp = angular.module('backofficeApp.builder', [
 				alert(data.error);
 			}
 			else{
-$scope.builder.splice($scope.builder.indexOf(obj), 1);
+				getBuilders();
 				}
 		});
 	}

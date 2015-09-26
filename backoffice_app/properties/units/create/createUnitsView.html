@@ -1,0 +1,86 @@
+<form name="addUnitForm">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Unit Name</label>
+				<input type="text" name="name" ng-model="unit.unit_name" class="form-control" placeholder="Unit Name" autofocus  required>
+			</div>			
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Type</label>
+				<select ng-model="unit.unit_type" ng-init="unit.unit_type = '2 BHK'" class="form-control">
+					<option>2 BHK</option>
+					<option>3 BHK</option>
+					<option>4 BHK</option>
+					<option>Studio Apartments</option>
+					<option>Villa</option>
+					<option>Plot</option>
+					<option>Office Space</option>
+					<option>Showrooms or Shops</option>
+					<option>Hotels</option>										
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Price</label>
+						<input type="number" min='0' step="any" ng-model="unit_price_value" class="form-control" placeholder="Unit price" required>	
+					</div>					
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="price_unit_value" ng-init="price_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option value='100000'>Lakhs</option>
+							<option value='10000000'>Crore</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>Unit Area (in square feet)</label>
+				<input type="number" min='0' step="any" ng-model="unit.unit_area" class="form-control" placeholder="Unit area" required>				
+			</div>			
+		</div>
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Price per sqft. area</label>
+						<input type="number" min='0' step="any" ng-model="unit_price_per_area_value" class="form-control" placeholder="Price per sqft." required>				
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="price_per_area_unit_value" ng-init="price_per_area_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option value='100000'>Lakhs</option>
+							<option value='10000000'>Crore</option>
+						</select>
+					</div>					
+				</div>
+			</div>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Unit Details</label>
+				<textarea ng-model="unit.unit_details" ck-editor></textarea>
+			</div>
+		</div>
+	</div>	
+	<div class="form-group">
+		<a href="#/properties/{{unit.p_id}}/units" class="btn btn-warning">Cancel</a>
+		<button class="btn btn-success" ng-click="save(addUnitForm)">Save</button>
+	</div>
+</form>

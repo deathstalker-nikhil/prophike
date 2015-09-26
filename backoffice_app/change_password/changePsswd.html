@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2>Change Password</h2>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-6">
+				<form name="changePasswordForm">
+					<div class="form-group">
+						<label for="oldPassword">Old Password</label>
+						<input type="password" id="oldPassword" ng-model="oldPwd" class="form-control" placeholder="Type old password" autofocus required>
+					</div>
+					<div class="form-group">
+						<label for="newPassword">New Password</label>
+						<input type="password" id="newPassword" ng-model="newPwd" class="form-control" placeholder="Type new password" required>
+					</div>
+					<div class="form-group">
+						<label for="retypeNewPassword">Retype new Password</label>
+						<input type="password" id="retypeNewPassword" ng-model="rNewPwd" class="form-control" placeholder="Retype new password" required>
+					</div>
+					<div class="form-group">
+						<input type="reset" class="btn btn-warning">
+						<button class="btn btn-success" ng-click="save(changePasswordForm)">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+	</div>
+</div>

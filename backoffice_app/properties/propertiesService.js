@@ -18,16 +18,6 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 		});	  	
 	};
 
-	properties.paginationInfo = function(limit,callBack){
-		$http.get('/api/properties/pagination?limit='+limit).
-		success(function(data, status, headers, config) {
-			callBack(data,status);
-		}).
-		error(function(data, status, headers, config) {
-			callBack(data,status);
-		});	
-	}
-
 	properties.save = function(property,callBack){
 		var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_cookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		var data = $httpParamSerializerJQLike({property,
@@ -50,7 +40,7 @@ propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQ
 			var data = $httpParamSerializerJQLike({property,
 				'csrf_token':csrf_token
 			});
-			$http.put('/api/properties/projects/'+property.id,
+			$http.put('/api/properties/projects/'+property.project_id,
 				data,
 				{headers:{'Content-Type': 'application/x-www-form-urlencoded'}
 			}).

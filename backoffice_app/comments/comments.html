@@ -1,10 +1,10 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h2>Comments</h2>
+		<h2>Comments <small>(Total : {{tableData.total}})</small></h2>
 	</div>
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-sm-5">
+			<div class="col-sm-3">
 				<form class="form-inline">
 					<div class="form-group">
 						<label for="search">Search : </label>
@@ -12,7 +12,7 @@
 					</div>			
 				</form>				
 			</div>
-			<div class="col-sm-5">
+			<div class="col-sm-3">
 				<form class="form-inline">
 					<div class="form-group">
 						<label>Results per page</label>
@@ -22,28 +22,42 @@
 					</div>			
 				</form>
 			</div>
-			<div class="col-sm-2">
-				<a href="#/properties/add" class="btn btn-info">Add</a>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<div class="checkbox">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="uncheckedComments" ng-click="getFilteredComments()"> Get Unchecked Comments</label>
+					</div>
+				</div>
 			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<div class="checkbox">
+					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="checkedComments" ng-click="getFilteredComments()"> Get Checked Comments</label>
+					</div>
+				</div>
+			</div>			
 		</div>
-		<div class="dataTable_wrapper">
-			<table class="table table-striped table-bordered">
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th>Property</th>
-						<th>Comment</th>
-						<th>Posted By</th>
+						<th>User Name</th>
+						<th>Project Name</th>
 						<th>View</th>
+						<th>Show/Hide</th>
 						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="gradeX" ng-repeat="(key, value) in comments | filter:search">
-						<td>{{value.name}}</td>
-						<td>{{value.comment}}</td>
-						<td>{{value.name}}</td>
-						<td>{{value.comment}}</td>
-						<td>{{value.comment}}</td>
+						<td>{{value.user_name}}</td>
+						<td>{{value.project_name}}</td>
+						<td><a href="javascript:" class="btn btn-info" title="View" ng-click="view(value.id)"><span class="glyphicon glyphicon-list-alt"></span></a></td>
+						<td style="vertical-align: middle;">
+							  <input id="toggleComment{{key}}" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="comments[key].is_approved" ng-checked="comments[key].is_approved==1?true:false" ng-click="setValue(key)">
+							  <label for="toggleComment{{key}}"></label>
+						</td>
+						<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,4 +69,24 @@
 		  </ul>
 		</nav>		
 	</div>
+</div>
+<div class="modal fade" id="viewComment">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Comment</h3>
+      </div>
+      <div class="modal-body">
+				<p><strong>User Name:</strong> {{comment.user_name}}</p>
+				<p><strong>Project Name:</strong> {{comment.project_name}}</p>
+				<p><strong>User Email:</strong> {{comment.user_email}}</p>
+				<p><strong>User Phone:</strong> {{comment.user_phone}}</p>
+				<p><strong>User Comment:</strong> {{comment.user_comment}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

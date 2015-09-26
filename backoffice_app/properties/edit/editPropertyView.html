@@ -1,0 +1,220 @@
+<h2 class="margin-top-zero">Add a new Property</h2>
+<form name="editProject">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="name">Project Name</label>
+				<input type="text" id="name" class="form-control" required  ng-model="property.name" placeholder="Project Name">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Property Type</label>
+				<select ng-model="property.property_type" class="form-control" required ng-init="property.property_type='Apartments'">
+				 	<optgroup label="Residential">
+						<option>Apartments</option>
+						<option>Studio Apartments</option>
+						<option>Villa</option>
+					<option>Plot</option>
+					<optgroup>
+					<optgroup label="Commercial">
+						<option>Office Space</option>
+						<option>Showrooms or Shops</option>
+						<option>Hotels</option>
+					<optgroup>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label>Minimun price</label>
+						<input type="number" required min='0' step="any" placeholder="Minimum price" class="form-control" ng-model="min_price_value" step='any'>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="min_price_unit_value" ng-init="min_price_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option value='100000'>Lakhs</option>
+							<option value='10000000'>Crore</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label>Maximun price</label>
+						<input type="number" required min='0' step="any" placeholder="Maximun price" class="form-control" ng-model="max_price_value" step='any'>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Unit</label>
+						<select class="form-control" ng-model="max_price_unit_value" ng-init="max_price_unit_value = '1000'">
+							<option value='1000'>Thousand</option>
+							<option value='100000'>Lakhs</option>
+							<option value='10000000'>Crore</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="city">City</label>
+				<select id="city" ng-model="property.city" class="form-control" ng-change="changeArea()">
+					<option ng-repeat="(key, value) in cities">{{value.city}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="area">City area</label>
+				<select id="area" ng-model="property.area" class="form-control">
+					<option ng-repeat="area in areas track by $index">{{area}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Builder</label>
+				<select ng-model="property.builder_id" class="form-control">
+					<option ng-repeat="x in builders" value="{{x.id}}">{{x.builder_name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="possession">Possession</label>
+				<select class="form-control" required ng-init="property.possession='0'" ng-model="property.possession" id="possession">
+					<option value="0">Ready to move in</option>
+					<option value="3">0 to 6 months</option>
+					<option value="9">6 to 12 months</option>
+					<option value="18">1 to 2 years</option>
+					<option value="36">Greater than 2 years</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label> Location/Address </label>
+				<input type="address" class="form-control" ng-model="property.address" placeholder="Address of property" required>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<label>Pdf Link</label>
+			<input type="url" class="form-control" ng-model="property.pdf_link" placeholder="Project PDF (optional)">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label>Slug value ( Must be unique )</label>
+						<input type="text" class="form-control" required ng-model="property.slug" placeholder="Enter slug value for URL">
+					</div>
+				</div>			
+				<div class="col-sm-4">
+					<div class="form-group">
+						 <div class="checkbox">
+						    <label>
+						      <input type="checkbox" ng-model="property.is_hot_project" ng-checked="property.is_hot_project='1'" ng-true-value="1" ng-false-value="0"> Hot Project
+						    </label>
+						  </div>
+					</div>	
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						 <div class="checkbox">
+						    <label>
+						      <input type="checkbox" ng-model="property.is_project_of_the_day" ng-checked="property.is_project_of_the_day='1'" ng-true-value="1" ng-false-value="0"> Project of the day
+						    </label>
+						  </div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						 <div class="checkbox">
+						    <label>
+						      <input type="checkbox" ng-model="property.is_best_investment_project" ng-checked="property.is_best_investment_project='1'" ng-true-value="1" ng-false-value="0"> Best Investment Project
+						    </label>
+						  </div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label>Google maps embed code</label>
+						<textarea ng-model="property.data.google_map_code" class="form-control" placeholder="Embed code" rows="5"></textarea>
+					</div>
+				</div>			
+			</div>			
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Specifications</label>
+				<div style="height:255px;overflow-y:scroll;border:1px solid #ccc;padding:5px 15px">
+				 <div class="checkbox" ng-repeat="(key,value) in specifications">
+				    <label>
+				      <input type="checkbox" ng-model="specifications[key].is_checked" ng-true-value="1" ng-false-value="0">{{value.name}}
+				    </label>
+				  </div>					
+				</div>
+			</div>			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Overview</label>
+				<textarea ng-model="property.data.overview" ck-editor></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Features</label>
+				<textarea ng-model="property.data.features" ck-editor></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Price List</label>
+				<textarea ng-model="property.data.price_list" ck-editor></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Payment Plan</label>
+				<textarea ng-model="property.data.payment_plan" ck-editor></textarea>
+			</div>
+		</div>
+	</div>			
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<a href="#/properties" class="btn btn-warning">Cancel</a>
+				<button class="btn btn-success" ng-click="update(editProject)">Update</button>
+			</div>
+		</div>	
+	</div>	
+</form>

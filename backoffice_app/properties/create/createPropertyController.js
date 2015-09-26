@@ -9,8 +9,9 @@ angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_up
   });
 }])
 
-.controller('createPropertyCtrl', ['$scope','locations','properties','$filter','builder','uploadedFilesService',function($scope,locations,properties,$filter,builder,uploadedFilesService) {
-	locations.get({limit:10	},function(data,status){
+.controller('createPropertyCtrl', ['$scope','locations','properties','$filter','builder','specifications',function($scope,locations,properties,$filter,builder,specifications) {
+	$scope.app.state = 'properties';
+	locations.get({limit:1000	},function(data,status){
 		if(!angular.equals([],data)){
 			$scope.cities = data;
 			$scope.areas = $scope.cities[0].areas;
@@ -18,10 +19,13 @@ angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_up
 			$scope.property.area = $scope.cities[0].areas[0];	
 		}
 	});
-	console.log(uploadedFilesService.get('property'));
-	$scope.$on( 'upload.property.update', function( event ) {
-	  console.log(uploadedFilesService.get('property'));
-	});
+	
+	specifications.get({limit:1000,'fields':'id,name'},function(data,status){
+		if(!angular.equals([],data)){
+			$scope.specifications = data;
+		}
+	});	
+
 	builder.get({limit:100},function(data,status){
 		if(!angular.equals([],data)){
 			$scope.builders = data;
@@ -36,6 +40,12 @@ angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_up
 		if(form.$valid && form.$dirty){
 			var property = {};
 			property  = $scope.property;
+			property.data.specifications = [];
+			angular.forEach($scope.specifications, function(value, key){
+				if(angular.isDefined(value.is_checked) && value.is_checked != 0) {
+					property.data.specifications.push(value.id);
+				}
+			});
 			property.min_price = parseFloat($scope.min_price_value) * parseInt($scope.min_price_unit_value);
 			property.max_price = parseFloat($scope.max_price_value) * parseInt($scope.max_price_unit_value);
 			properties.save(property,function(data,status){
