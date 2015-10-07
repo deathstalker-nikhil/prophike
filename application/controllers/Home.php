@@ -22,4 +22,9 @@ class Home extends CI_Controller {
 	{
 		$this->load->view('property');
 	}
+
+	public function about_us()
+	{
+		$this->load->view('about_us');
+	}
 }
