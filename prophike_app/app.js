@@ -1,24 +1,19 @@
 angular.module('prophikeApp', [
-  'ui.router'
+  'ui.router',
+  'prophikeApp.home',
+  'prophikeApp.search',
 ])
 
 .run(['$rootScope','$state','$stateParams',function ($rootScope,$state,$stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     }
-  ])
+])
 
-.config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouterProvider) {
+.config(['$stateProvider','$urlRouterProvider','$locationProvider',function ($stateProvider,$urlRouterProvider,$locationProvider) {
       $urlRouterProvider
         .otherwise('/');
 
-      $stateProvider
-        .state("home", {
-          url: "/",
-          template: '<p class="lead">Welcome to the UI-Router Demo</p>' +
-            '<p>Use the menu above to navigate. ' +
-            'Pay attention to the <code>$state</code> and <code>$stateParams</code> values below.</p>'
-        })
+      $locationProvider.html5Mode(true);   
     }
-  ]
-);
+])
