@@ -34,6 +34,17 @@ class Home extends CI_Controller {
 		$this->load->view('search');
 	}	
 
+	public function disclaimer()
+	{
+		$this->load->view('disclaimer');
+	}	
+
+	public function privacy_policy()
+	{
+		$this->load->view('privacy_policy');
+	}	
+
+
 	public function property()
 	{
 		$this->load->view('property');

@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = "backoffice";
 $route['property'] = "home/property";
 $route['search'] = "home/search";
+$route['disclaimer'] = "home/disclaimer";
 $route['about_us'] = "home/about_us";
+$route['privacy_policy'] = "home/privacy_policy";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
