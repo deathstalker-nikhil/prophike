@@ -17,7 +17,14 @@
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/assets/css/owl.carousel.css">    
+  <link rel="stylesheet" href="/assets/css/owl.carousel.css">
+  <link href="/assets/css/main.css" rel="stylesheet">
+  <link rel="stylesheet"  href="/assets/css/lightGallery.css"/>    
+  <link rel="shortcut icon" href="/assets/images/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/assets/images/ico/apple-touch-icon-57-precomposed.png">  
   <link rel="stylesheet" href="/prophike_app/app.css">
   <script src="/assets/js/angular.min.js"></script>
   <base href="/">
@@ -40,8 +47,16 @@
   <!-- Custom Theme JavaScript -->
   <script src="/assets/js/agency.js"></script>
   <script src="/assets/js/owl.carousel.js"></script>
+  <script type="text/javascript" src="/assets/js/stickyfloat.js"></script>
+  <script src="/assets/js/lightGallery.js"></script>
+  <script src="/assets/js/jquery.scrollUp.min.js"></script>
+  <script src="/assets/js/price-range.js"></script>
+  <script src="/assets/js/jquery.prettyPhoto.js"></script>
+  <script src="/assets/js/main.js"></script>  
   <script src="/prophike_app/app.js"></script>
+  <script src="/prophike_app/common_components/contact_directive/contactDirective.js"></script>
   <script src="/prophike_app/home/homeController.js"></script>
   <script src="/prophike_app/search/searchController.js"></script>
+  <script src="/prophike_app/property/propertyController.js"></script>
 </body>
 </html>

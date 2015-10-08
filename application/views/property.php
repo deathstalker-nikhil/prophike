@@ -122,7 +122,6 @@ color: #666;
 <script type="text/javascript">
 $( document ).ready(function() {
 	$('#contact-wrapper').stickyfloat({ duration: 400, cssTransition: true, offsetY:100}); //stickyfloat contact form
-
 	$("#contact-btn").click(function() { //smoothly slide open/close form
 		var floatbox = $("#floating-contact-wrap");
 		if (floatbox.hasClass('visiable')){

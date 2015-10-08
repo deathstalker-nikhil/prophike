@@ -1,0 +1,25 @@
+<div id="contact-wrapper">
+    <div class="floating-contact-inner" id="floating-contact-wrap">
+        <div id="contact-btn">&nbsp;</div>
+        <div id="result"></div>
+        <form action="" method="post" id="floating-contact" >
+            <label>
+                <span>Name</span>
+                <input id="name" type="text" name="name" placeholder="Your Full Name"  required />
+            </label>
+            <label>
+                <span>Email</span>
+                <input id="email" type="email" name="email" placeholder="Valid Email Address"  email required />
+            </label>
+            <label>
+                <span>Query</span>
+                <textarea id="message" name="message" placeholder="Your Query for Us" required></textarea>
+            </label> 
+            <label>
+                <span>&nbsp;</span> 
+                <input type="button" class="button" value="Send" />
+                <img id="ajax-loading-image" style="display:none" src="/assets/imge/ajax-loader.gif" border="0" />
+            </label>    
+        </form>
+    </div>
+</div>
