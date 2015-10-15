@@ -1,4 +1,4 @@
-propertiesApp.factory('units',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+angular.module('unitsService', []).factory('units',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var units = {};
 

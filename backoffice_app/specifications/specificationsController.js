@@ -1,5 +1,5 @@
 'use strict';
-var specificationsApp = angular.module('backofficeApp.specifications', [
+angular.module('backofficeApp.specifications', [
 	'ngRoute',
 	'backofficeApp.specification.create',
 	'backofficeApp.specification.media'

@@ -215,9 +215,6 @@
   font-style: italic;
   text-decoration: underline;
 }
-    </style>
-
-    <style type="text/css">
       #owl-demo .item{
  
   padding: 30px 0px;
@@ -264,7 +261,8 @@ section#contact{
   padding:150px 0;
 }
 .item{
-  padding-left:0;
+  padding:5px;
+  height:200px;
 }
 .pagination-area{
   margin-bottom: 0;
@@ -469,4 +467,27 @@ ul{
 }
 #slider{
   margin:3% 0;
+}
+div.horizontal{
+  display: flex;
+  height: 95%;
+}
+div.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: inherit;
+}
+.img-responsive{
+  max-height:100%;
+}
+
+.product-image-wrapper{
+  margin-bottom: 0;
+}
+.features_items{
+  margin-bottom: 25px;
+}
+.blog-post-area .single-blog-post h3{
+  margin-top:0;
 }

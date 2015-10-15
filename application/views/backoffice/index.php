@@ -59,7 +59,7 @@
   <script src="/assets/js/angular-sanitize.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/assets/backoffice/js/bootstrap.min.js"></script>
-  <script src="/assets/js/ckeditor/ckeditor.js" async></script>
+  <script src="/assets/js/ckeditor/ckeditor.js"></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadController.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadService.js"></script>

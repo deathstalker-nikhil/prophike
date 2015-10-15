@@ -4,6 +4,12 @@ angular.module('prophikeApp', [
   'prophikeApp.search',
   'prophikeApp.property',
   'contactDirective',
+  'builderService',
+  'commentsService',
+  'locationsService',
+  'propertiesService',
+  'specificationsService',
+  'unitsService',
 ])
 
 .run(['$rootScope','$state','$stateParams',function ($rootScope,$state,$stateParams) {
@@ -30,8 +36,10 @@ angular.module('prophikeApp', [
         .state('privacyPolicy',{
           url: "/privacy_policy",
           templateUrl: '/prophike_app/privacy_policy/privacyPolicyView.html'
-        })        
-
+        })
+        
       $locationProvider.html5Mode(true);   
     }
-])
+]);
+
+

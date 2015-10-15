@@ -1,4 +1,4 @@
-propertiesApp.factory('properties',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+angular.module('propertiesService', []).factory('properties',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var properties = {};
 

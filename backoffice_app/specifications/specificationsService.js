@@ -1,4 +1,4 @@
-specificationsApp.factory('specifications',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+angular.module('specificationsService', []).factory('specifications',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var specifications = {};
 

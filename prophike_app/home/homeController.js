@@ -22,31 +22,55 @@ angular.module('prophikeApp.home', [
   ]
 )
 
-.controller('homeController', ['$scope', function ($scope) {
-    var owl1 = $("#owl-demo1");
-    owl1.owlCarousel({
-        items : 4, //10 items above 1000px browser width
-        itemsDesktop : [1000,5], //5 items between 1000px and 901px
-        itemsDesktopSmall : [900,3], // betweem 900px and 601px
-        itemsTablet: [600,2], //2 items between 600 and 0
-        itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+.controller('homeController', ['$scope','$state','locations','properties', function ($scope,$state,locations,properties) {
+  $scope.basicSearch = {};
+  $scope.advancedSearch = {};
+  properties.get({'where':'is_hot_project=1','fields':'is_hot_project,media,id,name,slug','limit':8},function(data,status){
+    if(!angular.equals([],data.data)){         
+      $scope.hotProperties = data.data;
+    }       
+    angular.forEach($scope.hotProperties, function(value, key){
+      if(value.media != '')
+        $scope.hotProperties[key].media = angular.fromJson(value.media);
     });
+    var owl3 = $("#owl-demo3");
+    setTimeout(function(){
+        owl3.owlCarousel({
+            items : 4, //10 items above 1000px browser width
+            itemsDesktop : [1000,5], //5 items between 1000px and 901px
+            itemsDesktopSmall : [900,3], // betweem 900px and 601px
+            itemsTablet: [600,2], //2 items between 600 and 0
+            itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+        });
+    },1000);    
 
     // Custom Navigation Events
-    $(".next1").click(function(){
-      owl1.trigger('owl.next');
+    $(".next3").click(function(){
+      owl3.trigger('owl.next');
     })
-    $(".prev1").click(function(){
-      owl1.trigger('owl.prev');
-    })
-    var owl2 = $("#owl-demo2");
-    owl2.owlCarousel({
-        items : 4, //10 items above 1000px browser width
-        itemsDesktop : [1000,5], //5 items between 1000px and 901px
-        itemsDesktopSmall : [900,3], // betweem 900px and 601px
-        itemsTablet: [600,2], //2 items between 600 and 0
-        itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+    $(".prev3").click(function(){
+      owl3.trigger('owl.prev');
+    }) 
+  });
+
+  properties.get({'where':'is_best_investment_project=1','fields':'is_best_investment_project,media,id,name,slug','limit':8},function(data,status){
+    if(!angular.equals([],data.data)){         
+      $scope.BIProperties = data.data;
+    }       
+    angular.forEach($scope.BIProperties, function(value, key){
+      if(value.media != '')
+        $scope.BIProperties[key].media = angular.fromJson(value.media);
     });
+    var owl2 = $("#owl-demo2");
+    setTimeout(function(){
+      owl2.owlCarousel({
+          items : 4, //10 items above 1000px browser width
+          itemsDesktop : [1000,5], //5 items between 1000px and 901px
+          itemsDesktopSmall : [900,3], // betweem 900px and 601px
+          itemsTablet: [600,2], //2 items between 600 and 0
+          itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+      });
+    },1000);    
 
     // Custom Navigation Events
     $(".next2").click(function(){
@@ -55,20 +79,70 @@ angular.module('prophikeApp.home', [
     $(".prev2").click(function(){
       owl2.trigger('owl.prev');
     })
-    var owl3 = $("#owl-demo3");
-    owl3.owlCarousel({
-        items : 4, //10 items above 1000px browser width
-        itemsDesktop : [1000,5], //5 items between 1000px and 901px
-        itemsDesktopSmall : [900,3], // betweem 900px and 601px
-        itemsTablet: [600,2], //2 items between 600 and 0
-        itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+  });
+
+  properties.get({'fields':'media,id,name,slug','limit':8},function(data,status){
+    if(!angular.equals([],data.data)){         
+      $scope.newProperties = data.data;
+    }       
+    angular.forEach($scope.newProperties, function(value, key){
+      if(value.media != '')
+        $scope.newProperties[key].media = angular.fromJson(value.media);
     });
-   
+    var owl1 = $("#owl-demo1");
+    setTimeout(function(){
+      owl1.owlCarousel({
+          items : 4, //10 items above 1000px browser width
+          itemsDesktop : [1000,5], //5 items between 1000px and 901px
+          itemsDesktopSmall : [900,3], // betweem 900px and 601px
+          itemsTablet: [600,2], //2 items between 600 and 0
+          itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+      });
+    },1000);    
+
     // Custom Navigation Events
-    $(".next3").click(function(){
-      owl3.trigger('owl.next');
+    $(".next1").click(function(){
+      owl1.trigger('owl.next');
     })
-    $(".prev3").click(function(){
-      owl3.trigger('owl.prev');
-    })          
+    $(".prev1").click(function(){
+      owl1.trigger('owl.prev');
+    })
+  });
+
+  locations.get({limit:10000,'fields':'id,city'},function(data,status){
+    if(!angular.equals([], data.data)){
+      $scope.cities = data.data;
+      $scope.basicSearch.city = $scope.cities[0].city;
+      $scope.advancedSearch.city = $scope.cities[0].city;
+    } 
+  });  
+
+  $scope.priceRanges = [{'id':1,'text':'Less than 20 Lakhs','min_val':0,'max_val':2000000},
+                       {'id':2,'text':'Between 20 to 40 Lakhs','min_val':2000000,'max_val':4000000},
+                       {'id':3,'text':'Between 40 to 60 Lakhs','min_val':4000000,'max_val':6000000},
+                       {'id':4,'text':'Between 60 to 80 Lakhs','min_val':6000000,'max_val':8000000},
+                       {'id':5,'text':'Between 80 Lakhs to 1 Crore','min_val':8000000,'max_val':10000000},
+                       {'id':6,'text':'More than 1 Crore','min_val':10000000,'max_val':10000000000}];
+
+  $scope.unitTypes = [{'text':'2 BHK'},
+                      {'text':'3 BHK'},
+                      {'text':'4 BHK'},
+                      {'text':'Studio Apartments'},
+                      {'text':'Villa'},
+                      {'text':'Plot'},
+                      {'text':'Office Space'},
+                      {'text':'Showrooms or Shops'},
+                      {'text':'Hotels'}];
+         
+  $scope.BSearch = function(form){
+    if(form.$valid){
+      $state.go('search',{'where':'city in ('+$scope.basicSearch.city+')','query':$scope.basicSearch.query});
+    }
+  }
+
+  $scope.ASearch = function(form){
+    if(form.$valid){
+      $state.go('search',{'where':'city in ('+$scope.advancedSearch.city+') and min_price between '+$scope.priceRanges[$scope.advancedSearch.price].min_val+' and '+$scope.priceRanges[$scope.advancedSearch.price].max_val,'query':$scope.advancedSearch.query,'units':$scope.advancedSearch.unit_type,'selectedPriceIds':$scope.priceRanges[$scope.advancedSearch.price].id});
+    }
+  }
 }])

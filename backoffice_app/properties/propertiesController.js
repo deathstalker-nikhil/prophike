@@ -1,6 +1,6 @@
 'use strict';
 
-var propertiesApp = angular.module('backofficeApp.properties', [
+angular.module('backofficeApp.properties', [
 		'ngRoute',
 		'backofficeApp.properties.view',
 		'backofficeApp.properties.create',

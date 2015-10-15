@@ -58,5 +58,11 @@
   <script src="/prophike_app/home/homeController.js"></script>
   <script src="/prophike_app/search/searchController.js"></script>
   <script src="/prophike_app/property/propertyController.js"></script>
+  <script src="/backoffice_app/locations/locationsService.js"></script>
+  <script src="/backoffice_app/builder/builderService.js"></script>
+  <script src="/backoffice_app/specifications/specificationsService.js"></script>
+  <script src="/backoffice_app/properties/propertiesService.js"></script>
+  <script src="/backoffice_app/properties/units/unitsService.js"></script>
+  <script src="/backoffice_app/comments/commentsService.js"></script>
 </body>
 </html>

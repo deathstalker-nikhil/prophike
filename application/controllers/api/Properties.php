@@ -20,6 +20,7 @@ class Properties extends REST_Controller {
 		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page'):25);
 		$where = ($this->get('where')? $this->get('where') : '');
 		$units = ($this->get('units')? $this->get('units') : '');
+		$query = ($this->get('query')? $this->get('query') : '');
 		$getFor = ($this->get('get_for')?$this->get('get_for'):'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
@@ -36,7 +37,7 @@ class Properties extends REST_Controller {
 				$this->response($data,REST_Controller::HTTP_OK);
 			}
 		}else{
-			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units), REST_Controller::HTTP_OK);
+			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units,$query), REST_Controller::HTTP_OK);
 		}
 	}
 

@@ -10,7 +10,13 @@ var backofficeApp = angular.module('backofficeApp', [
   'backofficeApp.comments',
   'backofficeApp.builder',
   'backofficeApp.specifications',
-  'backofficeApp.changePassword'
+  'backofficeApp.changePassword',
+  'builderService',
+  'commentsService',
+  'locationsService',
+  'propertiesService',
+  'specificationsService',
+  'unitsService'
 ]).
 
 config(['$routeProvider', function($routeProvider) {

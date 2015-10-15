@@ -30,7 +30,7 @@ class Properties_model extends CI_Model {
 		}
 	}
 
-	public function get($id = '',$limit = 10,$fields,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '')
+	public function get($id = '',$limit = 10,$fields,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='')
 	{
 		$this->db->db_debug = false;
 		if ($id != '')
@@ -64,6 +64,12 @@ class Properties_model extends CI_Model {
 					$where .= ' AND projects.project_id in (SELECT DISTINCT `p_id` FROM `units` WHERE `unit_type` IN ('.$x.'))';	
 				}
 			}
+			if($query != ''){
+				if($where != '')
+					$where .= ' AND (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' ) ';
+				else
+					$where .= ' (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' ) '; 
+			}
 			if($where != '')
 				$x = $where.' and '.$getFor;
 			else
@@ -71,7 +77,7 @@ class Properties_model extends CI_Model {
 			$this->db->where($x);
 			$this->db->order_by($orderBy);
 			$this->db->join('builders', 'builders.id = projects.builder_id');
-			$query = $this->db->get('projects', $limit);	
+			$query = $this->db->get('projects', $limit);
 		} 
 		$first_id = 0;
 		$last_id =0;
@@ -85,7 +91,7 @@ class Properties_model extends CI_Model {
 		$this->db->order_by('project_id DESC');
 		if($where != '')
 			$this->db->where($where);
-		$query4 = $this->db->get('projects',1);	
+		$query4 = $this->db->get('projects',1);
 		$this->db->db_debug = true;
 		$error = $this->db->error();
 		if ($error['code'] == 0){
@@ -131,5 +137,4 @@ class Properties_model extends CI_Model {
 			return ['error'=>true,'msg'=>$error['message']];
 		}	
 	}
-
 }

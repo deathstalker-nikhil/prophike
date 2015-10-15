@@ -1,4 +1,4 @@
-locationsApp.factory('locations',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+angular.module('locationsService', []).factory('locations',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var locations = {};
 

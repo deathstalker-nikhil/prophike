@@ -1,6 +1,6 @@
 'use strict';
 
-var commentsApp = angular.module('backofficeApp.comments', [
+angular.module('backofficeApp.comments', [
 	'ngRoute',
 	])
 

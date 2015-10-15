@@ -1,6 +1,6 @@
 'use strict';
 
-var locationsApp = angular.module('backofficeApp.locations', [
+angular.module('backofficeApp.locations', [
 	'ngRoute',
 	'backofficeApp.locations.create',
 	'backofficeApp.locations.edit'

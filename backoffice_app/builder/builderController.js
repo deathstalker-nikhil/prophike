@@ -1,6 +1,6 @@
 'use strict';
 
-var builderApp = angular.module('backofficeApp.builder', [
+angular.module('backofficeApp.builder', [
 	'ngRoute',
 	'backofficeApp.builder.create',
 	'backofficeApp.builder.edit',

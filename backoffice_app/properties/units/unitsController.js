@@ -1,6 +1,6 @@
 'use strict';
 
-var propertiesApp = angular.module('backofficeApp.properties.units', [
+angular.module('backofficeApp.properties.units', [
 		'ngRoute',
 		'ngSanitize',
 		'backofficeApp.properties.units.create',

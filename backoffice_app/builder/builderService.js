@@ -1,4 +1,4 @@
-builderApp.factory('builder',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
+angular.module('builderService', []).factory('builder',['$http','$rootScope','$httpParamSerializerJQLike','$filter',function($http,$rootScope,$httpParamSerializerJQLike,$filter) {
 
 	var builder = {};
 

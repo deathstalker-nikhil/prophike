@@ -1,61 +1,67 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-				<div class="blog-post-area">							
-					<div class="single-blog-post">								
-						<h3>Showing results for <b>the given query entered by user</b></h3>
-					</div>
+			<div class="blog-post-area">							
+				<div class="single-blog-post">								
+					<h3>Showing results for <b>the given query entered by user</b></h3>
 				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <section>
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-3">
-						<div class="left-sidebar">
-							<h2>FILTER BY</h2>
-							<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-												<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-												Bedrooms
-											</a>
-										</h4>
-									</div>
-									<div id="sportswear">
-										<div class="panel-body">
-											<ul>
-												<li><input type="checkbox">&nbsp;1 BHK</li>
-												<li><input type="checkbox">&nbsp;2 BHK</li>
-												<li><input type="checkbox">&nbsp;3 BHK</li>
-												<li><input type="checkbox">&nbsp;4 BHK</li>
-												<li><input type="checkbox">&nbsp;5 BHK</li>
-												<li><input type="checkbox">&nbsp;&gt;5 BHK</li>
-											</ul>
-										</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="left-sidebar">
+					<h2>FILTER BY</h2>
+					<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+										City
+									</a>
+								</h4>
+							</div>
+							<div id="sportswear">
+								<div class="panel-body">
+									<div class="checkbox" ng-repeat="(key, value) in cities">
+										<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cities[key].is_checked" ng-click="getByCity()"> {{value.city}}</label>
 									</div>
 								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-												<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-												Builder
-											</a>
-										</h4>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+										Type
+									</a>
+								</h4>
+							</div>
+							<div id="sportswear">
+								<div class="panel-body">
+									<div class="checkbox" ng-repeat="(key, value) in unitTypes">
+										<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="unitTypes[key].is_checked" ng-click="getByUnit()"> {{value.text}}</label>
 									</div>
-									<div id="mens">
-										<div class="panel-body">
-											<ul>
-												<li><input type="checkbox">&nbsp;Amrapali</li>
-												<li><input type="checkbox">&nbsp;Gaur</li>
-												<li><input type="checkbox">&nbsp;Shipra</li>
-												<li><input type="checkbox">&nbsp;Saya</li>
-												<li><input type="checkbox">&nbsp;Jaypee</li>
-											</ul>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Builder
+										</a>
+									</h4>
+								</div>
+								<div id="mens">
+									<div class="panel-body">
+										<div class="checkbox" ng-repeat="(key, value) in builders">
+											<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="builders[key].is_checked" ng-click="getByBuilder()"> {{value.builder_name}}</label>
 										</div>
 									</div>
 								</div>
@@ -70,114 +76,76 @@
 									</div>
 									<div id="mens">
 										<div class="panel-body">
-											<ul>
-												<li><input type="checkbox">&nbsp;Within 6 Months</li>
-												<li><input type="checkbox">&nbsp;Within 1 Year</li>
-												<li><input type="checkbox">&nbsp;Within 2 Years</li>
-												<li><input type="checkbox">&nbsp;More than 2 Years</li>
-											</ul>
+											<div class="checkbox" ng-repeat="(key, value) in possessions">
+												<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="possessions[key].is_checked" ng-click="getByPossession()"> {{value.text}}</label>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div><!--/category-products-->
-						</div>
-					</div>
-					<div class="col-sm-9 padding-right">
-	<h2 class="title text-center">PROJECTS</h2>
-							
-						<div class="features_items"><!--features_items-->
-							
-							<div class="col-sm-4">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/assets/images/home/PropHike.png" alt="" />
-												<h2>Amrapali Greens</h2>
-											</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+												<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+												Price
+											</a>
+										</h4>
+									</div>
+									<div id="mens">
+										<div class="panel-body">
+											<div class="checkbox" ng-repeat="(key, value) in priceRanges">
+											  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="priceRanges[key].is_checked" ng-click="getByPrice()"> {{value.text}}</label>
+											</div>	
+										</div>
 									</div>
 								</div>
 							</div>
-							
-
-	<div class="col-sm-8">
-		
-	<div class="blog-post-area">
-							
-							<div class="single-blog-post">
-								<h3 style="padding-left: 0">Amrapali Greens, Sector-10, Noida</h3>
-								<div class="row">									
-									<div class="col-sm-6">
-									<p><strong>Project Name:</strong> Apdi Pode Pode</p>
-									</div>
-									<div class="col-sm-6">
-									<p><strong>Type:</strong> Residential</p>
-									</div>
-								</div>
-								<p><strong>Price Range:</strong> 20 Lakhs-80 Lakhs</p>
-								<p><strong>Location:</strong> <a>View on Map</a></p>
-								<p><strong>Posession:</strong> In 6 Months</p>
-								<p><strong>Status:</strong> Under Construction</p>
-							</div>
-<a  class="btn btn-primary" href="">View Details</a>							
 						</div>
-
-	</div>                  
-	    
-							
-						</div>
-							
-						<div class="features_items"><!--features_items-->
-							
-							<div class="col-sm-4">
-								<div class="product-image-wrapper">
-									<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/assets/images/home/PropHike.png" alt="" />
-												<h2>Jaypee Utsav</h2>
-											</div>
-									</div>
-								</div>
-							</div>
-							
-
-	<div class="col-sm-8">
-		
-	<div class="blog-post-area">
-							
-							<div class="single-blog-post">
-								<h3 style="padding-left: 0">Jaypee Utsav, Sector-151, Greater Noida</h3>
-								<div class="row">									
-									<div class="col-sm-6">
-									<p><strong>Project Name:</strong> Jhingalala</p>
-									</div>
-									<div class="col-sm-6">
-									<p><strong>Type:</strong> Residential</p>
-									</div>
-								</div>
-								<p><strong>Price Range:</strong> More than 1 Crore</p>
-								<p><strong>Location:</strong> <a>View on Map</a></p>
-								<p><strong>Posession:</strong> More than 2 Years</p>
-								<p><strong>Status:</strong> Under Construction</p>
-							</div>
-<a  class="btn btn-primary" href="">View Details</a>							
-						</div>
-
-	</div>           
-	    
-							
-						</div>
-	          <div class="pagination-area">
-								<ul class="pagination">
-									<li><a href="" class="active">1</a></li>
-									<li><a href="">2</a></li>
-									<li><a href="">3</a></li>
-									<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-								</ul>
-							</div>
-				
-						
-						
 					</div>
 				</div>
 			</div>
-		</section>
+			<div class="col-sm-9 padding-right">
+				<h2 class="title text-center">PROJECTS</h2>
+				<div class="features_items" ng-repeat="(key, value) in properties">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img ng-src="{{value.media.property.thumb[0]}}" alt="" class="img-responsive" />
+										<h2>{{value.name}}</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="blog-post-area">
+								<div class="single-blog-post">
+									<h3 style="padding-left: 0">{{value.name}}, {{value.address}}</h3>
+									<div class="row">									
+										<div class="col-sm-6">
+											<p><strong>Project Name:</strong> {{value.name}}</p>
+										</div>
+										<div class="col-sm-6">
+											<p><strong>Type:</strong> {{value.property_type}}</p>
+										</div>
+									</div>
+									<p><strong>Price Range:</strong> {{value.min_price_value}} {{value.min_price_unit_value}} - {{value.max_price_value}} {{value.max_price_unit_value}}</p>
+									<p><strong>Builder:</strong> {{value.builder_name}}</p>
+									<p><strong>Posession:</strong> {{value.possession_text}}</p>
+								</div>
+								<a  class="btn btn-primary" href="">View Details</a>							
+							</div>
+						</div>         
+					</div>	         
+				</div>
+				<div class="pagination-area">
+					<div class="row">
+						<div class="col-sm-1"><a ng-click="prev()" ng-show="show_prev_btn" class="btn btn-primary">Previous</a></div>
+						<div class="col-sm-1 col-sm-offset-10 text-right"><a ng-show="show_next_btn" ng-click="next()" class="btn btn-primary">Next</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

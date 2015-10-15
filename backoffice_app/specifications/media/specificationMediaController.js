@@ -15,9 +15,9 @@ var propertiesApp = angular.module('backofficeApp.specification.media', [
 	$scope.app.state = 'specifications';
 	var id = $routeParams.id;
 	specifications.get({id:id,'fields':'id,name,icon_path'},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.specification = data[0];
-			if($scope.specification.icon_path)
+		if(!angular.equals([],data.data)){
+			$scope.specification = data.data[0];
+			if(angular.isDefined($scope.specification.icon_path) && $scope.specification.icon_path != '')
 				$scope.specification.icon_path = angular.fromJson($scope.specification.icon_path);
 		}
 	});
