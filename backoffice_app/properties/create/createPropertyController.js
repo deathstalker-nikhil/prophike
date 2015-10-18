@@ -12,8 +12,8 @@ angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_up
 .controller('createPropertyCtrl', ['$scope','locations','properties','$filter','builder','specifications',function($scope,locations,properties,$filter,builder,specifications) {
 	$scope.app.state = 'properties';
 	locations.get({limit:1000	},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.cities = data;
+		if(!angular.equals([],data.data)){
+			$scope.cities = data.data;
 			$scope.areas = $scope.cities[0].areas;
 			$scope.property.city = $scope.cities[0].city;
 			$scope.property.area = $scope.cities[0].areas[0];	
@@ -21,14 +21,14 @@ angular.module('backofficeApp.properties.create', ['ngRoute','backoffice.file_up
 	});
 	
 	specifications.get({limit:1000,'fields':'id,name'},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.specifications = data;
+		if(!angular.equals([],data.data)){
+			$scope.specifications = data.data;
 		}
 	});	
 
 	builder.get({limit:100},function(data,status){
-		if(!angular.equals([],data)){
-			$scope.builders = data;
+		if(!angular.equals([],data.data)){
+			$scope.builders = data.data;
 			$scope.property.builder_id = $scope.builders[0].id;
 		}
 	});

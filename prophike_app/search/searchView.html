@@ -15,17 +15,37 @@
 			<div class="col-sm-3">
 				<div class="left-sidebar">
 					<h2>FILTER BY</h2>
-					<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+					<div class="panel-group category-products" id="accordian">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+									<a href="javascript:">
+										Query
+									</a>
+								</h4>
+							</div>
+							<div>
+								<div class="panel-body">
+									<div class="input-group">
+									  <input type="text" class="form-control" placeholder="Query" style="border-radius: 0" ng-model="query">
+									  <span class="input-group-btn">
+									    <button class="btn btn-primary" ng-click="setQuery()" style="margin:0 0 0 5px" type="button">Go</button>
+									  </span>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" onclick="return false;" href="#cityFilter">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 										City
 									</a>
 								</h4>
 							</div>
-							<div id="sportswear">
+							<div id="cityFilter" class="collapse in">
 								<div class="panel-body">
 									<div class="checkbox" ng-repeat="(key, value) in cities">
 										<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cities[key].is_checked" ng-click="getByCity()"> {{value.city}}</label>
@@ -36,13 +56,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+									<a data-toggle="collapse" onclick="return false;" href="#typeFilter">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 										Type
 									</a>
 								</h4>
 							</div>
-							<div id="sportswear">
+							<div id="typeFilter" class="collapse in">
 								<div class="panel-body">
 									<div class="checkbox" ng-repeat="(key, value) in unitTypes">
 										<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="unitTypes[key].is_checked" ng-click="getByUnit()"> {{value.text}}</label>
@@ -52,14 +72,14 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+										<a data-toggle="collapse" onclick="return false;" href="#builderFilter">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 											Builder
 										</a>
 									</h4>
 								</div>
-								<div id="mens">
-									<div class="panel-body">
+								<div id="builderFilter" class="collapse in">
+									<div class="panel-body" >
 										<div class="checkbox" ng-repeat="(key, value) in builders">
 											<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="builders[key].is_checked" ng-click="getByBuilder()"> {{value.builder_name}}</label>
 										</div>
@@ -68,13 +88,13 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+											<a data-toggle="collapse" onclick="return false;" href="#posessionFilter">
 												<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 												Possession In
 											</a>
 										</h4>
 									</div>
-									<div id="mens">
+									<div id="posessionFilter" class="collapse in">
 										<div class="panel-body">
 											<div class="checkbox" ng-repeat="(key, value) in possessions">
 												<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="possessions[key].is_checked" ng-click="getByPossession()"> {{value.text}}</label>
@@ -85,13 +105,13 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+											<a data-toggle="collapse" onclick="return false;" href="#priceFilter">
 												<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 												Price
 											</a>
 										</h4>
 									</div>
-									<div id="mens">
+									<div id="priceFilter" class="collapse in">
 										<div class="panel-body">
 											<div class="checkbox" ng-repeat="(key, value) in priceRanges">
 											  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="priceRanges[key].is_checked" ng-click="getByPrice()"> {{value.text}}</label>
@@ -134,7 +154,7 @@
 									<p><strong>Builder:</strong> {{value.builder_name}}</p>
 									<p><strong>Posession:</strong> {{value.possession_text}}</p>
 								</div>
-								<a  class="btn btn-primary" href="">View Details</a>							
+								<a  class="btn btn-primary" ui-sref="property({slug:value.slug})">View Details</a>							
 							</div>
 						</div>         
 					</div>	         

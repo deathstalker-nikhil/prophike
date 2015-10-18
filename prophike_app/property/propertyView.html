@@ -8,7 +8,7 @@
                 <div id="slider-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="col-sm-12">
-                            <img src="/assets/images/home/PROP.png" class="girl img-responsive" alt="" />
+                            <img src="{{property.media.property.cover[0]}}" style="margin:auto" class="girl img-responsive" alt="" />
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
         <div class="bg">        
             <div class="row"> 
                 <h2 class="title text-center">OVERVIEW</h2>
-                <p>Overview for the project goes here, overview includes details of the project in brief, Includes details regarding the project, and all other stuff. Thank You.Overview for the project goes here, overview includes details of the project in brief, Includes details regarding the project, and all other stuff. Thank You.Overview for the project goes here, overview includes details of the project in brief, Includes details regarding the project, and all other stuff. Thank You.</p>   
+                <div ng-bind-html="property.data.overview"></div>
             </div>  
         </div>  
     </div>
@@ -34,7 +34,10 @@
         <div class="bg">        
             <div class="row"> 
                 <h2 class="title text-center">UNIT AND PRICE LIST</h2>
-                <p>Unit and price list details goes here, *** this is pending ***</p> 
+                <div class="unitsData">                    
+                    <div ng-bind-html="property.data.price_list" class="priceList"></div>
+                    <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>
+                </div>
             </div>  
         </div>  
     </div>
@@ -45,24 +48,12 @@
         <div class="bg">        
             <div class="row"> 
                 <h2 class="title text-center">SPECIFICATIONS</h2>
-                <div class="col-sm-1">
+                <div class="col-sm-1" ng-repeat="(key,value) in specifications">
                     <div class="productinfo text-center">
-                        <img src="/assets/images/specifications/metro.svg">
-                        <h6>Metro Connectivity</h6>
+                        <img ng-src="{{value.icon_path.logo[0]}}">
+                        <h6>{{value.name}}</h6>
                     </div>
-                </div> 
-                <div class="col-sm-1">
-                    <div class="productinfo text-center">
-                        <img src="/assets/images/specifications/phone.svg">
-                        <h6>Telephonic Services</h6>
-                    </div>
-                </div>          
-                <div class="col-sm-1">
-                    <div class="productinfo text-center">
-                        <img src="/assets/images/specifications/power.svg">
-                        <h6>24 X 7 Electricity</h6>
-                    </div>
-                </div>              
+                </div>             
             </div>  
         </div>  
     </div>
@@ -75,19 +66,22 @@
                 <div class="col-sm-8">
                     <div class="contact-form">
                         <h2 class="title text-center">Google Map</h2>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.7196716390667!2d77.373182559281!3d28.64656098170002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfabbae31843d%3A0xf5857c74104528f7!2sIndirapuram%2C+Ghaziabad%2C+Uttar+Pradesh!5e0!3m2!1sen!2sin!4v1435942698802" width="750" height="370" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <div ng-bind-html="property.data.google_map_code"></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="contact-form">
                         <h2 class="title text-center">ADDRESS</h2>
                         <address>
-                            <p style="text-align: center;"><b>Jaypee Utsav</b></p>
-                            <p style="text-align: center;">935, Sector-62</p>
-                            <p style="text-align: center;">Noida, Uttar Pradhesh</p>
-                            <p style="text-align: center;">India</p>
+                            <p style="text-align: center;"><b>{{property.name}}</b></p>
+                            <p style="text-align: center;">{{property.address}}</p>
                         </address>
                     </div>
+                    <h2 class="title text-center">POSSESSION</h2>
+                    <div class="productinfo text-center">
+                        <img src="/assets/images/home/key.jpg" style="height: 50%; width:50%;">
+                        <h2>{{property.possession_text}}</h2>
+                    </div>                    
                 </div>              
             </div>  
         </div>  
@@ -100,97 +94,31 @@
             <div class="row"> 
                 <h2 class="title text-center">GALLERY</h2>
                 <ul id="light-gallery" class="gallery">
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1">
-                            <a href="#">
-                                <img src="/assets/img/thumb1.jpg" />
-                            </a>
-                        </li>
-                    </div>
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img3.jpg">
-                            <a href="#">
-                                <img src="/assets/img/thumb3.jpg" />
-                            </a>
-                        </li>
-                    </div>          
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img2.jpg" >
-                            <a href="#">
-                                <img src="/assets/img/thumb2.jpg" />
-                            </a>
-                        </li>
-                    </div>   
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1">
-                            <a href="#">
-                                <img src="/assets/img/thumb1.jpg" />
-                            </a>
-                        </li>
-                    </div>
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img3.jpg">
-                            <a href="#">
-                                <img src="/assets/img/thumb3.jpg" />
-                            </a>
-                        </li>
-                    </div>          
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img2.jpg" >
-                            <a href="#">
-                                <img src="/assets/img/thumb2.jpg" />
-                            </a>
-                        </li>
-                    </div>   
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="http://www.youtube.com/embed/XGSy3_Czz8k?autoplay=1">
-                            <a href="#">
-                                <img src="/assets/img/thumb1.jpg" />
-                            </a>
-                        </li>
-                    </div>
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img3.jpg">
-                            <a href="#">
-                                <img src="/assets/img/thumb3.jpg" />
-                            </a>
-                        </li>
-                    </div>          
-                    <div class="col-sm-1" style="margin-right: 8px;">
-                        <li data-src="img2.jpg" >
-                            <a href="#">
-                                <img src="/assets/img/thumb2.jpg" />
-                            </a>
-                        </li>
-                    </div>        
+                    <li data-src="{{value}}" ng-repeat="(key,value) in property.media.property.gallery">
+                        <a href="">
+                            <img class="img-responsive" src="{{value}}" />
+                        </a>
+                    </li>
+                    <li data-src="{{value}}" ng-repeat="(key,value) in property.media.property.const_update">
+                        <a href="">
+                            <img class="img-responsive" src="{{value}}" />
+                        </a>
+                    </li>      
                 </ul>  
             </div>  
         </div>  
     </div>
 </section>
-
 <section>
     <div id="contact-page" class="container">
         <div class="bg">        
             <div class="row">   
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="contact-form">
-                        <h2 class="title text-center">Construction Updates</h2>
-                        <div style="overflow-y: scroll; height:208px;">
-                            <div class="status alert alert-success" style="display: none"></div>
-                            <p><label style="color: #FE980F">12-06-2015</label>&nbsp;Finishing in process</p>
-                            <p><label style="color: #FE980F">07-05-2015</label>&nbsp;Construction Completed</p>
-                            <p><label style="color: #FE980F">17-03-2014</label>&nbsp;Construction Started</p>
-                        </div>
+                        <h2 class="title text-center">Features</h2>
+                        <div ng-bind-html="property.data.features" class="projectFeatures"></div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <h2 class="title text-center">POSSESSION IN</h2>
-                    <div class="productinfo text-center">
-                        <img src="/assets/images/home/key.jpg" style="height: 50%; width:50%;">
-                        <h2>in 6 Months</h2>
-                    </div>
-                </div>              
+                </div>           
             </div>  
         </div>  
     </div>
@@ -204,15 +132,13 @@
                 <div class="col-sm-4">
                     <div class="contact-form">
                         <div class="productinfo text-center">
-                            <img src="/assets/images/home/jaypee.png">
-                            <h2>JAYPEE GROUP</h2>
+                            <img ng-src="{{builder.logo_link.logo[0]}}" class="img-responsive">
+                            <h2>{{builder.builder_name}}</h2>
                         </div>
                     </div>
                 </div>              
                 <div class="col-sm-8">
-                    <p>The Jaypee Group is an conglomerate based in Noida, India. It was founded by Jaiprakash Gaur which is involved in well diversified infrastructure conglomerate with business interests in Engineering & Construction, Power, Cement, Real Estate, Hospitality, Expressways, IT, Sports & Education (not-for-profit).</p>
-                    <p><b>Founder:</b>Jaiprakash Gaur</p>
-                    <p><b>Founded:</b>1979</p>
+                    <p>{{builder.builder_description}}</p>
                     <button class="btn btn-primary pull-right">View all Projects</button>
                 </div>      
             </div>  
@@ -230,30 +156,12 @@
                         <div style="overflow-y: scroll; height:400px;">
                             <div class="status alert alert-success" style="display: none"></div>
                             <p>Be the first person to comment on this...</p>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Hello Guys, its a great property site, alert success, this is a test comment. its a great website to see property.</p>
-                            </blockquote>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Hello Guys, its a great property site, awesome, test comment it is, its a great website to see property.</p>
-                            </blockquote>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Great site to invest, great job, great website, awesome work. its a great website to see property.</p>
-                            </blockquote>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Hello Guys, its a great website to see property. its a great website to see property.</p>
-                            </blockquote>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Hello Guys, its a great property site, alert success, this is a test comment. its a great website to see property.</p>
-                            </blockquote>
-                            <b>Abhay</b> says
-                            <blockquote class="testimonial">
-                                <p>Hello Guys, its a great property site, alert success, this is a test comment. its a great website to see property.</p>
-                            </blockquote>
+                            <div ng-repeat="(key,value) in comments">                                
+                                <b>{{value.user_name}}</b> says
+                                <blockquote class="testimonial">
+                                    <p>{{value.user_comment}}</p>
+                                </blockquote>
+                            </div>
                         </div>
                     </div>
                 </div>

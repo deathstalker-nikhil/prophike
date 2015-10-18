@@ -30,13 +30,16 @@ class Properties_model extends CI_Model {
 		}
 	}
 
-	public function get($id = '',$limit = 10,$fields,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='')
+	public function get($id = '',$limit = 10,$fields,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='',$slug = '')
 	{
 		$this->db->db_debug = false;
-		if ($id != '')
+		if ($id != '' || $slug != '')
 		{
 			$this->db->select($fields);
-			$this->db->where(array('project_id' => $id));
+			if($id != '')
+				$this->db->where(array('project_id' => $id));
+			else if($slug != '')
+				$this->db->where(array('slug'=>$slug));
 			$query = $this->db->get('projects',$limit);
 		}
 		else

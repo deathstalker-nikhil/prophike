@@ -20,8 +20,8 @@ class Comments extends REST_Controller {
 		$where = ($this->get('where')? $this->get('where') : 'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
-		$where = preg_replace('/id/', 'comments.id', $where);
-		$orderBy = preg_replace('/id/', 'comments.id', $orderBy);		
+		$where = preg_replace('/(?<!project_)(id)/', 'comments.id', $where);
+		$orderBy = preg_replace('/(?<!project_)(id)/', 'comments.id', $orderBy);		
 		if(intval($id = $this->get('id')))
 		{
 			$data = $this->comments->get($id,1,$fields);

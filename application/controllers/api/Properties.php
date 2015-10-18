@@ -24,6 +24,7 @@ class Properties extends REST_Controller {
 		$getFor = ($this->get('get_for')?$this->get('get_for'):'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
+		$slug =($this->get('slug'))?$this->get('slug'):'';
 		$where = str_replace (array('possession'),$this->tableFields,$where);
 		$where = preg_replace('/(min_price.+and [0-9,]+)/', '($1)', $where);
 		$getFor = preg_replace('/id/', 'projects.project_id', $getFor);
@@ -37,7 +38,7 @@ class Properties extends REST_Controller {
 				$this->response($data,REST_Controller::HTTP_OK);
 			}
 		}else{
-			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units,$query), REST_Controller::HTTP_OK);
+			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units,$query,$slug), REST_Controller::HTTP_OK);
 		}
 	}
 

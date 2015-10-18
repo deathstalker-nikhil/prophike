@@ -40,6 +40,7 @@
   <div ui-view></div>
   <div ng-include="'/prophike_app/common_components/footer.html'"></div>
   <script src="/assets/js/angular-ui-router.min.js"></script>
+  <script src="/assets/js/angular-sanitize.min.js"></script>
   <script src="/assets/backoffice/js/jquery.js"></script>
   <script src="/assets/backoffice/js/bootstrap.min.js"></script>
   <!-- Plugin JavaScript -->

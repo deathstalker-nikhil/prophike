@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-lg-12">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#basic" style="padding: 20px;">Basic</a></li>
-          <li><a data-toggle="tab" href="#advance" style="padding: 20px;">Advance</a></li>
+          <li class="active"><a data-toggle="tab" onclick="return false;" href="#basic" style="padding: 20px;">Basic</a></li>
+          <li><a data-toggle="tab" href="#advance" onclick="return false;" style="padding: 20px;">Advance</a></li>
         </ul>
         <div class="tab-content">
           <div id="basic" class="tab-pane fade in active">
@@ -83,7 +83,7 @@
   <div class="row">
     <h3 style="color:#FE980F">HOT PROJECTS</h3>
     <div id="owl-demo3" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in hotProperties"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
+      <div class="item" ng-repeat="(key, value) in hotProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
     </div>
     <div class="customNavigation">
       <a class="btn prev3">Previous</a>
@@ -95,7 +95,7 @@
   <div class="row">
     <h3 style="color:#FE980F">NEWLY LAUNCHED</h3>
     <div id="owl-demo1" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in newProperties"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
+      <div class="item" ng-repeat="(key, value) in newProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
     </div>
     <div class="customNavigation">
       <a class="btn prev1">Previous</a>
@@ -107,7 +107,7 @@
   <div class="row">
     <h3 style="color:#FE980F">BEST INVESTMENT PROJECTS</h3>
     <div id="owl-demo2" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in BIProperties"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
+      <div class="item" ng-repeat="(key, value) in BIProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
     </div>
     <div class="customNavigation">
       <a class="btn prev2">Previous</a>

@@ -228,6 +228,11 @@ angular.module('prophikeApp.search', [
             delete urlParams.units;
           }         
           break;
+        case 'q':
+          urlParams.query = params.q;
+          if(urlParams.query == '')
+            delete urlParams.query;
+          break;
         default:break;
       }
     });
@@ -285,6 +290,8 @@ angular.module('prophikeApp.search', [
       }
     });
   }   
+
+
 
   if(angular.isDefined(urlParams.selectedPriceIds)){
     var selectedPriceIds = urlParams.selectedPriceIds.split(',');
@@ -427,4 +434,13 @@ angular.module('prophikeApp.search', [
     obj.get_for = '';
     updateUrl(obj);     
   };
+
+  if(angular.isDefined(urlParams.query)){ $scope.query = urlParams.query}
+
+  $scope.setQuery = function(){
+    var obj = {};
+    obj.q = $scope.query;
+    updateUrl(obj);
+  };
+
 }]);

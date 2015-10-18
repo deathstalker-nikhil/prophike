@@ -470,7 +470,7 @@ ul{
 }
 div.horizontal{
   display: flex;
-  height: 95%;
+  height: 90%;
 }
 div.vertical {
     display: flex;
@@ -490,4 +490,29 @@ div.vertical {
 }
 .blog-post-area .single-blog-post h3{
   margin-top:0;
+}
+
+.form-control:focus{
+  box-shadow: none;
+}
+.priceList>p,.paymentList>p{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top:10px;
+}
+
+.unitsData,.projectFeatures{
+  height: 500px;
+  overflow-y:scroll;
+  overflow-x:hidden;  
+}
+
+.paymentList ul{
+  list-style: initial;
+  padding:15px;
+}
+.paymentList ul li{
+  list-style: initial;
+  font-size: 1.1em;
+  margin:5px 0;
 }
