@@ -72,7 +72,7 @@ angular.module('backofficeApp.properties.units', [
 	};
 
 	$scope.delete = function(property) {
-		if(!confirm("Delete City ?")) {return};
+		if(!confirm("Delete ?")) {return};
 		units.delete(property,function(data,status){
 			if(status == 500){
 				alert(data.error);

@@ -13,7 +13,6 @@ angular.module('backofficeApp.properties.units.create', ['ngRoute'])
 	$scope.app.state = 'properties';
 	$scope.unit = {};
 	$scope.unit.p_id = $routeParams.id;
-	units.setPid($scope.unit.p_id);
 	$scope.save = function(form){
 		if(form.$valid && form.$dirty){
 			$scope.unit.unit_price = parseFloat($scope.unit_price_value) * parseInt($scope.price_unit_value);

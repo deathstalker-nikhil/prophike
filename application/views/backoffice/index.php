@@ -84,7 +84,7 @@
   <script src="/backoffice_app/properties/view/propertiesViewController.js"></script>
   <script src="/backoffice_app/properties/units/unitsController.js"></script>
   <script src="/backoffice_app/properties/units/unitsService.js"></script>
-  <script src="/backoffice_app/properties/units/create/createUnitController.js"></script>
+  <script src="/backoffice_app/properties/units/create/createUnitController.js?v=1"></script>
   <script src="/backoffice_app/properties/units/edit/editUnitController.js"></script>
   <script src="/backoffice_app/properties/media/mediaController.js"></script>
   <script src="/backoffice_app/properties/units/media/mediaController.js"></script>
