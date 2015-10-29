@@ -5,7 +5,7 @@
 		    <meta charset="utf-8">
 		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		    <meta name="viewport" content="width=device-width, initial-scale=1">
-		    <link href="/assets/backoffice/css/bootstrap.min.css" rel="stylesheet">
+		    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 		    <script src="/assets/js/angular.min.js"></script>
 		    <style>
 		    	div.row > div{
@@ -50,7 +50,7 @@
 			</div>				
 		</div>
 	</div>
-	<script src="/assets/backoffice/js/jquery.js"></script>
+	<script src="/assets/js/jquery-1.11.3.min.js"></script>
 	<script>
 		var app = angular.module('loginApp', []);
 		app.controller('AppCtrl', ['$scope','$http', function($scope,$http){

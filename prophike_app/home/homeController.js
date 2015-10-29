@@ -25,6 +25,11 @@ angular.module('prophikeApp.home', [
 .controller('homeController', ['$scope','$state','locations','properties', function ($scope,$state,locations,properties) {
   $scope.basicSearch = {};
   $scope.advancedSearch = {};
+  var config = {
+    items:4,
+    autoPlay:true,
+    stopOnHover:true
+  };
   properties.get({'where':'is_hot_project=1','fields':'is_hot_project,media,id,name,slug','limit':8},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.hotProperties = data.data;
@@ -32,25 +37,10 @@ angular.module('prophikeApp.home', [
     angular.forEach($scope.hotProperties, function(value, key){
       if(value.media != '')
         $scope.hotProperties[key].media = angular.fromJson(value.media);
-    });
-    var owl3 = $("#owl-demo3");
-    setTimeout(function(){
-        owl3.owlCarousel({
-            items : 4, //10 items above 1000px browser width
-            itemsDesktop : [1000,5], //5 items between 1000px and 901px
-            itemsDesktopSmall : [900,3], // betweem 900px and 601px
-            itemsTablet: [600,2], //2 items between 600 and 0
-            itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
-        });
-    },1000);    
-
-    // Custom Navigation Events
-    $(".next3").click(function(){
-      owl3.trigger('owl.next');
-    })
-    $(".prev3").click(function(){
-      owl3.trigger('owl.prev');
-    }) 
+    }); 
+    setTimeout(function() {
+      $("#hotProjects").owlCarousel(config);
+    }, 300);
   });
 
   properties.get({'where':'is_best_investment_project=1','fields':'is_best_investment_project,media,id,name,slug','limit':8},function(data,status){
@@ -61,24 +51,9 @@ angular.module('prophikeApp.home', [
       if(value.media != '')
         $scope.BIProperties[key].media = angular.fromJson(value.media);
     });
-    var owl2 = $("#owl-demo2");
     setTimeout(function(){
-      owl2.owlCarousel({
-          items : 4, //10 items above 1000px browser width
-          itemsDesktop : [1000,5], //5 items between 1000px and 901px
-          itemsDesktopSmall : [900,3], // betweem 900px and 601px
-          itemsTablet: [600,2], //2 items between 600 and 0
-          itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
-      });
-    },1000);    
-
-    // Custom Navigation Events
-    $(".next2").click(function(){
-      owl2.trigger('owl.next');
-    })
-    $(".prev2").click(function(){
-      owl2.trigger('owl.prev');
-    })
+      $("#bestInvestmentProjects").owlCarousel(config);
+    },300);
   });
 
   properties.get({'fields':'media,id,name,slug','limit':8},function(data,status){
@@ -89,24 +64,9 @@ angular.module('prophikeApp.home', [
       if(value.media != '')
         $scope.newProperties[key].media = angular.fromJson(value.media);
     });
-    var owl1 = $("#owl-demo1");
     setTimeout(function(){
-      owl1.owlCarousel({
-          items : 4, //10 items above 1000px browser width
-          itemsDesktop : [1000,5], //5 items between 1000px and 901px
-          itemsDesktopSmall : [900,3], // betweem 900px and 601px
-          itemsTablet: [600,2], //2 items between 600 and 0
-          itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
-      });
-    },1000);    
-
-    // Custom Navigation Events
-    $(".next1").click(function(){
-      owl1.trigger('owl.next');
-    })
-    $(".prev1").click(function(){
-      owl1.trigger('owl.prev');
-    })
+      $("#newlyLaunchedProjects").owlCarousel(config);
+    },300);  
   });
 
   locations.get({limit:10000,'fields':'id,city'},function(data,status){

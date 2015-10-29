@@ -1,117 +1,102 @@
-<section id="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading">SEARCH</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" onclick="return false;" href="#basic" style="padding: 20px;">Basic</a></li>
-          <li><a data-toggle="tab" href="#advance" onclick="return false;" style="padding: 20px;">Advance</a></li>
-        </ul>
-        <div class="tab-content">
-          <div id="basic" class="tab-pane fade in active">
-            <form name="basicSearchForm">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <select class="form-control" ng-model="basicSearch.city">
-                      <option ng-repeat="(key, value) in cities" value="{{value.city}}">{{value.city}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-7">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search Query" ng-model="basicSearch.query">
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <button type="submit" class="btn btn-xl" ng-click="BSearch(basicSearchForm)">SEARCH</button>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </form>
-          </div>
-          <div id="advance" class="tab-pane fade">
-            <form name="advancedSearchFrom">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <select class="form-control" ng-model="advancedSearch.city">
-                      <option ng-repeat="(key, value) in cities" value="{{value.city}}">{{value.city}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search Query" ng-model="advancedSearch.query">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <select ng-model="advancedSearch.unit_type" class="form-control" ng-init="advancedSearch.unit_type=unitTypes[0].text">
-                      <option ng-repeat="(key, value) in unitTypes">{{value.text}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <select class="form-control" ng-model="advancedSearch.price" ng-init="advancedSearch.price = '0'">
-                      <option ng-repeat="(key, value) in priceRanges" value='{{key}}'>{{value.text}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-xl" style="width: 100%;" ng-click="ASearch(advancedSearchFrom)">Search</button>
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </form>
+<section class="mainSearch">
+  <div class="container">        
+    <h1>Search</h1>
+    <div class="mainSearchForms customTabsHolder">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="javascript:" class="customTabs" data-show="basicForm">Basic</a></li>
+        <li><a href="javascript:" class="customTabs" data-show="advancedForm">Advance</a></li>
+      </ul>     
+      <form class="row basicForm" name="basicSearchForm">
+        <div class="col-sm-3">              
+          <div class="form-group">
+            <select class="form-control" ng-model="basicSearch.city">
+              <option ng-repeat="(key, value) in cities" value="{{value.city}}">{{value.city}}</option>
+            </select>              
+          </div>  
+        </div>
+        <div class="col-sm-7">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search Query" ng-model="basicSearch.query">
           </div>
         </div>
-      </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <button type="submit" class="btn btn-lg" ng-click="BSearch(basicSearchForm)">SEARCH</button>
+          </div>
+        </div>
+      </form> 
+      <form class="row advancedForm hideElem" name="advancedSearchFrom">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <select class="form-control" ng-model="advancedSearch.city">
+              <option ng-repeat="(key, value) in cities" value="{{value.city}}">{{value.city}}</option>
+            </select>
+          </div>              
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search Query" ng-model="advancedSearch.query">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <select ng-model="advancedSearch.unit_type" class="form-control" ng-init="advancedSearch.unit_type=unitTypes[0].text">
+              <option ng-repeat="(key, value) in unitTypes">{{value.text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <select class="form-control" ng-model="advancedSearch.price" ng-init="advancedSearch.price = '0'">
+              <option ng-repeat="(key, value) in priceRanges" value='{{key}}'>{{value.text}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="submit" class="btn btn-lg" ng-click="ASearch(advancedSearchFrom)">SEARCH</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
-<div class="container">
-  <div class="row">
-    <h3 style="color:#FE980F">HOT PROJECTS</h3>
-    <div id="owl-demo3" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in hotProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
-    </div>
-    <div class="customNavigation">
-      <a class="btn prev3">Previous</a>
-      <a class="btn next3">Next</a>
-    </div>
+<section class="container projectSlidersContainer">
+  <div class="projects">
+    <h2>Hot Projects</h2>       
+    <div id="hotProjects" class="owl-carousel">
+      <div ng-repeat="(key, value) in hotProperties" ui-sref="property({slug:value.slug})">
+        <div class="horizontal">
+          <div class="vertical">
+            <img ng-src="{{value.media.property.cover[0]}}" alt="" class="img-responsive">
+          </div>
+        </div>
+        <h4>{{value.name}}</h4>
+      </div>           
+    </div>       
   </div>
-</div>
-<div class="container">
-  <div class="row">
-    <h3 style="color:#FE980F">NEWLY LAUNCHED</h3>
-    <div id="owl-demo1" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in newProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
-    </div>
-    <div class="customNavigation">
-      <a class="btn prev1">Previous</a>
-      <a class="btn next1">Next</a>
-    </div>
+  <div class="projects">
+    <h2>Newly Launched</h2>
+    <div id="newlyLaunchedProjects" class="owl-carousel">       
+      <div ng-repeat="(key, value) in newProperties" ui-sref="property({slug:value.slug})">
+        <div class="horizontal">
+          <div class="vertical">
+            <img ng-src="{{value.media.property.cover[0]}}" alt="" class="img-responsive">
+          </div>
+        </div>
+        <h4>{{value.name}}</h4>
+      </div>          
+    </div>       
   </div>
-</div>
-<div class="container">
-  <div class="row">
-    <h3 style="color:#FE980F">BEST INVESTMENT PROJECTS</h3>
-    <div id="owl-demo2" class="owl-carousel owl-theme">
-      <div class="item" ng-repeat="(key, value) in BIProperties" ui-sref="property({slug:value.slug})" style="cursor:pointer"><div class="horizontal"><div class="vertical"><img ng-src="{{value.media.property.cover[0]}}" class="img-responsive"></div></div><strong>{{value.name}}</strong></div>
-    </div>
-    <div class="customNavigation">
-      <a class="btn prev2">Previous</a>
-      <a class="btn next2">Next</a>
-    </div>
-  </div>
-</div>
+  <div class="projects">
+    <h2>Best Investment Projects</h2>
+    <div id="bestInvestmentProjects" class="owl-carousel">       
+      <div ng-repeat="(key, value) in BIProperties" ui-sref="property({slug:value.slug})">
+        <div class="horizontal">
+          <div class="vertical">
+            <img ng-src="{{value.media.property.cover[0]}}" alt="" class="img-responsive">
+          </div>
+        </div>
+        <h4>{{value.name}}</h4>
+      </div>          
+    </div>       
+  </div>          
+</section>

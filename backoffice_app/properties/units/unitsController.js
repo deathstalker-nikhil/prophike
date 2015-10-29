@@ -43,7 +43,7 @@ angular.module('backofficeApp.properties.units', [
 			if(!angular.equals([],data.data)){
 				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
 					if(urlParams.order_by.indexOf('id ASC') > -1) {
-						data = $filter('orderBy')(data,'-id');
+						data.data = $filter('orderBy')(data.data,'-id');
 					}			
 				$scope.units = data.data;
 				$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;

@@ -6,14 +6,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <title>Backoffice</title>
-  <!-- Bootstrap Core CSS -->
-  <link href="/assets/backoffice/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link href="/assets/backoffice/css/modern-business.css" rel="stylesheet">
-  <!-- Custom Fonts -->
-  <link href="/assets/backoffice/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="/assets/backoffice/css/dataTables.bootstrap.css" rel="stylesheet">
-  <link href="/assets/backoffice/css/dataTables.responsive.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/backoffice_app/app.css">
   <script src="/assets/js/angular.min.js"></script>
 </head>
@@ -57,8 +50,8 @@
   <script src="/assets/js/angular-file-upload.min.js"></script>
   <script src="/assets/js/angular-route.min.js"></script>
   <script src="/assets/js/angular-sanitize.min.js"></script>
-  <script src="/assets/backoffice/js/jquery.js"></script>
-  <script src="/assets/backoffice/js/bootstrap.min.js"></script>
+  <script src="/assets/js/jquery-1.11.3.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
   <script src="/assets/js/ckeditor/ckeditor.js"></script>
   <script src="/backoffice_app/app.js"></script>
   <script src="/backoffice_app/file_upload/fileUploadController.js"></script>

@@ -215,7 +215,7 @@ angular.module('backofficeApp.properties', [
 												{'text':'0 to 6 months','value':3,'is_checked':0},
 												{'text':'6 to 12 months','value':9,'is_checked':0},
 												{'text':'1 to 2 years','value':18,'is_checked':0},
-												{'text':'Greater than 2 years','value':36,'is_checked':0}];
+												{'text':'More than two years','value':36,'is_checked':0}];
 
 	$scope.priceRanges = [{'id':1,'text':'Less than 20 Lakhs','min_val':0,'max_val':2000000,'is_checked':0},
 											 {'id':2,'text':'Between 20 to 40 Lakhs','min_val':2000000,'max_val':4000000,'is_checked':0},

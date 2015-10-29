@@ -23,12 +23,13 @@ angular.module('prophikeApp.property', [
   ]
 )
 
-.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments', function ($scope,$stateParams,properties,$sce,builder,specifications,comments) { 
+.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments','units', function ($scope,$stateParams,properties,$sce,builder,specifications,comments,units) { 
   $scope.property = {};
   if($stateParams.slug != '')
     properties.get({'slug':$stateParams.slug},function(data,status){
       if(!angular.equals([],data.data)){          
         $scope.property = data.data[0];
+        $scope.app.title = $scope.property.name;
         if($scope.property.data != '')
           $scope.property.data = angular.fromJson($scope.property.data);
         if($scope.property.media != '')
@@ -37,12 +38,15 @@ angular.module('prophikeApp.property', [
         $scope.property.data.payment_plan = $sce.trustAsHtml($scope.property.data.payment_plan);
         $scope.property.data.google_map_code = $('<textarea />').html($scope.property.data.google_map_code).text();
         $scope.property.data.google_map_code = $sce.trustAsHtml($scope.property.data.google_map_code);
+        if($scope.property.data.google_map_code == ''){
+          $scope.hideGMap = true;
+        }
         $scope.property.data.features = $sce.trustAsHtml($scope.property.data.features);
         if($scope.property.possession == "0"){$scope.property.possession_text = "Ready to move in"}
         if($scope.property.possession == "3"){$scope.property.possession_text = "0 to 6 months"}
         if($scope.property.possession == "9"){$scope.property.possession_text = "6 to 12 months"}
         if($scope.property.possession == "18"){$scope.property.possession_text = "1 to 2 years"}
-        if($scope.property.possession == "36"){$scope.property.possession_text = "Greater than 2 years"} 
+        if($scope.property.possession == "36"){$scope.property.possession_text = "More than two years"} 
         builder.get({'id':$scope.property.builder_id},function(data,status){
           if(status == 200){
               $scope.builder = data.data[0];
@@ -73,14 +77,59 @@ angular.module('prophikeApp.property', [
             $scope.comments = data.data;
           }
         });         
+        units.get({where:'p_id='+$scope.property.project_id},function(data,status){
+          if(!angular.equals([],data.data)){    
+            $scope.units = data.data;
+            angular.forEach($scope.units,function(value,key){
+              if(value.image_path != '')
+                $scope.units[key].image_path = angular.fromJson(value.image_path);
+              else{
+                $scope.units[key].image_path = {'img':[]};
+              }
+              if(value.unit_price < 100000){
+                $scope.units[key].unit_price_value = value.unit_price/1000;
+                $scope.units[key].unit_price_unit_value = 'Thousand';
+              }else if(value.unit_price < 10000000){
+                $scope.units[key].unit_price_value = value.unit_price/100000;
+                $scope.units[key].unit_price_unit_value = 'Lakhs';
+              }else{
+                $scope.units[key].unit_price_value = value.unit_price/10000000;
+                $scope.units[key].unit_price_unit_value = 'Crore';
+              } 
+              if(angular.isDefined(value.unit_details) && value.unit_details!=''){
+                $scope.units.unit_details = $sce.trustAsHtml(value.unit_details);           
+              }
+            });            
+          }   
+        });        
         setInterval(function(){
-          $('.priceList').find('table').addClass('table table-bordered table-striped table-condensed');
-          $('.paymentList').find('table').addClass('table table-bordered table-striped table-condensed');
-          $('iframe').attr('width','100%');
-          $('iframe').attr('height','450px');   
-          $('section').css('padding-bottom','15px');          
-          jQuery('#light-gallery').lightGallery(); 
-        }, 500);
+          $('#priceList').find('table').addClass('table table-bordered table-striped table-condensed');            
+          $("#lightgallery").lightGallery();
+          $('body').scrollspy({ target: '#navigationMenu' });
+          $('a[href^="#"]').on('click',function (e) {
+              e.preventDefault();
+              var target = this.hash,
+                  $target = $(target);
+              $('html, body').stop().animate({
+                  'scrollTop': $target.offset().top
+              }, 900, 'swing', function () {
+                  window.location.hash = target;
+              });
+          });          
+        }, 700);
       }
     });
+  $scope.submitComment = function(form){
+    if(form.$valid && form.$dirty){
+      $scope.comment.project_id = $scope.property.project_id;
+      comments.save($scope.comment,function(data,status){
+        if(status == 201){
+          alert('Comment saved for review');
+          $scope.comment = {};
+        }else{
+          console.log(data);
+        }
+      });
+    }
+  };  
 }])

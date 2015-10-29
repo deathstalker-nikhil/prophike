@@ -1,229 +1,208 @@
-<div ng-controller="contactController"><div contact-us></div></div>
-
-<!--slider-->
-<section id="slider">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="col-sm-12">
-                            <img src="{{property.media.property.cover[0]}}" style="margin:auto" class="girl img-responsive" alt="" />
-                        </div>
-                    </div>
-                </div>
+<div id="navigationMenu">
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Navigation</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#home">Home</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#priceList">Price List</a></li>
+          <li><a href="#units">Units</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#address">Address</a></li>
+          <li><a href="#specifications">Specifications</a></li>
+          <li><a href="#builder">Builder</a></li>
+          <li><a href="#comments">Comments</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>    
+</div>
+<section class="container" id="home">
+    <img ng-src="{{property.media.property.cover[0]}}" class="img-responsive img-thumbnail" alt="">
+    <h1>{{property.name}}</h1>
+    <section id="overview">
+    <h2>Overview</h2>
+    <div ng-bind-html="property.data.overview"></div> 
+    </section>  
+    <section class="customTabsHolder" id="priceList">
+    <h2>Payment and price list</h2>
+    <ul class="nav nav-pills">
+      <li class="active"><a href="javascript:" class="customTabs" data-show="priceList">Price List</a></li>
+      <li><a href="javascript:" class="customTabs" data-show="paymentList">Payment List</a></li>
+    </ul> 
+    <div class="extendedDetailsBox">          
+      <div class="priceList">
+        <div ng-bind-html="property.data.price_list" class="priceList"></div>          
+      </div>
+      <div class="paymentList hideElem">
+        <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>               
+      </div> 
+    </div>
+    </section>
+    <section class="customTabsHolder" id="units">
+        <h2>Units</h2>
+        <ul class="nav nav-pills">
+          <li ng-class="{'active':key == 0}" ng-repeat="(key, value) in units"><a href="javascript:" class="customTabs" data-show="{{'unit'+value.id}}">{{value.unit_name}}</a></li>
+        </ul>
+        <div class="extendedDetailsBox">
+          <div class="{{'unit'+value.id}}" ng-repeat="(key, value) in units" ng-class="{'hideElem':key!=0}">
+            <div class="row">
+              <div class="col-sm-7">
+                <img ng-src="{{value.image_path.img[0]}}" class="img-responsive img-thumbnail" alt="">
+              </div>
+              <div class="col-sm-5">
+                <h3>{{value.unit_name}}</h3>
+                <p><strong>Price</strong> : {{value.unit_price_value}} {{value.unit_price_unit_value}}</p>
+                <p><strong>Area</strong> : {{value.unit_price_per_area}}sq.ft</p>
+                <p><strong>Details</strong></p>
+                <div ng-bind-html="value.unit_details"></div>
+              </div>
             </div>
+          </div>
+        </div>        
+    </section> 
+    <section id="features">
+        <h2>Features</h2>
+        <ul class="featuresList">
+          <li ng-repeat="(key,value) in specifications"><img ng-src="{{value.icon_path.logo[0]}}" class="img-responsive"><p>{{value.name}}</p></li>
+        </ul>     
+    </section>
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div id="lightgallery">
+          <a href="{{value}}" ng-repeat="(key,value) in property.media.property.gallery">
+              <img ng-src="{{value}}" class="img-responsive img-thumbnail"/>
+          </a>
+          <a href="{{value}}" ng-repeat="(key,value) in property.media.property.const_update">
+              <img ng-src="{{value}}" class="img-responsive img-thumbnail"/>
+          </a>
         </div>
-    </div>
-</section>
-<!--/slider-->
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row"> 
-                <h2 class="title text-center">OVERVIEW</h2>
-                <div ng-bind-html="property.data.overview"></div>
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row"> 
-                <h2 class="title text-center">UNIT AND PRICE LIST</h2>
-                <div class="unitsData">                    
-                    <div ng-bind-html="property.data.price_list" class="priceList"></div>
-                    <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>
+    </section>
+    <section id="address">        
+        <div class="row">
+          <div class="col-sm-6">
+            <section>  
+              <h2>Address</h2>
+                <address>
+                  <p><strong>{{property.address}}</strong></p>
+                </address>              
+            </section>
+          </div>
+          <div class="col-sm-6">
+            <section>
+              <h2>Possession</h2>
+              <p><strong>{{property.possession_text}}</strong></p>
+            </section>
+          </div>
+        </div>
+    </section>
+    <section ng-hide="hideGMap">
+        <h2>Google Map</h2>
+        <div ng-bind-html="property.data.google_map_code"></div>
+    </section>
+    <section id="specifications">
+        <h2>Specifications</h2>
+        <div class="extendedDetailsBox">
+            <div ng-bind-html="property.data.features"></div>
+        </div>          
+    </section>
+    <section id="builder">
+        <h2>Builder</h2>
+        <div class="row">
+          <div class="col-sm-3">
+            <img ng-src="{{builder.logo_link.logo[0]}}" class="img-responsive" class="img-responsive" alt="">
+          </div>
+          <div class="col-sm-9">
+            <h4>Name</h4>
+            <p>{{builder.builder_description}}</p>
+          </div>
+        </div>
+    </section>
+    <section id="comments">
+        <div class="row">
+          <div class="col-sm-8">
+            <section>
+              <h2>Comments</h2>
+              <div class="commentsBox">
+                <div class="comment" ng-repeat="(key,value) in comments">
+                  <p><strong>{{value.user_name}}</strong></p>
+                  <blockquote>{{value.user_comment}}</blockquote>
                 </div>
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row"> 
-                <h2 class="title text-center">SPECIFICATIONS</h2>
-                <div class="col-sm-1" ng-repeat="(key,value) in specifications">
-                    <div class="productinfo text-center">
-                        <img ng-src="{{value.icon_path.logo[0]}}">
-                        <h6>{{value.name}}</h6>
-                    </div>
-                </div>             
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section id="slider">
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row">   
-                <div class="col-sm-8">
-                    <div class="contact-form">
-                        <h2 class="title text-center">Google Map</h2>
-                        <div ng-bind-html="property.data.google_map_code"></div>
-                    </div>
+              </div>
+            </section>
+          </div>
+          <div class="col-sm-4">
+            <section>  
+              <h2>Post comment</h2>
+              <form name="commentForm">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" ng-model="comment.user_name" placeholder="Name" required>
                 </div>
-                <div class="col-sm-4">
-                    <div class="contact-form">
-                        <h2 class="title text-center">ADDRESS</h2>
-                        <address>
-                            <p style="text-align: center;"><b>{{property.name}}</b></p>
-                            <p style="text-align: center;">{{property.address}}</p>
-                        </address>
-                    </div>
-                    <h2 class="title text-center">POSSESSION</h2>
-                    <div class="productinfo text-center">
-                        <img src="/assets/images/home/key.jpg" style="height: 50%; width:50%;">
-                        <h2>{{property.possession_text}}</h2>
-                    </div>                    
-                </div>              
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row"> 
-                <h2 class="title text-center">GALLERY</h2>
-                <ul id="light-gallery" class="gallery">
-                    <li data-src="{{value}}" ng-repeat="(key,value) in property.media.property.gallery">
-                        <a href="">
-                            <img class="img-responsive" src="{{value}}" />
-                        </a>
-                    </li>
-                    <li data-src="{{value}}" ng-repeat="(key,value) in property.media.property.const_update">
-                        <a href="">
-                            <img class="img-responsive" src="{{value}}" />
-                        </a>
-                    </li>      
-                </ul>  
-            </div>  
-        </div>  
-    </div>
-</section>
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row">   
-                <div class="col-sm-12">
-                    <div class="contact-form">
-                        <h2 class="title text-center">Features</h2>
-                        <div ng-bind-html="property.data.features" class="projectFeatures"></div>
-                    </div>
-                </div>           
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row"> 
-                <h2 class="title text-center">BUILDER</h2>
-                <div class="col-sm-4">
-                    <div class="contact-form">
-                        <div class="productinfo text-center">
-                            <img ng-src="{{builder.logo_link.logo[0]}}" class="img-responsive">
-                            <h2>{{builder.builder_name}}</h2>
-                        </div>
-                    </div>
-                </div>              
-                <div class="col-sm-8">
-                    <p>{{builder.builder_description}}</p>
-                    <button class="btn btn-primary pull-right">View all Projects</button>
-                </div>      
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row">   
-                <div class="col-sm-8">
-                    <div class="contact-form">
-                        <h2 class="title text-center">Comments</h2>
-                        <div style="overflow-y: scroll; height:400px;">
-                            <div class="status alert alert-success" style="display: none"></div>
-                            <p>Be the first person to comment on this...</p>
-                            <div ng-repeat="(key,value) in comments">                                
-                                <b>{{value.user_name}}</b> says
-                                <blockquote class="testimonial">
-                                    <p>{{value.user_comment}}</p>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" class="form-control" ng-model="comment.user_email" placeholder="Email" required=>
+                </div> 
+                <div class="form-group">
+                  <label>Mobile</label>
+                  <input type="tel" class="form-control" ng-model="comment.user_phone" placeholder="Mobile number (10 digit)" pattern="[0-9]{10}" required>
                 </div>
-                <div class="col-sm-4">
-                    <div class="contact-form">
-                        <h2 class="title text-center">POST COMMENT</h2>
-                        <div class="status alert alert-success" style="display: none"></div>
-                        <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
-                            <div class="form-group col-md-12">
-                                <input type="text" name="name" class="form-control" required="required" placeholder="Name">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="text" name="Phone" class="form-control" required="required" placeholder="Phone">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="email" name="email" class="form-control" required="required" placeholder="Email">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Query"></textarea>
-                            </div>                   
-                            <div class="form-group col-md-12">
-                                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
-                            </div>
-                        </form>
-                    </div>
-                </div>              
-            </div>  
-        </div>  
-    </div>
-</section>
-
-<section>   
-    <div id="contact-page" class="container">
-        <div class="bg">        
-            <div class="row">   
-                <div class="col-sm-12">
-                    <div class="contact-form">
-                        <h2 class="title text-center">Contact Us</h2>
-                        <div class="status alert alert-success" style="display: none"></div>
-                        <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
-                            <div class="form-group col-md-4">
-                                <input type="text" name="name" class="form-control" required="required" placeholder="Name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input type="text" name="Phone" class="form-control" required="required" placeholder="Phone">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input type="email" name="email" class="form-control" required="required" placeholder="Email">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Query"></textarea>
-                            </div>  
-                            <div class="form-group col-md-12">
-                                <input type="checkbox" name="site_visit">&nbsp;Arrange Site Visit
-                            </div>                      
-                            <div class="form-group col-md-12">
-                                <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
-                            </div>
-                        </form>
-                    </div>
-                </div>              
-            </div>  
-        </div>  
-    </div>
+                <div class="form-group">
+                  <label>Comment</label>
+                  <textarea rows="7" class="form-control" ng-model="comment.user_comment" required></textarea>
+                </div>    
+                <div class="form-group">
+                  <button class="btn" ng-click="submitComment(commentForm)">Submit</button>
+                </div>                            
+              </form>
+            </section>
+          </div>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact us</h2>
+        <form>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" placeholder="Name" autofill>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="Email">
+              </div> 
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" class="form-control" placeholder="Phone number">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Arrange site visit
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Query</label>
+                <textarea rows="6" class="form-control" placeholder="Query"></textarea>
+              </div>
+              <div class="form-group">
+                <button class="btn">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+    </section>                                   
 </section>
