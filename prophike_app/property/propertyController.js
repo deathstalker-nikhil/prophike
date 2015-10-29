@@ -106,6 +106,7 @@ angular.module('prophikeApp.property', [
           $('#priceList').find('table').addClass('table table-bordered table-striped table-condensed');            
           $("#lightgallery").lightGallery();
           $('body').scrollspy({ target: '#navigationMenu' });
+        }, 700);
           $('a[href^="#"]').on('click',function (e) {
               e.preventDefault();
               var target = this.hash,
@@ -113,10 +114,9 @@ angular.module('prophikeApp.property', [
               $('html, body').stop().animate({
                   'scrollTop': $target.offset().top
               }, 900, 'swing', function () {
-                  window.location.hash = target;
+                  // window.location.hash = target;
               });
           });          
-        }, 700);
       }
     });
   $scope.submitComment = function(form){
