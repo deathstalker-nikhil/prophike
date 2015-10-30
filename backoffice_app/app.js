@@ -16,7 +16,9 @@ var backofficeApp = angular.module('backofficeApp', [
   'locationsService',
   'propertiesService',
   'specificationsService',
-  'unitsService'
+  'unitsService',
+  'backofficeApp.userQueries',
+  'userQueriesService'
 ]).
 
 config(['$routeProvider', function($routeProvider) {

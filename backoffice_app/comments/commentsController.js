@@ -126,7 +126,6 @@ angular.module('backofficeApp.comments', [
 				}
 			});
 		}
-		
 	}
 
 	$scope.getFilteredComments = function(){
@@ -140,11 +139,17 @@ angular.module('backofficeApp.comments', [
 			val.push(1);
 		}
 		if(!angular.equals([],val)){
-			obj.where = 'is_approved in ('+val.join(',')+')';
-		}else{
-			if(angular.isDefined(obj.where) && obj.where != ''){
-				obj.where = '';
+			if(angular.isDefined(obj.where) && obj.where != ''){				
+				if(obj.where.indexOf('is_approved in') != -1){
+					obj.where = obj.where.replace(/is_approved in \(([0-1,]+)\)/,'is_approved in ('+val.join(',')+')');
+				}else{
+					obj.where += ' AND is_approved in ('+val.join(',')+')';
+				}
+			}else{
+				obj.where = 'is_approved in ('+val.join(',')+')';
 			}
+		}else if(angular.isDefined(obj.where) && obj.where != '' && obj.where.indexOf('is_approved in')!=-1){
+			obj.where = obj.where.replace(/(?:AND)?\s*is_approved in \([0-1,]+\)/,'');
 		}
 		updateUrl(obj);
 	};

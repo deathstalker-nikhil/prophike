@@ -30,6 +30,7 @@ angular.module('prophikeApp.search', [
   $scope.tableData = {};
   var urlParams = {};
   angular.copy($stateParams, urlParams);
+  urlParams.per_page = $scope.perPageArray[0]
   $scope.result = ""+$scope.perPageArray[0];    
   
   function getProperties(){

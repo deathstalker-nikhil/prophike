@@ -49,6 +49,7 @@ textarea{
   border-color: #FE980F;
   color:white;  
   transition:all .3s;
+  cursor: pointer;
 }
 .btn:hover,.pager .previous>a:hover,.pager .next>a:hover{
   border-color: #f6bf01;
@@ -349,7 +350,7 @@ img{
   text-align: center; 
 }
 .lg-outer .lg-image{
-  display: inline-block;
+  display: inline-block !important;
 }
 .property section section .featuresList li img{
   max-width:50px;

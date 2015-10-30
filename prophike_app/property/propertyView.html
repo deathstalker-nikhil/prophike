@@ -2,15 +2,14 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#propertyNavigation" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">Navigation</a>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="propertyNavigation">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#home">Home</a></li>
           <li><a href="#overview">Overview</a></li>
@@ -172,34 +171,34 @@
     </section>
     <section id="contact">
         <h2>Contact us</h2>
-        <form>
+        <form name="projectContactForm">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Name</label>
-                <input type="text" class="form-control" placeholder="Name" autofill>
+                <input type="text" class="form-control" placeholder="Name" required ng-model="query.user_name">
               </div>
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" placeholder="Email" required ng-model="query.user_email">
               </div> 
               <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" class="form-control" placeholder="Phone number">
+                <input type="tel" class="form-control" placeholder="Phone number" pattern="[0-9]{10}" required ng-model="query.user_phone">
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Arrange site visit
+                  <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="query.arrange_site_visit"> Arrange site visit
                 </label>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Query</label>
-                <textarea rows="6" class="form-control" placeholder="Query"></textarea>
+                <textarea rows="6" class="form-control" placeholder="Query" ng-model="query.user_query" required></textarea>
               </div>
               <div class="form-group">
-                <button class="btn">Submit</button>
+                <button class="btn" ng-click="submitQuery(projectContactForm)">Submit</button>
               </div>
             </div>
           </div>

@@ -28,6 +28,7 @@
                     <a href="#/builder" class="list-group-item" ng-class="app.state == 'builders' ? 'active':''">Builders</a>
                     <a href="#/specifications" class="list-group-item" ng-class="app.state == 'specifications' ? 'active':''">Specifications</a>
                     <a href="#/comments" class="list-group-item" ng-class="app.state == 'comments' ? 'active':''">Comments</a>
+                    <a href="#/user_queries" class="list-group-item" ng-class="app.state == 'userQueries'?'active':''">User Queries</a>
                     <a href="#/change_password" class="list-group-item" ng-class="app.state == 'change_password' ? 'active':''">Change Password</a>
                     <a href="/backoffice/logout" class="list-group-item">Sign Out</a>
                 </div>
@@ -85,5 +86,7 @@
   <script src="/backoffice_app/comments/commentsController.js"></script>
   <script src="/backoffice_app/comments/commentsService.js"></script>
   <script src="/backoffice_app/change_password/changePsswdController.js"></script>
+  <script src="/backoffice_app/user_queries/userQueriesController.js"></script>
+  <script src="/backoffice_app/user_queries/userQueriesService.js"></script>
 </body>
 </html>

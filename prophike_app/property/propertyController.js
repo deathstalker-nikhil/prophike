@@ -23,7 +23,7 @@ angular.module('prophikeApp.property', [
   ]
 )
 
-.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments','units', function ($scope,$stateParams,properties,$sce,builder,specifications,comments,units) { 
+.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments','units','userQueries', function ($scope,$stateParams,properties,$sce,builder,specifications,comments,units,userQueries) { 
   $scope.property = {};
   if($stateParams.slug != '')
     properties.get({'slug':$stateParams.slug},function(data,status){
@@ -132,4 +132,19 @@ angular.module('prophikeApp.property', [
       });
     }
   };  
+
+  $scope.submitQuery = function(form){
+    if(form.$valid && form.$dirty){
+      var query = $scope.query;
+      query.p_id = $scope.property.project_id;
+      userQueries.save(query,function(data,status){
+        if (status == 201) {
+          $scope.query = {};
+          alert('Query Saved. Will reach you soon quicky.');
+        }else{
+          console.log(data);
+        }       
+      });
+    }    
+  }
 }])

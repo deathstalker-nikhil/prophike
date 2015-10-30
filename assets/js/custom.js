@@ -38,6 +38,10 @@ $(window).scroll(function () {
 }).trigger("scroll");
 
 $(document).on('click','.quickContact>button',function(){
+	toggleQuickContact();
+});
+
+function toggleQuickContact(){
 	var val = -280;
 	if($('.quickContact').css('right') == '-280px'){
 		val = 0;
@@ -45,4 +49,4 @@ $(document).on('click','.quickContact>button',function(){
 	$('.quickContact').animate({
 		right:val,
 	},400);
-});
+}

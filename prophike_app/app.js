@@ -10,6 +10,7 @@ angular.module('prophikeApp', [
   'propertiesService',
   'specificationsService',
   'unitsService',
+  'userQueriesService'
 ])
 
 .run(['$rootScope','$state','$stateParams',function ($rootScope,$state,$stateParams) {
