@@ -348,6 +348,9 @@ img{
   margin:10px 10px 0;
   text-align: center; 
 }
+.lg-outer .lg-image{
+  display: inline-block;
+}
 .property section section .featuresList li img{
   max-width:50px;
 }
