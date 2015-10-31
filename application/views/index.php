@@ -13,7 +13,7 @@
   <link href="/assets/css/owl.carousel.css?v=1" rel="stylesheet">
   <link href="/assets/css/owl.theme.css?v=1" rel="stylesheet">
   <link href="/assets/css/lightgallery.min.css?v=1" rel="stylesheet">
-  <link href="/prophike_app/app.css?v=4" rel="stylesheet">
+  <link href="/prophike_app/app.css?v=5" rel="stylesheet">
   <script src="/assets/js/angular.min.js?v=1"></script>
   <script>
     // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -49,7 +49,7 @@
   <script src="/prophike_app/common_components/footer_directive/footerDirective.js?v=1"></script>
   <script src="/prophike_app/home/homeController.js?v=1"></script>
   <script src="/prophike_app/search/searchController.js?v=1"></script>
-  <script src="/prophike_app/property/propertyController.js?v=3"></script>
+  <script src="/prophike_app/property/propertyController.js?v=4"></script>
   <script src="/backoffice_app/locations/locationsService.js?v=1"></script>
   <script src="/backoffice_app/builder/builderService.js?v=1"></script>
   <script src="/backoffice_app/specifications/specificationsService.js?v=1"></script>

@@ -12,13 +12,13 @@
       <div class="collapse navbar-collapse" id="propertyNavigation">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#home">Home</a></li>
-          <li><a href="#overview">Overview</a></li>
-          <li><a href="#priceList">Price List</a></li>
-          <li><a href="#units">Units</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#overview" ng-hide="property.data.overview == ''">Overview</a></li>
+          <li><a href="#priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">Price List</a></li>
+          <li><a href="#units" ng-hide="units == ''">Units</a></li>
+          <li><a href="#features" ng-hide="specifications == ''">Features</a></li>
+          <li><a href="#gallery" ng-hide="property.media.property.gallery == ''">Gallery</a></li>
           <li><a href="#address">Address</a></li>
-          <li><a href="#specifications">Specifications</a></li>
+          <li><a href="#specifications" ng-hide="property.data.features == ''">Specifications</a></li>
           <li><a href="#builder">Builder</a></li>
           <li><a href="#comments">Comments</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -30,26 +30,26 @@
 <section class="container" id="home">
     <img ng-src="{{property.media.property.cover[0]}}" class="img-responsive img-thumbnail" alt="">
     <h1>{{property.name}}</h1>
-    <section id="overview">
+    <section id="overview" ng-hide="property.data.overview == ''">
     <h2>Overview</h2>
     <div ng-bind-html="property.data.overview"></div> 
     </section>  
-    <section class="customTabsHolder" id="priceList">
+    <section class="customTabsHolder" id="priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">
     <h2>Payment and price list</h2>
     <ul class="nav nav-pills">
-      <li class="active"><a href="javascript:" class="customTabs" data-show="priceList">Price List</a></li>
-      <li><a href="javascript:" class="customTabs" data-show="paymentList">Payment List</a></li>
+      <li class="active"><a href="javascript:" class="customTabs" ng-hide="property.data.price_list == ''" data-show="priceList">Price List</a></li>
+      <li><a href="javascript:" class="customTabs" data-show="paymentList" ng-hide="property.data.payment_plan==''">Payment List</a></li>
     </ul> 
     <div class="extendedDetailsBox">          
-      <div class="priceList">
+      <div class="priceList" ng-hide="property.data.price_list == ''">
         <div ng-bind-html="property.data.price_list" class="priceList"></div>          
       </div>
-      <div class="paymentList hideElem">
+      <div class="paymentList hideElem" ng-hide="property.data.payment_plan==''">
         <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>               
       </div> 
     </div>
     </section>
-    <section class="customTabsHolder" id="units">
+    <section class="customTabsHolder" id="units" ng-hide="units == ''">
         <h2>Units</h2>
         <ul class="nav nav-pills">
           <li ng-class="{'active':key == 0}" ng-repeat="(key, value) in units"><a href="javascript:" class="customTabs" data-show="{{'unit'+value.id}}">{{value.unit_name}}</a></li>
@@ -71,13 +71,13 @@
           </div>
         </div>        
     </section> 
-    <section id="features">
+    <section id="features" ng-hide="specifications == ''">
         <h2>Features</h2>
         <ul class="featuresList">
           <li ng-repeat="(key,value) in specifications"><img ng-src="{{value.icon_path.logo[0]}}" class="img-responsive"><p>{{value.name}}</p></li>
         </ul>     
     </section>
-    <section id="gallery">
+    <section id="gallery" ng-hide="property.media.property.gallery == ''">
         <h2>Gallery</h2>
         <div id="lightgallery">
           <a href="{{value}}" ng-repeat="(key,value) in property.media.property.gallery">
@@ -110,7 +110,7 @@
         <h2>Google Map</h2>
         <div ng-bind-html="property.data.google_map_code"></div>
     </section>
-    <section id="specifications">
+    <section id="specifications" ng-hide="property.data.features == ''">
         <h2>Specifications</h2>
         <div class="extendedDetailsBox">
             <div ng-bind-html="property.data.features"></div>
@@ -134,6 +134,7 @@
             <section>
               <h2>Comments</h2>
               <div class="commentsBox">
+                <p ng-show="comments == ''">No comments yet.</p>
                 <div class="comment" ng-repeat="(key,value) in comments">
                   <p><strong>{{value.user_name}}</strong></p>
                   <blockquote>{{value.user_comment}}</blockquote>

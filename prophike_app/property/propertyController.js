@@ -32,8 +32,14 @@ angular.module('prophikeApp.property', [
         $scope.app.title = $scope.property.name;
         if($scope.property.data != '')
           $scope.property.data = angular.fromJson($scope.property.data);
-        if($scope.property.media != '')
+        if($scope.property.media != ''){
           $scope.property.media = angular.fromJson($scope.property.media);
+        }else{
+          $scope.property.media = {};
+          $scope.property.media.property = {};
+          $scope.property.media.property.gallery = [];
+        }
+        if(angular.equals($scope.property.media.property.gallery,[])){$scope.property.media.property.gallery=''};
         $scope.property.data.price_list = $sce.trustAsHtml($scope.property.data.price_list);
         $scope.property.data.payment_plan = $sce.trustAsHtml($scope.property.data.payment_plan);
         $scope.property.data.google_map_code = $('<textarea />').html($scope.property.data.google_map_code).text();
@@ -59,6 +65,7 @@ angular.module('prophikeApp.property', [
             console.log(data);  
           }
         }); 
+        $scope.specifications = '';
         if(angular.isDefined($scope.property.data.specifications) && !angular.equals([],$scope.property.data.specifications))
           specifications.get({'where':'id in ('+$scope.property.data.specifications.join(',')+')'},function(data,status){
             if(!angular.equals([],data.data)){   
@@ -75,8 +82,11 @@ angular.module('prophikeApp.property', [
         comments.get({'where':'comments.project_id='+$scope.property.project_id+' and comments.is_approved=1','fields':'user_name,user_comment'},function(data,status){
           if(!angular.equals([],data.data)){    
             $scope.comments = data.data;
+          }else{
+            $scope.comments = '';
           }
         });         
+        $scope.units = '';
         units.get({where:'p_id='+$scope.property.project_id},function(data,status){
           if(!angular.equals([],data.data)){    
             $scope.units = data.data;
