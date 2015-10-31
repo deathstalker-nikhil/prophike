@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="prophikeApp" ng-controller="appController" ng-cloak>
+<html lang="en" ng-app="prophikeApp" ng-controller="appController">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +35,7 @@
 </head>
 <body id="page-top" class="index {{app.mainClass}}">
   <div ng-include="'/prophike_app/common_components/header.html'"></div>
-  <div ui-view></div>
+  <div ui-view ng-cloak></div>
   <div my-footer></div>
   <script src="/assets/js/angular-ui-router.min.js?v=1"></script>
   <script src="/assets/js/angular-sanitize.min.js?v=1"></script>
@@ -48,7 +48,7 @@
   <script src="/prophike_app/app.js?v=2"></script>
   <script src="/prophike_app/common_components/footer_directive/footerDirective.js?v=1"></script>
   <script src="/prophike_app/home/homeController.js?v=1"></script>
-  <script src="/prophike_app/search/searchController.js?v=1"></script>
+  <script src="/prophike_app/search/searchController.js?v=2"></script>
   <script src="/prophike_app/property/propertyController.js?v=4"></script>
   <script src="/backoffice_app/locations/locationsService.js?v=1"></script>
   <script src="/backoffice_app/builder/builderService.js?v=1"></script>

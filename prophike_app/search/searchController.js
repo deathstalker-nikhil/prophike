@@ -48,8 +48,12 @@ angular.module('prophikeApp.search', [
           }           
         $scope.properties = data.data;
         angular.forEach($scope.properties, function(value, key){
-          $scope.properties[key].data = angular.fromJson(value.data);
-          $scope.properties[key].media = angular.fromJson(value.media);
+          if(value.data!=''){
+            $scope.properties[key].data = angular.fromJson(value.data);
+          }
+          if(value.media!=''){
+            $scope.properties[key].media = angular.fromJson(value.media);
+          }
           if(value.min_price < 100000){
             $scope.properties[key].min_price_value = value.min_price/1000;
             $scope.properties[key].min_price_unit_value = 'Thousand';
