@@ -22,6 +22,7 @@ class Properties extends REST_Controller {
 		$units = ($this->get('units')? $this->get('units') : '');
 		$query = ($this->get('query')? $this->get('query') : '');
 		$getFor = ($this->get('get_for')?$this->get('get_for'):'id>0');
+		$allProjects = ($this->get('get_all_projects') && $this->get('get_all_projects') == 1)?true:false;
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
 		$slug =($this->get('slug'))?$this->get('slug'):'';
@@ -31,14 +32,14 @@ class Properties extends REST_Controller {
 		$orderBy = preg_replace('/id/', 'projects.project_id', $orderBy);
 		if(intval($id = $this->get('id')))
 		{
-			$data = $this->properties->get($id,1,$fields);
+			$data = $this->properties->get($id,1,$fields,$allProjects);
 			if(!$data){
 				$this->response(['error'=>'Invalid Id'],REST_Controller::HTTP_NOT_FOUND);
 			}else{
 				$this->response($data,REST_Controller::HTTP_OK);
 			}
 		}else{
-			$this->response($this->properties->get('',$limit,$fields,$getFor,$where,$orderBy,$units,$query,$slug), REST_Controller::HTTP_OK);
+			$this->response($this->properties->get('',$limit,$fields,$allProjects,$getFor,$where,$orderBy,$units,$query,$slug), REST_Controller::HTTP_OK);
 		}
 	}
 

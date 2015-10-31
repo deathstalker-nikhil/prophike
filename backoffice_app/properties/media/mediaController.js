@@ -14,7 +14,7 @@ var propertiesApp = angular.module('backofficeApp.properties.media', [
 .controller('mediaCtrl', ['$scope','properties','$routeParams','fileService',function($scope,properties,$routeParams,fileService){
 	$scope.app.state = 'properties';
 	var id = $routeParams.id;
-	properties.get({id:id,'fields':'project_id,name,media'},function(data,status){
+	properties.get({id:id,'fields':'project_id,name,media','get_all_projects': 1},function(data,status){
 		if(!angular.equals([],data.data)){
 			$scope.property = data.data[0];
 			if($scope.property.media)

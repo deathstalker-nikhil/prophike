@@ -51,7 +51,7 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 		$scope.property.area = $scope.areas[0];
 	};
 
-	properties.get({'id':id},function(data,status){
+	properties.get({'id':id,'get_all_projects':1},function(data,status){
 			if(status == 200 && !angular.equals([], data.data)){
 				$scope.propertyRetrived = true;
 				angular.copy(data.data[0],property);

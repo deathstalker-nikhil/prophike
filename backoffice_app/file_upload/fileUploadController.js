@@ -22,7 +22,7 @@ angular.module('backoffice.file_upload', ['angularFileUpload'])
                             'thumb':[],
                             'gallery':[]
                          };
-                        properties.get({id:$scope.id,'fields':'project_id as id,name,media'},function(data,status){
+                        properties.get({id:$scope.id,'fields':'project_id as id,name,media','get_all_projects':1},function(data,status){
                             if(!angular.equals([],data.data)){
                                 if(data.data[0].media)
                                     images = angular.fromJson(data.data[0].media);

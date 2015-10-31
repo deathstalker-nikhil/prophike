@@ -70,6 +70,7 @@
 								<th>Units</th>
 								<th>Media</th>
 								<th>Edit</th>
+								<th>Live</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
@@ -81,6 +82,10 @@
 								<td><a href="#/properties/{{value.project_id}}/units" class="btn btn-info"><span class="glyphicon glyphicon-folder-close"></span></a></td>
 								<td><a href="#/properties/media/{{value.project_id}}" class="btn btn-info"><span class="glyphicon glyphicon-picture" title="Media"></span></a></td>
 								<td><a href="#/properties/edit/{{value.project_id}}" class="btn btn-primary" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+								<td style="vertical-align: middle;">
+									  <input id="toggleProject{{key}}" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="properties[key].is_live" ng-checked="properties[key].is_live==1?true:false" ng-click="setValue(key)">
+									  <label for="toggleProject{{key}}"></label>
+								</td>								
 								<td><a ng-click="delete(value)" class="btn btn-danger" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 							</tr>
 						</tbody>

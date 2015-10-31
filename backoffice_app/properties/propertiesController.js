@@ -34,6 +34,7 @@ angular.module('backofficeApp.properties', [
 	}
   
   function getProperties(){
+  	urlParams.get_all_projects = 1;
 		properties.get(urlParams,function(data,status){
 			if(!angular.equals([],data.data)){
 				if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '')	
@@ -41,6 +42,9 @@ angular.module('backofficeApp.properties', [
 						data = $filter('orderBy')(data,'-project_id');
 					}						
 				$scope.properties = data.data;
+				angular.forEach(data.data, function(value, key){
+					value.is_live = parseInt(value.is_live);
+				});				
 			}
 			$scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
 			$scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
@@ -51,6 +55,21 @@ angular.module('backofficeApp.properties', [
 	}
 
 	getProperties();
+
+	$scope.setValue = function(index){
+		jQuery('#toggleProject + label').css('pointer-events','none');
+		properties.update({'project_id':$scope.properties[index].project_id,'is_live':$scope.properties[index].is_live},function(data,status){
+			if(status != 204){
+				if($scope.properties[index].is_live == 1){
+					$scope.properties[index].is_live = 0;
+				}else{
+					$scope.properties[index].is_live = 1;
+				}
+				console.log(data);	
+			}
+			jQuery('#toggleProject + label').css('pointer-events','auto');
+		});
+	}
 
 	locations.get({limit:10000,'fields':'id,city'},function(data,status){
 		if(!angular.equals([], data.data)){

@@ -30,7 +30,7 @@ class Properties_model extends CI_Model {
 		}
 	}
 
-	public function get($id = '',$limit = 10,$fields,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='',$slug = '')
+	public function get($id = '',$limit = 10,$fields,$allProjects,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='',$slug = '')
 	{
 		$this->db->db_debug = false;
 		if ($id != '' || $slug != '')
@@ -40,6 +40,11 @@ class Properties_model extends CI_Model {
 				$this->db->where(array('project_id' => $id));
 			else if($slug != '')
 				$this->db->where(array('slug'=>$slug));
+			if($allProjects){
+				$this->db->where('is_live IN (0,1)');
+			}else{
+				$this->db->where(array('is_live'=>1));
+			}
 			$query = $this->db->get('projects',$limit);
 		}
 		else
@@ -78,6 +83,11 @@ class Properties_model extends CI_Model {
 			else
 				$x = $getFor;
 			$this->db->where($x);
+			if($allProjects){
+				$this->db->where('is_live IN (0,1)');
+			}else{
+				$this->db->where(array('is_live'=>1));
+			}			
 			$this->db->order_by($orderBy);
 			$this->db->join('builders', 'builders.id = projects.builder_id');
 			$query = $this->db->get('projects', $limit);
@@ -86,14 +96,29 @@ class Properties_model extends CI_Model {
 		$last_id =0;
 		if($where != '')
 			$this->db->where($where);
+		if($allProjects){
+			$this->db->where('is_live IN (0,1)');
+		}else{
+			$this->db->where(array('is_live'=>1));
+		}		
 		$this->db->select('count(*) as total');
 		$query2 = $this->db->get('projects');
 		if($where != '')
 			$this->db->where($where);
+		if($allProjects){
+			$this->db->where('is_live IN (0,1)');
+		}else{
+			$this->db->where(array('is_live'=>1));
+		}		
 		$query3 = $this->db->get('projects', 1);
 		$this->db->order_by('project_id DESC');
 		if($where != '')
 			$this->db->where($where);
+		if($allProjects){
+			$this->db->where('is_live IN (0,1)');
+		}else{
+			$this->db->where(array('is_live'=>1));
+		}		
 		$query4 = $this->db->get('projects',1);
 		$this->db->db_debug = true;
 		$error = $this->db->error();
