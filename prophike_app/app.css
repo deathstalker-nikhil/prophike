@@ -426,6 +426,54 @@ img{
   border-color: #bbb;
   border-radius: 0;
 }
+.home .suggestionBox{
+  position: relative;
+}
+.home .suggestionBox .suggestions{
+  position: absolute;
+  background: white;
+  width: 100%;
+  color:black;
+  z-index: 10000;
+  border:1px solid #ddd;
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  transition:opacity .3s;
+}
+.home .suggestionBox input:focus + .suggestions,.home  .suggestionBox input + .suggestions:hover{
+  opacity: 1;
+  height: auto;
+}
+.home  .suggestionBox .suggestions p{
+  font-size: 1.2em;
+  padding:8px 15px;
+  margin-bottom: 0;
+}
+.home  .suggestionBox .suggestions ul{
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+.home  .suggestionBox .suggestions ul li{
+  display: block;
+}
+.home  .suggestionBox .suggestions ul li:nth-child(odd){
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.home  .suggestionBox .suggestions ul li a,.home  .suggestionBox .suggestions ul li a:focus{
+  padding:8px 15px;
+  font-size:1em;
+  display: block;
+  text-decoration: none;
+  transition:all .3s;
+  color:#444;
+}
+.home  .suggestionBox .suggestions ul li a:hover{
+  background: #fec503;
+  color: #fff; 
+}
 @media(max-width: 768px){
   .home .mainSearch .basicForm{
     padding-bottom:0;

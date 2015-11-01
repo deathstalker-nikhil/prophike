@@ -105,4 +105,43 @@ angular.module('prophikeApp.home', [
       $state.go('search',{'where':'city in ('+$scope.advancedSearch.city+') and min_price between '+$scope.priceRanges[$scope.advancedSearch.price].min_val+' and '+$scope.priceRanges[$scope.advancedSearch.price].max_val,'query':$scope.advancedSearch.query,'units':$scope.advancedSearch.unit_type,'selectedPriceIds':$scope.priceRanges[$scope.advancedSearch.price].id});
     }
   }
+
+  $scope.basicLiveSearch = function(){
+    if($scope.basicSearch.query == ''){
+      delete $scope.basicLiveSearchResult;
+      return;
+    }
+    if( typeof basicSearching != "undefined") {
+        clearTimeout(basicSearching);
+    }
+    basicSearching = setTimeout(function(){
+      properties.get({'fields':'id,name,slug','limit':8,'query':$scope.basicSearch.query,'where':'city in ('+$scope.basicSearch.city+')'},function(data,status){
+        if(!angular.equals([],data.data)){       
+          $scope.basicLiveSearchResult = data.data;
+        }else{
+          $scope.basicLiveSearchResult = '';
+        }
+      });      
+    }, 100);
+  }
+
+  $scope.advancedLiveSearch = function(){
+    if($scope.advancedSearch.query == ''){
+      delete $scope.advancedLiveSearchResult;
+      return;
+    }
+    if( typeof advancedSearching != "undefined") {
+        clearTimeout(advancedSearching);
+    }
+    advancedSearching = setTimeout(function(){
+      properties.get({'fields':'id,name,slug','limit':8,'query':$scope.advancedSearch.query,'where':'city in ('+$scope.advancedSearch.city+')','units':$scope.advancedSearch.unit_type},function(data,status){
+        if(!angular.equals([],data.data)){       
+          $scope.advancedLiveSearchResult = data.data;
+        }else{
+          $scope.advancedLiveSearchResult = '';
+        }
+      });      
+    }, 100);
+  }  
+
 }])
