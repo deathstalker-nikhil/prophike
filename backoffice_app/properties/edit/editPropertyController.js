@@ -55,6 +55,7 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 			if(status == 200 && !angular.equals([], data.data)){
 				$scope.propertyRetrived = true;
 				angular.copy(data.data[0],property);
+				property.possession = new Date(property.possession);
 				if(property.data != ''){
 					property.data = angular.fromJson(data.data[0].data);
 				}

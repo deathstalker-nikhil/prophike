@@ -71,10 +71,10 @@
   <script src="/backoffice_app/locations/create/createLocationController.js"></script>
   <script src="/backoffice_app/locations/edit/editLocationController.js"></script>
   <script src="/backoffice_app/builder/edit/editBuilderController.js"></script>
-  <script src="/backoffice_app/properties/propertiesController.js"></script>
+  <script src="/backoffice_app/properties/propertiesController.js?v=1"></script>
   <script src="/backoffice_app/properties/propertiesService.js"></script>
   <script src="/backoffice_app/properties/create/createPropertyController.js"></script>
-  <script src="/backoffice_app/properties/edit/editPropertyController.js"></script>
+  <script src="/backoffice_app/properties/edit/editPropertyController.js?v=1"></script>
   <script src="/backoffice_app/properties/view/propertiesViewController.js"></script>
   <script src="/backoffice_app/properties/units/unitsController.js"></script>
   <script src="/backoffice_app/properties/units/unitsService.js"></script>

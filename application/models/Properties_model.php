@@ -30,7 +30,7 @@ class Properties_model extends CI_Model {
 		}
 	}
 
-	public function get($id = '',$limit = 10,$fields,$allProjects,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='',$slug = '')
+	public function get($id = '',$limit = 10,$fields,$allProjects,$getFor='',$where = '' ,$orderBy = 'id DESC',$units = '',$query='',$slug = '',$possessionsQuery = '')
 	{
 		$this->db->db_debug = false;
 		if ($id != '' || $slug != '')
@@ -83,6 +83,9 @@ class Properties_model extends CI_Model {
 			else
 				$x = $getFor;
 			$this->db->where($x);
+			if($possessionsQuery != ''){
+				$this->db->where($possessionsQuery);
+			}
 			if($allProjects){
 				$this->db->where('is_live IN (0,1)');
 			}else{
@@ -101,6 +104,9 @@ class Properties_model extends CI_Model {
 		}else{
 			$this->db->where(array('is_live'=>1));
 		}		
+		if($possessionsQuery != ''){
+			$this->db->where($possessionsQuery);
+		}		
 		$this->db->select('count(*) as total');
 		$query2 = $this->db->get('projects');
 		if($where != '')
@@ -110,6 +116,9 @@ class Properties_model extends CI_Model {
 		}else{
 			$this->db->where(array('is_live'=>1));
 		}		
+		if($possessionsQuery != ''){
+			$this->db->where($possessionsQuery);
+		}		
 		$query3 = $this->db->get('projects', 1);
 		$this->db->order_by('project_id DESC');
 		if($where != '')
@@ -118,6 +127,9 @@ class Properties_model extends CI_Model {
 			$this->db->where('is_live IN (0,1)');
 		}else{
 			$this->db->where(array('is_live'=>1));
+		}		
+		if($possessionsQuery != ''){
+			$this->db->where($possessionsQuery);
 		}		
 		$query4 = $this->db->get('projects',1);
 		$this->db->db_debug = true;

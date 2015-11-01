@@ -29,6 +29,7 @@ angular.module('prophikeApp.property', [
     properties.get({'slug':$stateParams.slug},function(data,status){
       if(!angular.equals([],data.data)){          
         $scope.property = data.data[0];
+        $scope.property.possession = new Date($scope.property.possession);
         $scope.app.title = $scope.property.name;
         if($scope.property.data != '')
           $scope.property.data = angular.fromJson($scope.property.data);
@@ -48,11 +49,6 @@ angular.module('prophikeApp.property', [
           $scope.hideGMap = true;
         }
         $scope.property.data.features = $sce.trustAsHtml($scope.property.data.features);
-        if($scope.property.possession == "0"){$scope.property.possession_text = "Ready to move in"}
-        if($scope.property.possession == "3"){$scope.property.possession_text = "0 to 6 months"}
-        if($scope.property.possession == "9"){$scope.property.possession_text = "6 to 12 months"}
-        if($scope.property.possession == "18"){$scope.property.possession_text = "1 to 2 years"}
-        if($scope.property.possession == "36"){$scope.property.possession_text = "More than two years"} 
         builder.get({'id':$scope.property.builder_id},function(data,status){
           if(status == 200){
               $scope.builder = data.data[0];

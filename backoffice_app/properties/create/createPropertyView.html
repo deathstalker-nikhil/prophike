@@ -98,13 +98,7 @@
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label for="possession">Possession</label>
-				<select class="form-control" required ng-init="property.possession='0'" ng-model="property.possession" id="possession">
-					<option value="0">Ready to move in</option>
-					<option value="3">0 to 6 months</option>
-					<option value="9">6 to 12 months</option>
-					<option value="18">1 to 2 years</option>
-					<option value="36">More than two years</option>
-				</select>
+				<input type="date" required ng-model="property.possession" class="form-control">
 			</div>
 		</div>
 	</div>

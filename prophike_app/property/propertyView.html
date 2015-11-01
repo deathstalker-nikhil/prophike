@@ -93,7 +93,7 @@
           <div class="col-sm-6">
             <section>  
               <h2>Address</h2>
-                <address>
+                <address class="text-center">
                   <p><strong>{{property.address}}</strong></p>
                 </address>              
             </section>
@@ -101,7 +101,7 @@
           <div class="col-sm-6">
             <section>
               <h2>Possession</h2>
-              <p><strong>{{property.possession_text}}</strong></p>
+              <p class="text-center"><strong>{{ property.possession | date : 'MMM yyyy'}}</strong></p>
             </section>
           </div>
         </div>

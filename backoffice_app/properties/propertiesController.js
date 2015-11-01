@@ -152,13 +152,6 @@ angular.module('backofficeApp.properties', [
 					break;
 				case 'where':
 					if(!angular.equals({},urlParams) && angular.isDefined(urlParams.where)){
-						if(urlParams.where.indexOf('possession') != -1 && params.where.indexOf('possession') != -1){
-							urlParams.where = urlParams.where.replace(/possession.+\(.+?\)/,params.where);
-						}else if(params.where.indexOf('possession') != -1){
-							urlParams.where += ' and '+params.where;
-						}else if(urlParams.where.indexOf('possession') != -1 && params.where == 'deletePossession'){
-							urlParams.where = urlParams.where.replace(/\s*(?:and){0,1}\s*possession.+?\([0-9,]+\)/,'');
-						}
 						if(urlParams.where.indexOf('builder_id') != -1 && params.where.indexOf('builder_id') != -1){
 							urlParams.where = urlParams.where.replace(/builder_id.+?\([0-9,]+\)/,params.where);
 						}else if(params.where.indexOf('builder_id') != -1){
@@ -213,6 +206,12 @@ angular.module('backofficeApp.properties', [
 						delete urlParams.units;
 					}					
 					break;
+				case 'possessions':
+					urlParams.possessions = params.possessions;
+					if(urlParams.possessions == ''){
+						delete urlParams.possessions;
+					}
+					break;
 				default:break;
 			}
 		});
@@ -230,11 +229,11 @@ angular.module('backofficeApp.properties', [
 		});
 	}
 
-	$scope.possessions = [{'text':'Ready to move in','value':0,'is_checked':0},
-												{'text':'0 to 6 months','value':3,'is_checked':0},
-												{'text':'6 to 12 months','value':9,'is_checked':0},
-												{'text':'1 to 2 years','value':18,'is_checked':0},
-												{'text':'More than two years','value':36,'is_checked':0}];
+	$scope.possessions = [{'id':1,'text':'Ready to move in','min_val':0,'max_val':0,'is_checked':0},
+												{'id':2,'text':'0 to 6 months','min_val':0,'max_val':6,'is_checked':0},
+												{'id':3,'text':'6 to 12 months','min_val':6,'max_val':12,'is_checked':0},
+												{'id':4,'text':'1 to 2 years','min_val':12,'max_val':24,'is_checked':0},
+												{'id':5,'text':'More than two years','min_val':24,'max_val':5000,'is_checked':0}];
 
 	$scope.priceRanges = [{'id':1,'text':'Less than 20 Lakhs','min_val':0,'max_val':2000000,'is_checked':0},
 											 {'id':2,'text':'Between 20 to 40 Lakhs','min_val':2000000,'max_val':4000000,'is_checked':0},
@@ -253,10 +252,10 @@ angular.module('backofficeApp.properties', [
 											{'text':'Showrooms or Shops','is_checked':0},
 											{'text':'Hotels','is_checked':0}];
 
-	if(angular.isDefined(urlParams.where) && urlParams.where.indexOf('possession') != -1){
-		angular.forEach((urlParams.where.match(/possession in \((.+?)(?=\))/)[1].split(',')), function(value){
+	if(angular.isDefined(urlParams.possessions) && urlParams.possessions!=''){
+		angular.forEach(urlParams.possessions, function(value){
 			var x;
-			if(angular.isDefined(x = $filter('filter')($scope.possessions,{'value':parseInt(value)},true)[0]))
+			if(angular.isDefined(x = $filter('filter')($scope.possessions,{'id':parseInt(value)},true)[0]))
 				$scope.possessions[$scope.possessions.indexOf(x)].is_checked = 1;
 		});
 	}
@@ -327,19 +326,19 @@ angular.module('backofficeApp.properties', [
 	};
 
 	$scope.getByPossession = function(){
-		var selectedPossessions = [];
+		var selectedPossessionsIds = [];
 		angular.forEach($scope.possessions, function(value, key){
 			if(value.is_checked == 1){
-				selectedPossessions.push(value.value);
+				selectedPossessionsIds.push(value.id);
 			}
 		});
 		var obj = {};
 		if(angular.isDefined(urlParams))
 			angular.copy(urlParams, obj);
-		if(!angular.equals([], selectedPossessions)){
-			obj.where = 'possession in ('+selectedPossessions.join()+')';
+		if(!angular.equals([], selectedPossessionsIds)){
+			obj.possessions = ''+selectedPossessionsIds.join();
 		}else{
-			obj.where = 'deletePossession';
+			obj.possessions = '';
 		}
 		obj.order_by = '';
 		obj.get_for = '';

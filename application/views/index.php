@@ -48,8 +48,8 @@
   <script src="/prophike_app/app.js?v=2"></script>
   <script src="/prophike_app/common_components/footer_directive/footerDirective.js?v=1"></script>
   <script src="/prophike_app/home/homeController.js?v=1"></script>
-  <script src="/prophike_app/search/searchController.js?v=2"></script>
-  <script src="/prophike_app/property/propertyController.js?v=4"></script>
+  <script src="/prophike_app/search/searchController.js?v=3"></script>
+  <script src="/prophike_app/property/propertyController.js?v=5"></script>
   <script src="/backoffice_app/locations/locationsService.js?v=1"></script>
   <script src="/backoffice_app/builder/builderService.js?v=1"></script>
   <script src="/backoffice_app/specifications/specificationsService.js?v=1"></script>
