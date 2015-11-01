@@ -30,7 +30,7 @@ angular.module('prophikeApp.property', [
       if(!angular.equals([],data.data)){          
         $scope.property = data.data[0];
         $scope.property.possession = new Date($scope.property.possession);
-        $scope.app.title = $scope.property.name;
+        document.title = $scope.property.name+" | PropHike Real Estate Simplified";
         if($scope.property.data != '')
           $scope.property.data = angular.fromJson($scope.property.data);
         if($scope.property.media != ''){

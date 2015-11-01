@@ -1,14 +1,14 @@
 angular.module('footerDirective', [])
 .controller('footerController', ['$scope','properties','locations','userQueries', function($scope,properties,locations,userQueries) {
-  properties.get({'where':'is_hot_project=1','fields':'is_hot_project,media,id,name,slug','limit':8},function(data,status){
+  properties.get({'where':'is_hot_project=1','fields':'is_hot_project,id,name,slug','per_page':4},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.hotProperties = data.data;
     }       
   });
 
-  properties.get({'where':'is_best_investment_project=1','fields':'is_best_investment_project,media,id,name,slug','limit':8},function(data,status){
+  properties.get({'fields':'id,name,slug','per_page':4},function(data,status){
     if(!angular.equals([],data.data)){         
-      $scope.BIProperties = data.data;
+      $scope.newProperties = data.data;
     }       
   });
 

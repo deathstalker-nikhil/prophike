@@ -12,7 +12,7 @@
             </ul>
           </div>
           <div class="col-sm-2 linksBox">
-            <h4>Projects In</h4>
+            <h4>Search by city</h4>
             <ul>
               <li ng-repeat="(key, value) in cities"><a ui-sref="search({'where':'city in ('+value.city+')'})">{{value.city}}</a></li>
             </ul>
@@ -24,9 +24,9 @@
             </ul>              
           </div>
           <div class="col-sm-2 linksBox">
-            <h4>Best Investment</h4>
+            <h4>Newly launched</h4>
             <ul>
-              <li ng-repeat="(key, value) in BIProperties"><a ui-sref="property({slug:value.slug})">{{value.name}}</a></li>
+              <li ng-repeat="(key, value) in newProperties"><a ui-sref="property({slug:value.slug})">{{value.name}}</a></li>
             </ul>               
           </div>
           <div class="col-sm-4 linksBox">
@@ -50,7 +50,7 @@
     </div>
     <div class="section2">
       <div class="container">  
-        <p>Copyright &copy; 2015 PropHike. All rights reserved.</p>
+        <p class="text-center">Copyright &copy; 2015 PropHike. All rights reserved.</p>
       </div>
     </div>
     <button class="btn scrollToTop"><span class="glyphicon glyphicon-chevron-up"></span></button>

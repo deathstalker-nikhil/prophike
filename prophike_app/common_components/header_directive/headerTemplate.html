@@ -1,0 +1,17 @@
+<header class="container" ng-controller="headerController">
+	<div class="row">
+		<div class="col-sm-4">
+  		<a ui-sref="home" class="logo"><img src="/assets/images/web-logo.png" class="img-responsive" alt=""></a>
+		</div>
+		<div class="col-sm-4">
+			<h4 class="text-center" ng-hide="projectOfTheDay == ''">Project of the day</h4>
+			<div class="projectBox" ng-hide="projectOfTheDay == ''">
+				<img ng-src="{{projectOfTheDay.media.property.thumb[0]}}" class="img-responsive" alt="" ui-sref="property({slug:projectOfTheDay.slug})">
+				<p ui-sref="property({slug:projectOfTheDay.slug})"><strong>{{projectOfTheDay.name}}</strong></p>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<p class="phoneContact"><span class="glyphicon glyphicon-phone-alt"></span> +91-9871363345</p>
+		</div>
+	</div>
+</header>

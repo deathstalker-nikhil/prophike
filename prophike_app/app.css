@@ -70,10 +70,28 @@ div.vertical {
   justify-content: center;
   height: inherit;
 }
-header>a{
-  margin:1.5% 0;
+header a.logo{
+  margin:20px 0;
   display: inline-block;
   max-width: 270px;
+}
+header .phoneContact{
+  margin:14.5% 0;
+  text-align: right;
+  font-size: 1.5em;
+}
+header .projectBox{
+  text-align: center;
+}
+header .projectBox img{
+  max-width: 120px !important;
+  margin:auto;
+  cursor: pointer;
+}
+header .projectBox p{
+  display:inline-block;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 .home .mainSearch{
   background: url('/assets/images/bgi.jpg') no-repeat;
@@ -84,6 +102,7 @@ header>a{
 .home .mainSearch h1{
   text-transform: uppercase;
   text-align: center;
+  font-weight: 400;
   color:white;
   margin-top:0;
 }
@@ -301,6 +320,7 @@ footer .section1 .socialLinks li img{
 }
 .search .section2 .project h4{
   text-transform: capitalize;
+  cursor: pointer;
   margin-top:0;
   margin-bottom: 15px;
 }
@@ -308,6 +328,9 @@ footer .section1 .socialLinks li img{
   border:1px solid #ddd;
   padding:2.5%;
   margin:5px 0 15px;
+}
+.search .section2 .project img{
+  cursor: pointer;
 }
 img{
   display: block !important;
@@ -474,13 +497,32 @@ img{
   background: #fec503;
   color: #fff; 
 }
+@media(max-width: 1200px){
+  header .phoneContact{
+    margin: 17.6% 0
+  }
+}
+@media(max-width: 992px){
+  header .phoneContact{
+    margin: 20.7% 0;
+  }  
+}
 @media(max-width: 768px){
+  header .phoneContact{
+    margin: 10px 0;
+    text-align: center;
+  }    
   .home .mainSearch .basicForm{
     padding-bottom:0;
   }
   footer .section1 .linksBox{
     margin-bottom: 35px;
     text-align: center;
+  }
+  header a.logo{
+    display: block;
+    margin-right:auto;
+    margin-left: auto;
   }
   footer .section2{
     text-align: center;

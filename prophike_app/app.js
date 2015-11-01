@@ -10,7 +10,8 @@ angular.module('prophikeApp', [
   'propertiesService',
   'specificationsService',
   'unitsService',
-  'userQueriesService'
+  'userQueriesService',
+  'headerDirective'
 ])
 
 .run(['$rootScope','$state','$stateParams',function ($rootScope,$state,$stateParams) {
@@ -49,19 +50,19 @@ angular.module('prophikeApp', [
   function(event, toState, toParams, fromState, fromParams){ 
     if(toState.name == 'home'){
       $scope.app.mainClass = 'home';
-      $scope.app.title="Home";
+      document.title = "Home | PropHike Real Estate Simplified";
     }else if(toState.name == 'aboutUs'){
       $scope.app.mainClass = 'aboutUs';
-      $scope.app.title="About Us";      
+      document.title = "About Us | PropHike Real Estate Simplified";     
     }else if(toState.name == 'privacyPolicy'){
       $scope.app.mainClass = 'privacyPolicy';
-      $scope.app.title="Privacy Policy";       
+      document.title = "Privacy Policy | PropHike Real Estate Simplified";       
     }else if(toState.name == 'disclaimer'){
       $scope.app.mainClass = 'disclaimer';
-      $scope.app.title="Disclaimer";        
+      document.title = "Disclaimer | PropHike Real Estate Simplified";        
     }else if(toState.name == 'search'){
       $scope.app.mainClass = "search";
-      $scope.app.title = "Search";
+      document.title = "Search | PropHike Real Estate Simplified";
     }else if(toState.name == 'property'){
       $scope.app.mainClass = "property";
     }

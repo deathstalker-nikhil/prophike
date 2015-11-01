@@ -74,11 +74,7 @@ angular.module('prophikeApp.search', [
             $scope.properties[key].max_price_value = value.max_price/10000000;
             $scope.properties[key].max_price_unit_value = 'Crore';
           } 
-          if(value.possession == "0"){$scope.properties[key].possession_text = "Ready to move in"}
-          if(value.possession == "3"){$scope.properties[key].possession_text = "0 to 6 months"}
-          if(value.possession == "9"){$scope.properties[key].possession_text = "6 to 12 months"}
-          if(value.possession == "18"){$scope.properties[key].possession_text = "1 to 2 years"}
-          if(value.possession == "36"){$scope.properties[key].possession_text = "More than two years"}
+          $scope.properties[key].possession = new Date(value.possession);
         });
       }
       if(angular.equals([],$scope.properties)){
