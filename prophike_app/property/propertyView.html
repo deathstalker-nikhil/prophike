@@ -13,42 +13,38 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#home">Home</a></li>
           <li><a href="#overview" ng-hide="property.data.overview == ''">Overview</a></li>
-          <li><a href="#priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">Price List</a></li>
-          <li><a href="#units" ng-hide="units == ''">Units</a></li>
           <li><a href="#features" ng-hide="specifications == ''">Features</a></li>
+          <li><a href="#specifications" ng-hide="property.data.features == ''">Specifications</a></li>
+          <li><a href="#units" ng-hide="units == ''">Units</a></li>
+          <li><a href="#priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">Price List</a></li>
           <li><a href="#gallery" ng-hide="property.media.property.gallery == ''">Gallery</a></li>
           <li><a href="#address">Address</a></li>
-          <li><a href="#specifications" ng-hide="property.data.features == ''">Specifications</a></li>
           <li><a href="#builder">Builder</a></li>
           <li><a href="#comments">Comments</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>    
 </div>
 <section class="container" id="home">
-    <img ng-src="{{property.media.property.cover[0]}}" class="img-responsive img-thumbnail" alt="">
+    <img ng-src="{{property.media.property.cover[0]}}" class="img-responsive img-thumbnail coverImage" alt="">
     <h1>{{property.name}}</h1>
     <section id="overview" ng-hide="property.data.overview == ''">
-    <h2>Overview</h2>
-    <div ng-bind-html="property.data.overview"></div> 
+      <h2>Overview</h2>
+      <div ng-bind-html="property.data.overview"></div> 
     </section>  
-    <section class="customTabsHolder" id="priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">
-    <h2>Payment and price list</h2>
-    <ul class="nav nav-pills">
-      <li class="active"><a href="javascript:" class="customTabs" ng-hide="property.data.price_list == ''" data-show="priceList">Price List</a></li>
-      <li><a href="javascript:" class="customTabs" data-show="paymentList" ng-hide="property.data.payment_plan==''">Payment List</a></li>
-    </ul> 
-    <div class="extendedDetailsBox">          
-      <div class="priceList" ng-hide="property.data.price_list == ''">
-        <div ng-bind-html="property.data.price_list" class="priceList"></div>          
-      </div>
-      <div class="paymentList hideElem" ng-hide="property.data.payment_plan==''">
-        <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>               
-      </div> 
-    </div>
-    </section>
+    <section id="features" ng-hide="specifications == ''">
+        <h2>Features</h2>
+        <ul class="featuresList">
+          <li ng-repeat="(key,value) in specifications"><img ng-src="{{value.icon_path.logo[0]}}" class="img-responsive"><p>{{value.name}}</p></li>
+        </ul>     
+    </section> 
+    <section id="specifications" ng-hide="property.data.features == ''">
+        <h2>Specifications</h2>
+        <div class="extendedDetailsBox">
+            <div ng-bind-html="property.data.features"></div>
+        </div>          
+    </section> 
     <section class="customTabsHolder" id="units" ng-hide="units == ''">
         <h2>Units</h2>
         <ul class="nav nav-pills">
@@ -63,20 +59,30 @@
               <div class="col-sm-5">
                 <h3>{{value.unit_name}}</h3>
                 <p><strong>Price</strong> : {{value.unit_price_value}} {{value.unit_price_unit_value}}</p>
-                <p><strong>Area</strong> : {{value.unit_price_per_area}}sq.ft</p>
+                <p><strong>Price per sqft. area</strong> : {{value.unit_price_per_area_value}} {{value.unit_price_per_area_unit_value}}</p>
+                <p><strong>Area</strong> : {{value.unit_area}} sq.ft</p>
                 <p><strong>Details</strong></p>
                 <div ng-bind-html="value.unit_details"></div>
               </div>
             </div>
           </div>
         </div>        
+    </section>          
+    <section class="customTabsHolder" id="priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">
+      <h2>Price list and Payment plan</h2>
+      <ul class="nav nav-pills">
+        <li class="active"><a href="javascript:" class="customTabs" ng-hide="property.data.price_list == ''" data-show="priceList">Price List</a></li>
+        <li><a href="javascript:" class="customTabs" data-show="paymentList" ng-hide="property.data.payment_plan==''">Payment Plan</a></li>
+      </ul> 
+      <div class="extendedDetailsBox">          
+        <div class="priceList" ng-hide="property.data.price_list == ''">
+          <div ng-bind-html="property.data.price_list" class="priceList"></div>          
+        </div>
+        <div class="paymentList hideElem" ng-hide="property.data.payment_plan==''">
+          <div ng-bind-html="property.data.payment_plan" class="paymentList"></div>               
+        </div> 
+      </div>
     </section> 
-    <section id="features" ng-hide="specifications == ''">
-        <h2>Features</h2>
-        <ul class="featuresList">
-          <li ng-repeat="(key,value) in specifications"><img ng-src="{{value.icon_path.logo[0]}}" class="img-responsive"><p>{{value.name}}</p></li>
-        </ul>     
-    </section>
     <section id="gallery" ng-hide="property.media.property.gallery == ''">
         <h2>Gallery</h2>
         <div id="lightgallery">
@@ -90,31 +96,26 @@
     </section>
     <section id="address">        
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-8">
+            <section ng-hide="hideGMap">
+              <h2>Google Map</h2>
+              <div class="text-center"><a href="javascript:" class="toggleMap btn">View Map</a></div>
+              <div ng-bind-html="property.data.google_map_code" class="hidden map"></div>              
+            </section>
+          </div>
+          <div class="col-sm-4">
             <section>  
               <h2>Address</h2>
                 <address class="text-center">
                   <p><strong>{{property.address}}</strong></p>
                 </address>              
             </section>
-          </div>
-          <div class="col-sm-6">
             <section>
               <h2>Possession</h2>
               <p class="text-center"><strong>{{ property.possession | date : 'MMM yyyy'}}</strong></p>
-            </section>
+            </section>            
           </div>
         </div>
-    </section>
-    <section ng-hide="hideGMap">
-        <h2>Google Map</h2>
-        <div ng-bind-html="property.data.google_map_code"></div>
-    </section>
-    <section id="specifications" ng-hide="property.data.features == ''">
-        <h2>Specifications</h2>
-        <div class="extendedDetailsBox">
-            <div ng-bind-html="property.data.features"></div>
-        </div>          
     </section>
     <section id="builder">
         <h2>Builder</h2>
@@ -125,23 +126,12 @@
           <div class="col-sm-9">
             <h4>Name</h4>
             <p>{{builder.builder_description}}</p>
+            <a ui-sref="search({where:'builder_id in ('+builder.id+')'})" class="btn">View Projects</a>
           </div>
         </div>
     </section>
     <section id="comments">
         <div class="row">
-          <div class="col-sm-8">
-            <section>
-              <h2>Comments</h2>
-              <div class="commentsBox">
-                <p ng-show="comments == ''">No comments yet.</p>
-                <div class="comment" ng-repeat="(key,value) in comments">
-                  <p><strong>{{value.user_name}}</strong></p>
-                  <blockquote>{{value.user_comment}}</blockquote>
-                </div>
-              </div>
-            </section>
-          </div>
           <div class="col-sm-4">
             <section>  
               <h2>Post comment</h2>
@@ -168,6 +158,18 @@
               </form>
             </section>
           </div>
+          <div class="col-sm-8">
+            <section>
+              <h2>Comments</h2>
+              <div class="commentsBox">
+                <p ng-show="comments == ''">No comments yet.</p>
+                <div class="comment" ng-repeat="(key,value) in comments">
+                  <p><strong>{{value.user_name}}</strong></p>
+                  <blockquote>{{value.user_comment}}</blockquote>
+                </div>
+              </div>
+            </section>
+          </div>          
         </div>
     </section>
     <section id="contact">

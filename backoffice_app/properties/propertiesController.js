@@ -235,12 +235,10 @@ angular.module('backofficeApp.properties', [
 												{'id':4,'text':'1 to 2 years','min_val':12,'max_val':24,'is_checked':0},
 												{'id':5,'text':'More than two years','min_val':24,'max_val':5000,'is_checked':0}];
 
-	$scope.priceRanges = [{'id':1,'text':'Less than 20 Lakhs','min_val':0,'max_val':2000000,'is_checked':0},
-											 {'id':2,'text':'Between 20 to 40 Lakhs','min_val':2000000,'max_val':4000000,'is_checked':0},
-											 {'id':3,'text':'Between 40 to 60 Lakhs','min_val':4000000,'max_val':6000000,'is_checked':0},
-											 {'id':4,'text':'Between 60 to 80 Lakhs','min_val':6000000,'max_val':8000000,'is_checked':0},
-											 {'id':5,'text':'Between 80 Lakhs to 1 Crore','min_val':8000000,'max_val':10000000,'is_checked':0},
-											 {'id':6,'text':'More than 1 Crore','min_val':10000000,'max_val':10000000000,'is_checked':0}];
+	$scope.priceRanges = [{'id':1,'text':'Less than 30 Lakhs','min_val':0,'max_val':3000000,'is_checked':0},
+											 {'id':2,'text':'Between 30 to 50 Lakhs','min_val':3000000,'max_val':5000000,'is_checked':0},
+											 {'id':3,'text':'Between 50 to 80 Lakhs','min_val':5000000,'max_val':8000000,'is_checked':0},
+											 {'id':6,'text':'More than 80 Crore','min_val':8000000,'max_val':10000000000,'is_checked':0}];
 
 	$scope.unitTypes = [{'text':'2 BHK','is_checked':0},
 											{'text':'3 BHK','is_checked':0},

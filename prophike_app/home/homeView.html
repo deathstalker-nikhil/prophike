@@ -17,11 +17,11 @@
         <div class="col-sm-7">
           <div class="form-group suggestionBox">
             <input type="text" class="form-control" placeholder="Search Query" ng-model="basicSearch.query" ng-model-options="{debounce: 600}" ng-change="basicLiveSearch()">
+            <p ng-hide="basicLiveSearchResult != ''" class="text-center noResult">No Result</li>
             <div class="suggestions">
               <p>Projects</p>
               <ul>
                 <li ng-repeat="(key, value) in basicLiveSearchResult"><a href="javascript:" ng-click="basicSearch.query = value.name">{{value.name}}</a></li>
-                <li ng-hide="basicLiveSearchResult != ''" class="text-center"><p>No Result</p></li>
               </ul>
             </div>
           </div>
@@ -43,11 +43,11 @@
         <div class="col-sm-9">
           <div class="form-group suggestionBox">
             <input type="text" class="form-control" placeholder="Search Query" ng-model="advancedSearch.query" ng-change="advancedLiveSearch()" ng-model-options="{debounce: 600}">
+            <p ng-hide="advancedLiveSearchResult != ''" class="text-center noResult">No Result</p>
             <div class="suggestions">
               <p>Projects</p>
               <ul>
                 <li ng-repeat="(key, value) in advancedLiveSearchResult"><a href="javascript:" ng-click="advancedSearch.query = value.name">{{value.name}}</a></li>
-                <li ng-hide="advancedLiveSearchResult != ''" class="text-center"><p>No Result</p></li>
               </ul>
             </div>          
           </div>

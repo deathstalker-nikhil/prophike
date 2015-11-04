@@ -67,9 +67,9 @@ class Properties_model extends CI_Model {
 				}
 				$x = substr($x,0,-1);
 				if($where == ''){
-					$where .= 'projects.project_id in (SELECT DISTINCT `p_id` FROM `units` WHERE `unit_type` IN ('.$x.'))';
+					$where .= '( projects.project_id in (SELECT DISTINCT `p_id` FROM `units` WHERE `unit_type` IN ('.$x.')) OR property_type in ('.$x.'))';
 				}else{
-					$where .= ' AND projects.project_id in (SELECT DISTINCT `p_id` FROM `units` WHERE `unit_type` IN ('.$x.'))';	
+					$where .= ' AND (projects.project_id in (SELECT DISTINCT `p_id` FROM `units` WHERE `unit_type` IN ('.$x.')) OR property_type in ('.$x.'))';	
 				}
 			}
 			if($query != ''){

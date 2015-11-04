@@ -101,7 +101,17 @@ angular.module('prophikeApp.property', [
               }else{
                 $scope.units[key].unit_price_value = value.unit_price/10000000;
                 $scope.units[key].unit_price_unit_value = 'Crore';
-              } 
+              }
+              if(value.unit_price_per_area < 100000){
+                $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/1000;
+                $scope.units[key].unit_price_per_area_unit_value = 'Thousand';
+              }else if(value.unit_price_per_area < 10000000){
+                $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/100000;
+                $scope.units[key].unit_price_per_area_unit_value = 'Lakhs';
+              }else{
+                $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/10000000;
+                $scope.units[key].unit_price_per_area_unit_value = 'Crore';
+              }               
               if(angular.isDefined(value.unit_details) && value.unit_details!=''){
                 $scope.units.unit_details = $sce.trustAsHtml(value.unit_details);           
               }
@@ -112,7 +122,20 @@ angular.module('prophikeApp.property', [
           $('#priceList').find('table').addClass('table table-bordered table-striped table-condensed');            
           $("#lightgallery").lightGallery();
           $('body').scrollspy({ target: '#navigationMenu' });
+           $(function(){ 
+               var navMain = $("#propertyNavigation");
+               navMain.on("click", "a", null, function () {
+                   navMain.collapse('hide');
+               });
+           });          
         }, 700);
+          $(document).on('click','.toggleMap',function(){
+            if($(this).closest('section').find('.map').hasClass('hidden')){
+              $(this).closest('section').find('.map').hide().removeClass('hidden').slideDown('slow');
+            }else{
+              $(this).closest('section').find('.map').slideUp('normal',function(){$(this).addClass('hidden')});
+            }
+          });        
           $('a[href^="#"]').on('click',function (e) {
               e.preventDefault();
               var target = this.hash,

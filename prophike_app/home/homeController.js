@@ -30,7 +30,7 @@ angular.module('prophikeApp.home', [
     autoPlay:true,
     stopOnHover:true
   };
-  properties.get({'where':'is_hot_project=1','fields':'is_hot_project,media,id,name,slug','limit':8},function(data,status){
+  properties.get({'where':'is_hot_project=1','fields':'is_hot_project,media,id,name,slug','per_page':8},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.hotProperties = data.data;
     }       
@@ -40,10 +40,13 @@ angular.module('prophikeApp.home', [
     }); 
     setTimeout(function() {
       $("#hotProjects").owlCarousel(config);
+      $(document).on('click','.suggestions li a',function(){
+        $(this).closest('.suggestions').removeClass('showSuggestionsBox');
+      });
     }, 300);
   });
 
-  properties.get({'where':'is_best_investment_project=1','fields':'is_best_investment_project,media,id,name,slug','limit':8},function(data,status){
+  properties.get({'where':'is_best_investment_project=1','fields':'is_best_investment_project,media,id,name,slug','per_page':8},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.BIProperties = data.data;
     }       
@@ -56,7 +59,7 @@ angular.module('prophikeApp.home', [
     },300);
   });
 
-  properties.get({'fields':'media,id,name,slug','limit':8},function(data,status){
+  properties.get({'fields':'media,id,name,slug','per_page':8},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.newProperties = data.data;
     }       
@@ -77,12 +80,10 @@ angular.module('prophikeApp.home', [
     } 
   });  
 
-  $scope.priceRanges = [{'id':1,'text':'Less than 20 Lakhs','min_val':0,'max_val':2000000},
-                       {'id':2,'text':'Between 20 to 40 Lakhs','min_val':2000000,'max_val':4000000},
-                       {'id':3,'text':'Between 40 to 60 Lakhs','min_val':4000000,'max_val':6000000},
-                       {'id':4,'text':'Between 60 to 80 Lakhs','min_val':6000000,'max_val':8000000},
-                       {'id':5,'text':'Between 80 Lakhs to 1 Crore','min_val':8000000,'max_val':10000000},
-                       {'id':6,'text':'More than 1 Crore','min_val':10000000,'max_val':10000000000}];
+  $scope.priceRanges = [{'id':1,'text':'Less than 30 Lakhs','min_val':0,'max_val':3000000,'is_checked':0},
+                       {'id':2,'text':'Between 30 to 50 Lakhs','min_val':3000000,'max_val':5000000,'is_checked':0},
+                       {'id':3,'text':'Between 50 to 80 Lakhs','min_val':5000000,'max_val':8000000,'is_checked':0},
+                       {'id':6,'text':'More than 80 Crore','min_val':8000000,'max_val':10000000000,'is_checked':0}];
 
   $scope.unitTypes = [{'text':'2 BHK'},
                       {'text':'3 BHK'},
@@ -109,15 +110,17 @@ angular.module('prophikeApp.home', [
   $scope.basicLiveSearch = function(){
     if($scope.basicSearch.query == ''){
       delete $scope.basicLiveSearchResult;
+      $('.basicForm .suggestions').removeClass('showSuggestionsBox');
       return;
     }
     if( typeof basicSearching != "undefined") {
         clearTimeout(basicSearching);
     }
     basicSearching = setTimeout(function(){
-      properties.get({'fields':'id,name,slug','limit':8,'query':$scope.basicSearch.query,'where':'city in ('+$scope.basicSearch.city+')'},function(data,status){
+      properties.get({'fields':'id,name,slug','per_page':8,'query':$scope.basicSearch.query,'where':'city in ('+$scope.basicSearch.city+')'},function(data,status){
         if(!angular.equals([],data.data)){       
           $scope.basicLiveSearchResult = data.data;
+          $('.home .basicForm .suggestions').addClass('showSuggestionsBox');
         }else{
           $scope.basicLiveSearchResult = '';
         }
@@ -128,15 +131,17 @@ angular.module('prophikeApp.home', [
   $scope.advancedLiveSearch = function(){
     if($scope.advancedSearch.query == ''){
       delete $scope.advancedLiveSearchResult;
+      $('.advancedForm .suggestions').removeClass('showSuggestionsBox');
       return;
     }
     if( typeof advancedSearching != "undefined") {
         clearTimeout(advancedSearching);
     }
     advancedSearching = setTimeout(function(){
-      properties.get({'fields':'id,name,slug','limit':8,'query':$scope.advancedSearch.query,'where':'city in ('+$scope.advancedSearch.city+')','units':$scope.advancedSearch.unit_type},function(data,status){
+      properties.get({'fields':'id,name,slug','per_page':8,'query':$scope.advancedSearch.query,'where':'city in ('+$scope.advancedSearch.city+') and min_price between '+$scope.priceRanges[$scope.advancedSearch.price].min_val+' and '+$scope.priceRanges[$scope.advancedSearch.price].max_val,'units':$scope.advancedSearch.unit_type},function(data,status){
         if(!angular.equals([],data.data)){       
           $scope.advancedLiveSearchResult = data.data;
+          $('.home .advancedForm .suggestions').addClass('showSuggestionsBox');
         }else{
           $scope.advancedLiveSearchResult = '';
         }
