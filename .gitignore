@@ -12,9 +12,6 @@ user_guide/*
 
 rest_server_doc/*
 
-
 application/config/database.php
 
 assets/uploads/*
-
-changes.txt
