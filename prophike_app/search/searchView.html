@@ -85,11 +85,8 @@
       <div ng-show="noResult">
       	<h3 class="text-center">No Result</h3>
       </div>
-      <nav >
-        <ul class="pager">
-          <li class="previous"><a ng-click="prev()" ng-show="show_prev_btn"><span aria-hidden="true">&larr;</span> Previous</a></li>
-          <li class="next"><a ng-show="show_next_btn" ng-click="next()">Next <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
+      <nav class="text-center">
+        <a href="javascript:" class="btn" ng-click="loadMore()" ng-hide="hide_loadMore_btn">Load more</a>
       </nav>                             
     </div>
   </div>

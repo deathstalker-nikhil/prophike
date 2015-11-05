@@ -74,9 +74,9 @@ class Properties_model extends CI_Model {
 			}
 			if($query != ''){
 				if($where != '')
-					$where .= ' AND (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' ) ';
+					$where .= ' AND (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' OR builder_name LIKE \'%'.$query.'%\' ) ';
 				else
-					$where .= ' (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' ) '; 
+					$where .= ' (name LIKE \'%'.$query.'%\' OR city LIKE \'%'.$query.'%\' OR area LIKE \'%'.$query.'%\' OR address LIKE \'%'.$query.'%\' OR builder_name LIKE \'%'.$query.'%\' )) '; 
 			}
 			if($where != '')
 				$x = $where.' and '.$getFor;
@@ -108,7 +108,8 @@ class Properties_model extends CI_Model {
 			$this->db->where($possessionsQuery);
 		}		
 		$this->db->select('count(*) as total');
-		$query2 = $this->db->get('projects');
+		$this->db->join('builders', 'builders.id = projects.builder_id');
+		$query2 = $this->db->get('projects');	
 		if($where != '')
 			$this->db->where($where);
 		if($allProjects){
@@ -119,6 +120,7 @@ class Properties_model extends CI_Model {
 		if($possessionsQuery != ''){
 			$this->db->where($possessionsQuery);
 		}		
+		$this->db->join('builders', 'builders.id = projects.builder_id');
 		$query3 = $this->db->get('projects', 1);
 		$this->db->order_by('project_id DESC');
 		if($where != '')
@@ -131,6 +133,7 @@ class Properties_model extends CI_Model {
 		if($possessionsQuery != ''){
 			$this->db->where($possessionsQuery);
 		}		
+		$this->db->join('builders', 'builders.id = projects.builder_id');
 		$query4 = $this->db->get('projects',1);
 		$this->db->db_debug = true;
 		$error = $this->db->error();

@@ -23,7 +23,7 @@ angular.module('prophikeApp.search', [
 )
 
 .controller('searchController', ['$scope','properties','$location','$filter','builder','locations','$stateParams','$state',function($scope,properties,$location,$filter,builder,locations,$stateParams,$state) {
-  $scope.perPageArray = [25];
+  $scope.perPageArray = [10];
   $scope.show_prev_btn = false;
   $scope.show_next_btn = false;
   $scope.properties = [];
@@ -33,49 +33,59 @@ angular.module('prophikeApp.search', [
   urlParams.per_page = $scope.perPageArray[0]
   $scope.result = ""+$scope.perPageArray[0];    
   
-  function getProperties(){
+  function getProperties(loadMore){
     if(!angular.isDefined(urlParams.where)){delete urlParams.where}
     if(!angular.isDefined(urlParams.units)){delete urlParams.units}
     if(!angular.isDefined(urlParams.query)){delete urlParams.query}
     if(!angular.isDefined(urlParams.selectedPriceIds)){delete urlParams.selectedPriceIds}
     if(!angular.isDefined(urlParams.get_for)){delete urlParams.get_for}
     if(!angular.isDefined(urlParams.order_by)){delete urlParams.order_by}
+    if(!angular.isDefined(urlParams.possessions)){delete urlParams.possessions}
+    if(angular.isDefined(loadMore) && loadMore == "loadMore" && !angular.equals([], $scope.properties)){
+      urlParams.get_for = 'id<'+$scope.properties[$scope.properties.length-1].project_id;
+    }    
     properties.get(urlParams,function(data,status){
       if(!angular.equals([],data.data)){
         if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '') 
           if(urlParams.order_by.indexOf('id ASC') > -1) {
             data = $filter('orderBy')(data,'-project_id');
           }           
-        $scope.properties = data.data;
-        angular.forEach($scope.properties, function(value, key){
+        angular.forEach(data.data, function(value, key){
           if(value.data!=''){
-            $scope.properties[key].data = angular.fromJson(value.data);
+            data.data[key].data = angular.fromJson(value.data);
           }
           if(value.media!=''){
-            $scope.properties[key].media = angular.fromJson(value.media);
+            data.data[key].media = angular.fromJson(value.media);
           }
           if(value.min_price < 100000){
-            $scope.properties[key].min_price_value = value.min_price/1000;
-            $scope.properties[key].min_price_unit_value = 'Thousand';
+            data.data[key].min_price_value = value.min_price/1000;
+            data.data[key].min_price_unit_value = 'Thousand';
           }else if(value.min_price < 10000000){
-            $scope.properties[key].min_price_value = value.min_price/100000;
-            $scope.properties[key].min_price_unit_value = 'Lakhs';
+            data.data[key].min_price_value = value.min_price/100000;
+            data.data[key].min_price_unit_value = 'Lakhs';
           }else{
-            $scope.properties[key].min_price_value = value.min_price/10000000;
-            $scope.properties[key].min_price_unit_value = 'Crore';
+            data.data[key].min_price_value = value.min_price/10000000;
+            data.data[key].min_price_unit_value = 'Crore';
           }
           if(value.max_price < 100000){
-            $scope.properties[key].max_price_value = value.max_price/1000;
-            $scope.properties[key].max_price_unit_value = 'Thousand';
+            data.data[key].max_price_value = value.max_price/1000;
+            data.data[key].max_price_unit_value = 'Thousand';
           }else if(value.man_price < 10000000){
-            $scope.properties[key].max_price_value = value.max_price/100000;
-            $scope.properties[key].max_price_unit_value = 'Lakhs';
+            data.data[key].max_price_value = value.max_price/100000;
+            data.data[key].max_price_unit_value = 'Lakhs';
           }else{
-            $scope.properties[key].max_price_value = value.max_price/10000000;
-            $scope.properties[key].max_price_unit_value = 'Crore';
+            data.data[key].max_price_value = value.max_price/10000000;
+            data.data[key].max_price_unit_value = 'Crore';
           } 
-          $scope.properties[key].possession = new Date(value.possession);
+          data.data[key].possession = new Date(value.possession);
         });
+        if(angular.isDefined(loadMore) && loadMore == "loadMore"){
+          angular.forEach(data.data, function(value, key){
+            $scope.properties.push(value);
+          });
+        }else{
+          $scope.properties = data.data;
+        }
       }
       if(angular.equals([],$scope.properties)){
         $scope.noResult = true;
@@ -83,8 +93,7 @@ angular.module('prophikeApp.search', [
       $scope.tableData.first_id = (angular.isDefined(data.first_id))?data.first_id:null;
       $scope.tableData.last_id = (angular.isDefined(data.last_id))?data.last_id:null;
       $scope.tableData.total = (angular.isDefined(data.total))?data.total:0;
-      $scope.show_prev_btn = (angular.isDefined($scope.tableData.last_id) && !angular.equals([],$scope.properties))?($scope.tableData.last_id == $scope.properties[0].project_id)?false:true:false;
-      $scope.show_next_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.properties))?($scope.tableData.first_id == $scope.properties[$scope.properties.length-1].project_id)? false:true:false;         
+      $scope.hide_loadMore_btn = (angular.isDefined($scope.tableData.first_id) && !angular.equals([],$scope.properties))?($scope.tableData.first_id == $scope.properties[$scope.properties.length-1].project_id)?true:false:true;       
     });
   }
 
@@ -116,32 +125,10 @@ angular.module('prophikeApp.search', [
     }   
   }); 
 
-  $scope.next = function(){   
+  $scope.loadMore = function(){   
     if(!angular.equals([], $scope.properties)){
-      var obj = {};
-      if(angular.isDefined(urlParams))
-        angular.copy(urlParams, obj);
-      if(angular.isDefined(obj.where) && obj.where != ''){
-        delete obj.where;
-      }     
-      obj.per_page = $scope.result;
-      obj.get_for = 'id<'+$scope.properties[$scope.properties.length-1].project_id;
-      updateUrl(obj);
-    }
-  };
-
-  $scope.prev = function(){
-    if(!angular.equals([], $scope.properties)){
-      var obj = {};
-      if(angular.isDefined(urlParams))
-        angular.copy(urlParams, obj);
-      if(angular.isDefined(obj.where) && obj.where != ''){
-        delete obj.where;
-      }     
-      obj.per_page = $scope.result;
-      obj.get_for = 'id>'+$scope.properties[0].project_id;
-      obj.order_by = 'id ASC';
-      updateUrl(obj);
+      $scope.hide_loadMore_btn = true;
+      getProperties("loadMore");
     }
   };
 
