@@ -23,7 +23,7 @@ angular.module('prophikeApp.property', [
   ]
 )
 
-.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments','units','userQueries', function ($scope,$stateParams,properties,$sce,builder,specifications,comments,units,userQueries) { 
+.controller('propertyController', ['$scope','$stateParams','properties','$sce','builder','specifications','comments','units','userQueries', function ($scope,$stateParams,properties,$sce,builder,specifications,comments,units,userQueries) {
   $scope.property = {};
   if($stateParams.slug != '')
     properties.get({'slug':$stateParams.slug},function(data,status){
@@ -83,7 +83,7 @@ angular.module('prophikeApp.property', [
           }
         });         
         $scope.units = '';
-        units.get({where:'p_id='+$scope.property.project_id},function(data,status){
+        units.get({where:'p_id='+$scope.property.project_id,'order_by':'id ASC'},function(data,status){
           if(!angular.equals([],data.data)){    
             $scope.units = data.data;
             angular.forEach($scope.units,function(value,key){
@@ -121,6 +121,7 @@ angular.module('prophikeApp.property', [
         setInterval(function(){
           $('#priceList').find('table').addClass('table table-bordered table-striped table-condensed');            
           $("#lightgallery").lightGallery();
+          $('#constructionGallery').lightGallery();
           $('body').scrollspy({ target: '#navigationMenu' });
            $(function(){ 
                var navMain = $("#propertyNavigation");
@@ -130,10 +131,10 @@ angular.module('prophikeApp.property', [
            });          
         }, 700);
           $(document).on('click','.toggleMap',function(){
-            if($(this).closest('section').find('.map').hasClass('hidden')){
-              $(this).closest('section').find('.map').hide().removeClass('hidden').slideDown('slow');
+            if($(this).closest('section').find('.mapOverlay').hasClass('hidden')){
+              $(this).closest('section').find('.mapOverlay').removeClass('hidden');
             }else{
-              $(this).closest('section').find('.map').slideUp('normal',function(){$(this).addClass('hidden')});
+              $(this).closest('section').find('.mapOverlay').addClass('hidden');
             }
           });        
           $('a[href^="#"]').on('click',function (e) {

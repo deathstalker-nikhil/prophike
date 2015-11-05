@@ -48,23 +48,26 @@ angular.module('prophikeApp', [
   $scope.app = {};
   $rootScope.$on('$stateChangeStart', 
   function(event, toState, toParams, fromState, fromParams){ 
-    if(toState.name == 'home'){
-      $scope.app.mainClass = 'home';
-      document.title = "Home | PropHike Real Estate Simplified";
-    }else if(toState.name == 'aboutUs'){
-      $scope.app.mainClass = 'aboutUs';
-      document.title = "About Us | PropHike Real Estate Simplified";     
-    }else if(toState.name == 'privacyPolicy'){
-      $scope.app.mainClass = 'privacyPolicy';
-      document.title = "Privacy Policy | PropHike Real Estate Simplified";       
-    }else if(toState.name == 'disclaimer'){
-      $scope.app.mainClass = 'disclaimer';
-      document.title = "Disclaimer | PropHike Real Estate Simplified";        
-    }else if(toState.name == 'search'){
-      $scope.app.mainClass = "search";
-      document.title = "Search | PropHike Real Estate Simplified";
-    }else if(toState.name == 'property'){
-      $scope.app.mainClass = "property";
+    switch(toState.name){
+      case 'home':
+        document.title = "Home | PropHike";
+        break;
+      case 'aboutUs':
+        document.title = "About Us | PropHike";
+        break;
+      case 'privacyPolicy':
+        document.title = "Privacy Policy | PropHike";
+        break;
+      case 'disclaimer':
+        document.title = "Disclaimer | PropHike";
+        break;
+      case 'search':
+        document.title = "Search | PropHike";
+        break;
+      case 'property':
+        break;        
+      default:
+        break;
     }
   });
   $rootScope.$on('$stateChangeSuccess', 
@@ -72,6 +75,8 @@ angular.module('prophikeApp', [
     if(toState != fromState){
       $('html,body').animate({scrollTop: 0},10);     
     }
+    if (toState.name=='property') {$('body').css('padding-top','35px')}
+    else {$('body').css('padding-top','0')}
   }); 
 }]);
 

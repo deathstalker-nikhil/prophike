@@ -1,93 +1,97 @@
-<section class="container">
-  <h4>Showing results for the given query entered by user</h4>
-  <div class="row">
-    <div class="col-sm-3 section1">
-      <h4>Filter By</h4>
-      <div class="query">
-        <h5>Query</h5>
-        <form class="form-inline">
-          <div class="form-group">
-          	<input type="text" class="form-control" placeholder="Query" ng-model="query">
+<div class="search">
+  <section class="container">
+    <h4>Showing results for the given query entered by user</h4>
+    <div class="row">
+      <div class="text-center loaderContainer" ng-show="showLoader"><div class="myLoader"></div></div>
+      <div class="col-sm-3 section1">
+        <h4>Filter By</h4>
+        <div class="query">
+          <h5>Keyword</h5>
+          <form class="form-inline">
+            <div class="form-group">
+            	<input type="text" class="form-control" placeholder="Query" ng-model="query">
+            </div>
+            <button type="submit" class="btn" ng-click="setQuery()">Go</button>
+          </form>
+        </div>
+        <div class="city">
+          <h5>City</h5>
+          <div class="checklist">
+  					<div class="checkbox" ng-repeat="(key, value) in cities">
+  						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cities[key].is_checked" ng-click="getByCity()"> {{value.city}}</label>
+  					</div>                                         
           </div>
-          <button type="submit" class="btn" ng-click="setQuery()"><span class="glyphicon glyphicon-chevron-right"></span></button>
-        </form>
-      </div>
-      <div class="city">
-        <h5>City</h5>
-        <div class="checklist">
-					<div class="checkbox" ng-repeat="(key, value) in cities">
-						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cities[key].is_checked" ng-click="getByCity()"> {{value.city}}</label>
-					</div>                                         
         </div>
-      </div>
-      <div class="filterBox">
-        <h5>Type</h5>
-        <div class="checklist">
-					<div class="checkbox" ng-repeat="(key, value) in unitTypes">
-						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="unitTypes[key].is_checked" ng-click="getByUnit()"> {{value.text}}</label>
-					</div>                                         
-        </div>
-      </div>
-      <div class="filterBox">
-        <h5>Builder</h5>
-        <div class="checklist">
-					<div class="checkbox" ng-repeat="(key, value) in builders">
-						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="builders[key].is_checked" ng-click="getByBuilder()"> {{value.builder_name}}</label>
-					</div>                                         
-        </div>
-      </div>
-      <div class="filterBox">
-        <h5>Possession In</h5>
-        <div class="checklist">
-					<div class="checkbox" ng-repeat="(key, value) in possessions">
-						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="possessions[key].is_checked" ng-click="getByPossession()"> {{value.text}}</label>
-					</div>                                        
-        </div>
-      </div> 
-      <div class="filterBox">
-        <h5>Price</h5>
-        <div class="checklist">
-					<div class="checkbox" ng-repeat="(key, value) in priceRanges">
-					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="priceRanges[key].is_checked" ng-click="getByPrice()"> {{value.text}}</label>
-					</div>                                       
-        </div>
-      </div>                    
-    </div>
-    <div class="col-sm-9 section2">
-      <h4>Projects</h4>
-      <div class="project" ng-repeat="(key, value) in properties">
-        <div class="row">
-          <div class="col-sm-4">
-            <img ng-src="{{value.media.property.thumb[0]}}" class="img-responsive" alt="" ui-sref="property({slug:value.slug})">
+        <div class="filterBox">
+          <h5>Type</h5>
+          <div class="checklist">
+  					<div class="checkbox" ng-repeat="(key, value) in unitTypes">
+  						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="unitTypes[key].is_checked" ng-click="getByUnit()"> {{value.text}}</label>
+  					</div>                                         
           </div>
-          <div class="col-sm-8">
-            <h4 ui-sref="property({slug:value.slug})">{{value.name}}</h4>
-            <div class="row">
-              <div class="col-sm-5">
-                <p><strong>Type</strong> : {{value.property_type}}</p>
-              </div>
-              <div class="col-sm-7">
-                <p><strong>Price Range</strong> : {{value.min_price_value}} {{value.min_price_unit_value}} - {{value.max_price_value}} {{value.max_price_unit_value}}</p>
-              </div>
-              <div class="col-sm-5">
-                <p><strong>Builder </strong> : {{value.builder_name}}</p>
-              </div>
-              <div class="col-sm-7">
-                <p><strong>Posession</strong> : {{ value.possession | date : 'MMM yyyy'}}</p>
-              </div>
-              <div class="col-sm-12">
-                <a ui-sref="property({slug:value.slug})" class="btn">VIEW DETAILS</a>
+        </div>
+        <div class="filterBox">
+          <h5>Builder</h5>
+          <div class="checklist">
+  					<div class="checkbox" ng-repeat="(key, value) in builders">
+  						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="builders[key].is_checked" ng-click="getByBuilder()"> {{value.builder_name}}</label>
+  					</div>                                         
+          </div>
+        </div>
+        <div class="filterBox">
+          <h5>Possession In</h5>
+          <div class="checklist">
+  					<div class="checkbox" ng-repeat="(key, value) in possessions">
+  						<label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="possessions[key].is_checked" ng-click="getByPossession()"> {{value.text}}</label>
+  					</div>                                        
+          </div>
+        </div> 
+        <div class="filterBox">
+          <h5>Price</h5>
+          <div class="checklist">
+  					<div class="checkbox" ng-repeat="(key, value) in priceRanges">
+  					  <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="priceRanges[key].is_checked" ng-click="getByPrice()"> {{value.text}}</label>
+  					</div>                                       
+          </div>
+        </div> 
+        <div><a class="btn" ng-click="resetFilter()">Reset All</a></div>                   
+      </div>
+      <div class="col-sm-9 section2">
+        <h4>Projects</h4>
+        <div class="project" ng-repeat="(key, value) in properties">
+          <div class="row">
+            <div class="col-sm-4">
+              <img ng-src="{{value.media.property.thumb[0]}}" class="img-responsive" alt="" ui-sref="property({slug:value.slug})">
+            </div>
+            <div class="col-sm-8">
+              <h4 ui-sref="property({slug:value.slug})">{{value.name}}</h4>
+              <div class="row">
+                <div class="col-sm-5">
+                  <p><strong>Type</strong> : {{value.property_type}}</p>
+                </div>
+                <div class="col-sm-7">
+                  <p><strong>Price Range</strong> : {{value.min_price_value}} {{value.min_price_unit_value}} - {{value.max_price_value}} {{value.max_price_unit_value}}</p>
+                </div>
+                <div class="col-sm-5">
+                  <p><strong>Builder </strong> : {{value.builder_name}}</p>
+                </div>
+                <div class="col-sm-7">
+                  <p><strong>Posession</strong> : {{ value.possession | date : 'MMM yyyy'}}</p>
+                </div>
+                <div class="col-sm-12">
+                  <a ui-sref="property({slug:value.slug})" class="btn">VIEW DETAILS</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div ng-show="noResult">
+        	<h3 class="text-center">No Result</h3>
+        </div>
+        <nav class="text-center">
+          <a href="javascript:" class="btn" ng-click="loadMore()" ng-hide="hide_loadMore_btn">Load more</a>
+        </nav>                             
       </div>
-      <div ng-show="noResult">
-      	<h3 class="text-center">No Result</h3>
-      </div>
-      <nav class="text-center">
-        <a href="javascript:" class="btn" ng-click="loadMore()" ng-hide="hide_loadMore_btn">Load more</a>
-      </nav>                             
     </div>
-  </div>
-</section>
+  </section>
+</div>

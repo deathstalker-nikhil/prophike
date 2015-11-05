@@ -2,9 +2,6 @@ body{
   font-family: 'Roboto', sans-serif;
   position: relative;
 }
-body.property{
-  padding-top:35px;
-}
 ::-webkit-scrollbar {
   width: 7px;
   height: 5px;
@@ -26,6 +23,17 @@ body.property{
 .row>div{
   padding-left: 10px;
   padding-right: 10px;
+}
+.mapOverlay {
+   background:rgba(255,255,255,.6); 
+   position:relative; 
+   width:100%;
+   z-index: 1;
+   height:406px; /* your iframe height */
+   margin-top:-406px;  /* your iframe height */
+}
+#address .section2>section:first-child{
+  height:275px;
 }
 textarea{
   resize:none;
@@ -80,7 +88,8 @@ header h4{
 header .phoneContact{
   margin:14.5% 0;
   text-align: right;
-  font-size: 1.5em;
+  font-size: 1.8em;
+  font-weight: 500;
 }
 header .projectBox{
   text-align: center;
@@ -290,6 +299,7 @@ footer .section1 .socialLinks li img{
   position: fixed;
   right:-280px;
   top:30px;
+  z-index: 5;
 }
 .quickContact form{
   background: #3c424a;
@@ -343,11 +353,7 @@ img{
 .property section h1{
   margin:25px 0;
 }
-.property section>section:nth-child(odd){
-  border:1px solid #ddd;
-  border-left: 0;
-  border-right: 0;
-}
+
 .property section section>h2{
   color:#FE980F;
   text-align: center;
@@ -378,7 +384,7 @@ img{
   height: 0;
   z-index: -2;
 }
-.property section section#priceList h2:before{
+.property section section#priceList h2:before,.property section section#contUpdates h2:before{
   width: 370px;
   left: 43.5%;
 }
@@ -416,7 +422,8 @@ img{
   height:400px;
 }
 .property .toggleMap{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: -12px;
 }
 .property #builder img{
   margin:auto;
@@ -441,7 +448,7 @@ img{
   overflow-x:hidden;
   overflow-y:scroll;  
 }
-#lightgallery a{
+.property .gallery a{
   display: inline-block;
   width:150px;
   margin:5px 5px 5px 0;
@@ -552,8 +559,14 @@ img{
   }  
 }
 @media(max-width: 768px){
-  .property section section>h2:before,.property section section>h2:after{
-    display: none;
+  .property section section#priceList h2:before,.property section section#priceList h2:after,.property section section#contUpdates h2:before,.property section section#contUpdates h2:after{
+  display: none;
+  }  
+  .property section section .commentsBox{
+    height: auto;
+  }
+  #address .section2>section:first-child {
+    height:auto;
   }
   .property .extendedDetailsBox{
     overflow-x:scroll; 
@@ -588,4 +601,70 @@ img{
     height: 40px;
     padding: 10px 10px;
   } 
+}
+
+/*Loader CSS*/
+.search{
+  position: relative;
+}
+.search .loaderContainer{
+  width:100%;
+  position: absolute;
+  height:100%;
+  background: rgba(255,255,255,.7);
+  left:0;
+  top:0;
+  z-index: 1;
+  padding-top:15%;
+}
+
+@-moz-keyframes myLoader {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes myLoader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes myLoader {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* :not(:required) hides this rule from IE9 and below */
+.myLoader:not(:required) {
+  -moz-animation: myLoader 1250ms infinite linear;
+  -webkit-animation: myLoader 1250ms infinite linear;
+  animation: myLoader 1250ms infinite linear;
+  border: 3px solid #FE980F;
+  border-right-color: transparent;
+  border-radius: 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 25px;
+  height: 25px;
 }

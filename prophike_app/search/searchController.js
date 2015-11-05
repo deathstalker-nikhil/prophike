@@ -22,13 +22,18 @@ angular.module('prophikeApp.search', [
   ]
 )
 
-.controller('searchController', ['$scope','properties','$location','$filter','builder','locations','$stateParams','$state',function($scope,properties,$location,$filter,builder,locations,$stateParams,$state) {
+.controller('searchController', ['$scope','properties','$location','$filter','builder','locations','$stateParams','$state','$timeout',function($scope,properties,$location,$filter,builder,locations,$stateParams,$state,$timeout) {
   $scope.perPageArray = [10];
-  $scope.show_prev_btn = false;
-  $scope.show_next_btn = false;
+  $scope.hide_loadMore_btn = true;
+  $scope.showLoader = true;
   $scope.properties = [];
   $scope.tableData = {};
   var urlParams = {};
+  var loadedState = {
+    properties:false,
+    builder:false,
+    cities:false
+  };
   angular.copy($stateParams, urlParams);
   urlParams.per_page = $scope.perPageArray[0]
   $scope.result = ""+$scope.perPageArray[0];    
@@ -43,8 +48,10 @@ angular.module('prophikeApp.search', [
     if(!angular.isDefined(urlParams.possessions)){delete urlParams.possessions}
     if(angular.isDefined(loadMore) && loadMore == "loadMore" && !angular.equals([], $scope.properties)){
       urlParams.get_for = 'id<'+$scope.properties[$scope.properties.length-1].project_id;
-    }    
+    }
     properties.get(urlParams,function(data,status){
+      loadedState.properties = true;
+      processLoader();
       if(!angular.equals([],data.data)){
         if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '') 
           if(urlParams.order_by.indexOf('id ASC') > -1) {
@@ -99,7 +106,21 @@ angular.module('prophikeApp.search', [
 
   getProperties();
 
+  function processLoader(){
+    var i = 0;
+    var count = 0;
+    angular.forEach(loadedState, function(value, key){
+      if(value){i++};
+      count++;
+    });
+    if(i == count){
+      $timeout(function(){$scope.showLoader = false},500); 
+    }
+  }
+
   locations.get({limit:10000,'fields':'id,city'},function(data,status){
+    loadedState.cities = true;
+    processLoader();
     if(!angular.equals([], data.data)){
       $scope.cities = data.data;
     }
@@ -113,6 +134,8 @@ angular.module('prophikeApp.search', [
   });
 
   builder.get({limit:10000},function(data,status){
+    loadedState.builder = true;
+    processLoader();
     if(!angular.equals([], data.data)){
       $scope.builders = data.data;
     }
@@ -430,5 +453,13 @@ angular.module('prophikeApp.search', [
     obj.q = $scope.query;
     updateUrl(obj);
   };
+
+  $scope.resetFilter = function(){
+    var obj = {};
+    if(angular.isDefined(urlParams)){   
+      if(!angular.isDefined(urlParams.per_page)){obj.per_page = urlParams.per_page} 
+    }
+    $location.search(obj);
+  }
 
 }]);
