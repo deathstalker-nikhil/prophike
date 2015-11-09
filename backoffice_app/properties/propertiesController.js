@@ -219,7 +219,7 @@ angular.module('backofficeApp.properties', [
 	};
 
 	$scope.delete = function(property) {
-		if(!confirm("Delete City ?")) {return};
+		if(!confirm("Delete Project ?")) {return};
 		properties.delete(property,function(data,status){
 			if(status == 500){
 				alert(data.error);

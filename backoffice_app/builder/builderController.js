@@ -79,7 +79,7 @@ angular.module('backofficeApp.builder', [
 	}
 
 	$scope.delete = function(obj) {
-		if(!confirm("Delete Specification ?")) {return};
+		if(!confirm("Delete Builder ?")) {return};
 		builder.delete(obj,function(data,status){
 			if(status == 500){
 				alert(data.error);

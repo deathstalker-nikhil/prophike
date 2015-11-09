@@ -8,6 +8,7 @@ class Locations extends REST_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('auth_lib');
 		$this->load->model('locations_model','locations');
 		$this->rest_format = 'json';
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
@@ -35,6 +36,10 @@ class Locations extends REST_Controller {
 
 	public function cities_post()
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}	
+			
 		$data = $this->_post_args;
 		if(!isset($data['location'])) 
 		{
@@ -52,6 +57,9 @@ class Locations extends REST_Controller {
 
 	public function cities_delete($id = '')
 	{	
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}		
 		if($id == '')
 		{
 			$this->response(['error'=>'No Id given'], REST_Controller::HTTP_BAD_REQUEST);
@@ -66,6 +74,10 @@ class Locations extends REST_Controller {
 
 	public function cities_put($id = '')
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+
 		$data = $this->_put_args;
 		if(!isset($data['location']) || $id == '') 
 		{

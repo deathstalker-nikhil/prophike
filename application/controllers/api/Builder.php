@@ -10,13 +10,14 @@ class Builder extends REST_Controller {
 		parent::__construct();
 		$this->load->model('builder_model','builder');
 		$this->rest_format = 'json';
+		$this->load->library('auth_lib');
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
 	}
 
 	public function builder_get()
 	{	
 		$params = $this->get();
-		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page') : 25);
+		$limit = ($this->get('per_page') && $this->get('per_page')>0 && $this->get('per_page') < 100? $this->get('per_page'):25);
 		$fields = ($this->get('fields')? $this->get('fields') : '*');
 		$where = ($this->get('where')? $this->get('where') : 'id>0');
 		$orderBy = ($this->get('order_by')? $this->get('order_by') : 'id DESC');
@@ -36,7 +37,10 @@ class Builder extends REST_Controller {
 
 	public function builder_post()
 	{
-
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+			
 		$data = $this->_post_args;
 		if(!isset($data['builder'])) 
 		{
@@ -53,6 +57,9 @@ class Builder extends REST_Controller {
 
 	public function builder_delete($id = '')
 	{	
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}		
 		if($id == '')
 		{
 			$this->response(['error'=>'No Id given'], REST_Controller::HTTP_BAD_REQUEST);
@@ -67,6 +74,9 @@ class Builder extends REST_Controller {
 
 	public function builder_put($id = '')
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}		
 		$data = $this->_put_args;
 		if(!isset($data['builder']) || $id == '') 
 		{

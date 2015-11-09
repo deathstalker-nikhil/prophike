@@ -10,6 +10,7 @@ class Properties extends REST_Controller {
 		parent::__construct();
 		$this->load->model('properties_model','properties');
 		$this->rest_format = 'json';
+		$this->load->library('auth_lib');
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
 		$this->tableFields = array('projects.possession');
 	}
@@ -64,6 +65,10 @@ class Properties extends REST_Controller {
 
 	public function projects_post()
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+
 		$data = $this->_post_args;
 		if(!isset($data['property'])) 
 		{
@@ -81,6 +86,10 @@ class Properties extends REST_Controller {
 
 	public function projects_delete($id = '')
 	{	
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+				
 		if($id == '')
 		{
 			$this->response(['error'=>'No Id given'], REST_Controller::HTTP_BAD_REQUEST);
@@ -95,6 +104,10 @@ class Properties extends REST_Controller {
 
 	public function projects_put($id = '')
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
+
 		$data = $this->_put_args;
 		if(!isset($data['property']) || $id == '') 
 		{

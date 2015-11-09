@@ -10,6 +10,7 @@ class Units extends REST_Controller {
 		parent::__construct();
 		$this->load->model('units_model','units');
 		$this->rest_format = 'json';
+		$this->load->library('auth_lib');
 		$this->allowed_http_methods = ['get', 'delete', 'post', 'put'];
 	}
 
@@ -36,6 +37,9 @@ class Units extends REST_Controller {
 
 	public function units_post()
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}
 
 		$data = $this->_post_args;
 		if(!isset($data['unit'])) 
@@ -53,6 +57,10 @@ class Units extends REST_Controller {
 
 	public function units_delete($id = '')
 	{	
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}	
+
 		if($id == '')
 		{
 			$this->response(['error'=>'No Id given'], REST_Controller::HTTP_BAD_REQUEST);
@@ -67,6 +75,10 @@ class Units extends REST_Controller {
 
 	public function units_put($id = '')
 	{
+		if(!$this->auth_lib->auth()){
+			$this->response(['error'=>'Unauthorized to perform this action'], REST_Controller::HTTP_BAD_REQUEST);
+		}	
+				
 		$data = $this->_put_args;
 		if(!isset($data['unit']) || $id == '') 
 		{
