@@ -149,4 +149,4 @@ angular.module('prophikeApp.home', [
     }, 100);
   }  
 
-}])
+}]);

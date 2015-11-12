@@ -31,4 +31,4 @@ backofficeApp.directive('ckEditor', [function () {
             });
         }
     };
-}])
+}]);

@@ -88,7 +88,5 @@ angular.module('backofficeApp.builder', [
 				getBuilders();
 				}
 		});
-	}
-
-	
+	}	
 }]);

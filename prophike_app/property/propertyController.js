@@ -177,4 +177,4 @@ angular.module('prophikeApp.property', [
       });
     }    
   }
-}])
+}]);
