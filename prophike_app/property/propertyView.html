@@ -18,10 +18,11 @@
             <li><a href="#specifications" ng-hide="property.data.features == ''">Specifications</a></li>
             <li><a href="#units" ng-hide="units == ''">Units</a></li>
             <li><a href="#priceList" ng-hide="property.data.price_list == '' && property.data.payment_plan==''">Price List</a></li>
-            <li><a href="#gallery" ng-hide="property.media.property.gallery == ''">Gallery</a></li>
-            <li><a href="#contUpdates">Construction Updates</a></li>
+            <li><a href="#gallery" ng-hide="property.media.property.gallery == '' && property.media.property.const_update==''">Gallery</a></li>
+            <li><a href="#address" >Location</a></li>
             <li><a href="#builder">Builder</a></li>
             <li><a href="#comments">Comments</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -51,15 +52,19 @@
           <ul class="nav nav-pills">
             <li ng-class="{'active':key == 0}" ng-repeat="(key, value) in units"><a href="javascript:" class="customTabs" data-show="{{'unit'+value.id}}">{{value.unit_name}}</a></li>
           </ul>
-          <div class="extendedDetailsBox">
+          <div class="extendedDetailsBox">            
             <div class="{{'unit'+value.id}}" ng-repeat="(key, value) in units" ng-class="{'hideElem':key!=0}">
               <div class="row">
                 <div class="col-sm-7">
-                  <img ng-src="{{value.image_path.img[0]}}" class="img-responsive img-thumbnail" alt="">
+                  <div class="unitsLightGallery">
+                    <a href="{{value.image_path.img[0]}}">
+                      <img ng-src="{{value.image_path.img[0]}}" class="img-responsive img-thumbnail" alt="">
+                    </a>
+                  </div>
                 </div>
                 <div class="col-sm-5">
                   <h3>{{value.unit_name}}</h3>
-                  <p><strong>Price</strong> : {{value.unit_price_value}} {{value.unit_price_unit_value}}</p>
+                  <p><strong>Total Price</strong> : {{value.unit_price_value}} {{value.unit_price_unit_value}}</p>
                   <p><strong>Price per sqft. area</strong> : {{value.unit_price_per_area_value}} {{value.unit_price_per_area_unit_value}}</p>
                   <p><strong>Area</strong> : {{value.unit_area}} sq.ft</p>
                   <p><strong>Details</strong></p>
@@ -84,28 +89,31 @@
           </div> 
         </div>
       </section> 
-      <section id="gallery" ng-hide="property.media.property.gallery == ''">
-          <h2>Gallery</h2>
-          <div id="lightgallery" class="gallery">
+      <section class="customTabsHolder" id="gallery" ng-hide="property.media.property.gallery == '' && property.media.property.const_update==''">
+        <h2>Gallery</h2>
+        <ul class="nav nav-pills">
+          <li class="active"><a href="javascript:" class="customTabs" ng-hide="property.media.property.gallery == ''" data-show="gallery">Gallery</a></li>
+          <li><a href="javascript:" class="customTabs" data-show="contUpdates" ng-hide="property.media.property.const_update==''">Construction Updates</a></li>
+        </ul> 
+        <div class="extendedDetailsBox">
+          <div id="lightgallery" class="gallery" ng-hide="property.media.property.gallery == ''">
             <a href="{{value}}" ng-repeat="(key,value) in property.media.property.gallery">
                 <img ng-src="{{value}}" class="img-responsive img-thumbnail"/>
             </a>
-          </div>
-      </section>
-      <section id="contUpdates">
-        <h2>Construction Updates</h2>
-          <div id="constructionGallery" class="gallery">
+          </div> 
+          <div id="constructionGallery" class="contUpdates hideElem" ng-hide="property.media.property.const_update==''">
             <a href="{{value}}" ng-repeat="(key,value) in property.media.property.const_update">
                 <img ng-src="{{value}}" class="img-responsive img-thumbnail"/>
             </a>
-          </div>        
-      </section>
+          </div>                             
+        </div>
+      </section> 
       <section id="address">        
           <div class="row">
             <div class="col-sm-8 section1">
               <section ng-hide="hideGMap">
-                <h2>Google Map</h2>
-                <div class="text-center"><a href="javascript:" class="toggleMap btn">Toggle Map</a></div>             
+                <h2>Location Map</h2>
+                <div class="text-center"><a href="javascript:" class="toggleMap btn">Click to Enable/Disable Map</a></div>             
                 <div ng-bind-html="property.data.google_map_code" class="map"></div> 
                 <div class="mapOverlay"></div>
               </section>
@@ -119,7 +127,8 @@
               </section>
               <section>
                 <h2>Possession</h2>
-                <p class="text-center"><strong>{{ property.possession | date : 'MMM yyyy'}}</strong></p>
+                <p class="text-center" ng-hide="property.possessionText!=''"><strong>{{ property.possession | date : 'MMM yyyy'}}</strong></p>
+                <p class="text-center" ng-hide="property.possessionText==''"><strong>{{property.possessionText}}</strong></p>
               </section>            
             </div>
           </div>
@@ -131,9 +140,10 @@
               <img ng-src="{{builder.logo_link.logo[0]}}" class="img-responsive" class="img-responsive" alt="">
             </div>
             <div class="col-sm-9">
-              <h4>Name</h4>
+              <h4>{{builder.builder_name}}</h4>
+              <p class="aboutBuilder">About</p>
               <p>{{builder.builder_description}}</p>
-              <a ui-sref="search({where:'builder_id in ('+builder.id+')'})" class="btn">View Projects</a>
+              <a ui-sref="search({where:'builder_id in ('+builder.id+')'})" class="btn">View all Projects</a>
             </div>
           </div>
       </section>
@@ -180,7 +190,7 @@
           </div>
       </section>
       <section id="contact">
-          <h2>Contact us</h2>
+          <h2 class="contactUsHeading">Interested in projects? contact us</h2>
           <form name="projectContactForm">
             <div class="row">
               <div class="col-sm-6">

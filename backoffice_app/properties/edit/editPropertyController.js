@@ -60,7 +60,7 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 					property.data = angular.fromJson(data.data[0].data);
 				}
 				if(property.min_price < 100000){
-					$scope.min_price_value = property.min_price/1000;
+					$scope.min_price_value = property.min_price/1;
 					$scope.min_price_unit_value = '1000';
 				}else if(property.min_price < 10000000){
 					$scope.min_price_value = property.min_price/100000;
@@ -70,7 +70,7 @@ angular.module('backofficeApp.properties.edit', ['ngRoute'])
 					$scope.min_price_unit_value = '10000000';
 				}
 				if(property.max_price < 100000){
-					$scope.max_price_value = property.max_price/1000;
+					$scope.max_price_value = property.max_price/1;
 					$scope.max_price_unit_value = '1000';
 				}else if(property.man_price < 10000000){
 					$scope.max_price_value = property.max_price/100000;

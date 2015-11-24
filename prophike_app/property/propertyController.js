@@ -30,6 +30,10 @@ angular.module('prophikeApp.property', [
       if(!angular.equals([],data.data)){          
         $scope.property = data.data[0];
         $scope.property.possession = new Date($scope.property.possession);
+        $scope.property.possessionText = '';
+        if($scope.property.possession < new Date()){
+          $scope.property.possessionText = "Ready to move in";
+        }
         document.title = $scope.property.name+" | PropHike Real Estate Simplified";
         if($scope.property.data != '')
           $scope.property.data = angular.fromJson($scope.property.data);
@@ -93,7 +97,7 @@ angular.module('prophikeApp.property', [
                 $scope.units[key].image_path = {'img':[]};
               }
               if(value.unit_price < 100000){
-                $scope.units[key].unit_price_value = value.unit_price/1000;
+                $scope.units[key].unit_price_value = value.unit_price/1;
                 $scope.units[key].unit_price_unit_value = 'Thousand';
               }else if(value.unit_price < 10000000){
                 $scope.units[key].unit_price_value = value.unit_price/100000;
@@ -103,7 +107,7 @@ angular.module('prophikeApp.property', [
                 $scope.units[key].unit_price_unit_value = 'Crore';
               }
               if(value.unit_price_per_area < 100000){
-                $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/1000;
+                $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/1;
                 $scope.units[key].unit_price_per_area_unit_value = 'Thousand';
               }else if(value.unit_price_per_area < 10000000){
                 $scope.units[key].unit_price_per_area_value = value.unit_price_per_area/100000;
@@ -121,6 +125,7 @@ angular.module('prophikeApp.property', [
         setInterval(function(){
           $('#priceList').find('table').addClass('table table-bordered table-striped table-condensed');            
           $("#lightgallery").lightGallery();
+          $('.unitsLightGallery').lightGallery();
           $('#constructionGallery').lightGallery();
           $('body').scrollspy({ target: '#navigationMenu' });
            $(function(){ 

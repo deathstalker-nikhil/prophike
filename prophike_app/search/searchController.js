@@ -26,6 +26,8 @@ angular.module('prophikeApp.search', [
   $scope.perPageArray = [10];
   $scope.hide_loadMore_btn = true;
   $scope.showLoader = true;
+  $scope.total = 0;
+  $scope.showingResultCount = 0;
   $scope.properties = [];
   $scope.tableData = {};
   var urlParams = {};
@@ -50,13 +52,15 @@ angular.module('prophikeApp.search', [
       urlParams.get_for = 'id<'+$scope.properties[$scope.properties.length-1].project_id;
     }
     properties.get(urlParams,function(data,status){
+
       loadedState.properties = true;
       processLoader();
       if(!angular.equals([],data.data)){
         if(angular.isDefined(urlParams.order_by) && urlParams.order_by != '') 
           if(urlParams.order_by.indexOf('id ASC') > -1) {
             data = $filter('orderBy')(data,'-project_id');
-          }           
+          }
+        $scope.total = data.total;           
         angular.forEach(data.data, function(value, key){
           if(value.data!=''){
             data.data[key].data = angular.fromJson(value.data);
@@ -65,7 +69,7 @@ angular.module('prophikeApp.search', [
             data.data[key].media = angular.fromJson(value.media);
           }
           if(value.min_price < 100000){
-            data.data[key].min_price_value = value.min_price/1000;
+            data.data[key].min_price_value = value.min_price/1;
             data.data[key].min_price_unit_value = 'Thousand';
           }else if(value.min_price < 10000000){
             data.data[key].min_price_value = value.min_price/100000;
@@ -75,7 +79,7 @@ angular.module('prophikeApp.search', [
             data.data[key].min_price_unit_value = 'Crore';
           }
           if(value.max_price < 100000){
-            data.data[key].max_price_value = value.max_price/1000;
+            data.data[key].max_price_value = value.max_price/1;
             data.data[key].max_price_unit_value = 'Thousand';
           }else if(value.man_price < 10000000){
             data.data[key].max_price_value = value.max_price/100000;
@@ -93,6 +97,7 @@ angular.module('prophikeApp.search', [
         }else{
           $scope.properties = data.data;
         }
+        $scope.showingResultCount = $scope.properties.length;
       }
       if(angular.equals([],$scope.properties)){
         $scope.noResult = true;
@@ -272,7 +277,7 @@ angular.module('prophikeApp.search', [
   $scope.priceRanges = [{'id':1,'text':'Less than 30 Lakhs','min_val':0,'max_val':3000000,'is_checked':0},
                        {'id':2,'text':'Between 30 to 50 Lakhs','min_val':3000000,'max_val':5000000,'is_checked':0},
                        {'id':3,'text':'Between 50 to 80 Lakhs','min_val':5000000,'max_val':8000000,'is_checked':0},
-                       {'id':6,'text':'More than 80 Crore','min_val':8000000,'max_val':10000000000,'is_checked':0}];
+                       {'id':6,'text':'More than 80 Lakhs','min_val':8000000,'max_val':10000000000,'is_checked':0}];
 
   $scope.unitTypes = [{'text':'2 BHK','is_checked':0},
                       {'text':'3 BHK','is_checked':0},

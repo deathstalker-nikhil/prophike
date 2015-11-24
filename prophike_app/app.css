@@ -16,6 +16,9 @@ body{
   border-radius: 0px;
   background: #FE880F; 
 }
+.toLower{
+  text-transform: none !important;
+}
 .row{
   margin-left:-10px;
   margin-right: -10px;
@@ -34,6 +37,9 @@ body{
 }
 #address .section2>section:first-child{
   height:275px;
+}
+#address .section2 h2{
+  margin-bottom: 20%;
 }
 textarea{
   resize:none;
@@ -428,6 +434,9 @@ img{
 .property #builder img{
   margin:auto;
 }
+.aboutBuilder{
+  color: #777;
+}
 .property section .form-control{
   border:1px solid #ccc;
 }
@@ -448,7 +457,7 @@ img{
   overflow-x:hidden;
   overflow-y:scroll;  
 }
-.property .gallery a{
+.property .gallery a,.property .contUpdates a{
   display: inline-block;
   width:150px;
   margin:5px 5px 5px 0;
@@ -548,6 +557,10 @@ img{
   background: #fec503;
   color: #fff; 
 }
+.property section section>h2.contactUsHeading:before{
+  width:470px;
+  left:39%;
+}
 @media(max-width: 1200px){
   header .phoneContact{
     margin: 17.6% 0
@@ -559,7 +572,7 @@ img{
   }  
 }
 @media(max-width: 768px){
-  .property section section#priceList h2:before,.property section section#priceList h2:after,.property section section#contUpdates h2:before,.property section section#contUpdates h2:after{
+  .property section section#priceList h2:before,.property section section#priceList h2:after,.property section section#contUpdates h2:before,.property section section#contUpdates h2:after,.property section section>h2.contactUsHeading:after,.property section section>h2.contactUsHeading:before{
   display: none;
   }  
   .property section section .commentsBox{

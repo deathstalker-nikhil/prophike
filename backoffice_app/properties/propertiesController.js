@@ -238,7 +238,7 @@ angular.module('backofficeApp.properties', [
 	$scope.priceRanges = [{'id':1,'text':'Less than 30 Lakhs','min_val':0,'max_val':3000000,'is_checked':0},
 											 {'id':2,'text':'Between 30 to 50 Lakhs','min_val':3000000,'max_val':5000000,'is_checked':0},
 											 {'id':3,'text':'Between 50 to 80 Lakhs','min_val':5000000,'max_val':8000000,'is_checked':0},
-											 {'id':6,'text':'More than 80 Crore','min_val':8000000,'max_val':10000000000,'is_checked':0}];
+											 {'id':6,'text':'More than 80 Lakhs','min_val':8000000,'max_val':10000000000,'is_checked':0}];
 
 	$scope.unitTypes = [{'text':'2 BHK','is_checked':0},
 											{'text':'3 BHK','is_checked':0},

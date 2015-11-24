@@ -45,20 +45,20 @@
   <script src="/assets/js/lightgallery.min.js?v=1"></script>
   <script src="/assets/js/lg-fullscreen.min.js?v=1"></script>
   <script src="/assets/js/lg-thumbnail.min.js?v=1"></script>  
-  <script src="/assets/prophikeApp.min.js?v=1"></script>
-<!--   // <script src="/prophike_app/app.js?v=3"></script>
-  // <script src="/prophike_app/common_components/footer_directive/footerDirective.js?v=2"></script>
-  // <script src="/prophike_app/common_components/header_directive/headerDirective.js?v=1"></script>
-  // <script src="/prophike_app/home/homeController.js?v=2"></script>
-  // <script src="/prophike_app/search/searchController.js?v=4"></script>
-  // <script src="/prophike_app/property/propertyController.js?v=6"></script>
-  // <script src="/backoffice_app/locations/locationsService.js?v=1"></script>
-  // <script src="/backoffice_app/builder/builderService.js?v=1"></script>
-  // <script src="/backoffice_app/specifications/specificationsService.js?v=1"></script>
-  // <script src="/backoffice_app/properties/propertiesService.js?v=1"></script>
-  // <script src="/backoffice_app/properties/units/unitsService.js?v=1"></script>
-  // <script src="/backoffice_app/comments/commentsService.js?v=1"></script>
-  // <script src="/backoffice_app/user_queries/userQueriesService.js?v=2"></script>
-  // <script src="assets/js/custom.js?v=2"></script> -->
+  <!-- <script src="/assets/prophikeApp.min.js?v=1"></script> -->
+  <script src="/prophike_app/app.js?v=3"></script>
+  <script src="/prophike_app/common_components/footer_directive/footerDirective.js?v=2"></script>
+  <script src="/prophike_app/common_components/header_directive/headerDirective.js?v=1"></script>
+  <script src="/prophike_app/home/homeController.js?v=2"></script>
+  <script src="/prophike_app/search/searchController.js?v=4"></script>
+  <script src="/prophike_app/property/propertyController.js?v=6"></script>
+  <script src="/backoffice_app/locations/locationsService.js?v=1"></script>
+  <script src="/backoffice_app/builder/builderService.js?v=1"></script>
+  <script src="/backoffice_app/specifications/specificationsService.js?v=1"></script>
+  <script src="/backoffice_app/properties/propertiesService.js?v=1"></script>
+  <script src="/backoffice_app/properties/units/unitsService.js?v=1"></script>
+  <script src="/backoffice_app/comments/commentsService.js?v=1"></script>
+  <script src="/backoffice_app/user_queries/userQueriesService.js?v=2"></script>
+  <script src="assets/js/custom.js?v=2"></script>
 </body>
 </html>

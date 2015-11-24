@@ -15,8 +15,8 @@ angular.module('backofficeApp.properties.units.create', ['ngRoute'])
 	$scope.unit.p_id = $routeParams.id;
 	$scope.save = function(form){
 		if(form.$valid && form.$dirty){
-			$scope.unit.unit_price = parseFloat($scope.unit_price_value) * parseInt($scope.price_unit_value);
 			$scope.unit.unit_price_per_area = parseFloat($scope.unit_price_per_area_value) * parseInt($scope.price_per_area_unit_value);
+			$scope.unit.unit_price = parseFloat($scope.unit.unit_price_per_area) * parseFloat($scope.unit.unit_area);
 			units.save($scope.unit,function(data,status){
 				if (status == 201) {
 					alert('Created');

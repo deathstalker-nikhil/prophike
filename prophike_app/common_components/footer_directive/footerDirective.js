@@ -6,7 +6,7 @@ angular.module('footerDirective', [])
     }       
   });
 
-  properties.get({'fields':'id,name,slug','per_page':4},function(data,status){
+  properties.get({'where':'is_new_project=1','fields':'id,name,slug','per_page':4},function(data,status){
     if(!angular.equals([],data.data)){         
       $scope.newProperties = data.data;
     }       
